@@ -5,7 +5,6 @@ import com.kesi.planit.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-@Repository
 @RequiredArgsConstructor
 public class UserRepoImpl implements UserRepo {
 
