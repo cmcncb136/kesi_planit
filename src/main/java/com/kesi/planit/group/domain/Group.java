@@ -10,7 +10,7 @@ public class Group<User> {
     private long groupId;
     private List<User> users;
 
-    //todo 그룹 식별자 및 생성자에 대한 로직
+    //todo 그룹 식별자 및 생성자에 대한 로직??
 
     public void addUser(User user){
         users.add(user);
@@ -27,4 +27,6 @@ public class Group<User> {
     public int size() {
         return users.size();
     }
+
+    //todo 인원명 뱉어내기
 }
