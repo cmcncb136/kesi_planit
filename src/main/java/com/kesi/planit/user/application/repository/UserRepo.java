@@ -1,4 +1,4 @@
-package com.kesi.planit.user.infrastructure;
+package com.kesi.planit.user.application.repository;
 
 import com.kesi.planit.user.domain.User;
 
