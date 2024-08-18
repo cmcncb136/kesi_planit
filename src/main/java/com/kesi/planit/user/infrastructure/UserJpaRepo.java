@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserJpaRepo extends JpaRepository<User, Integer> {
-    User findById(long id);
+public interface UserJpaRepo extends JpaRepository<UserJpaEntity, Integer> {
+    UserJpaEntity findById(long id);
 }
