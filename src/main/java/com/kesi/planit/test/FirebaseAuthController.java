@@ -16,15 +16,15 @@ public class FirebaseAuthController {
     private GoogleTokenService googleTokenService;
 
     @PostMapping("/auth/")
-    public Boolean auth(@RequestParam("token") String token) throws FirebaseAuthException {
-        System.out.println("token : " + token);
+    public Boolean auth(@RequestParam("code") String code) throws FirebaseAuthException {
+        System.out.println("code : " + code);
 
         //FirebaseToken decodeToken = FirebaseAuth.getInstance().verifyIdToken(token);
         
         //String uid = decodeToken.getUid();
 
-        if(token != null) {
-            googleTokenService.exchangeCodeForAccessToken(token);
+        if(code != null) {
+            googleTokenService.exchangeCodeForAccessToken(code);
             return Boolean.TRUE;
         }else
             return Boolean.FALSE;

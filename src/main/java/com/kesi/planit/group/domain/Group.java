@@ -1,30 +1,31 @@
 package com.kesi.planit.group.domain;
 
 import com.kesi.planit.user.domain.User;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Group<User> {
+@Builder
+@Getter
+public class Group {
     //todo 채팅방 관련
     private long groupId;
-    private List<User> users;
+    private String groupName;
+    private List<String> uids;
 
-    //todo 그룹 식별자 및 생성자에 대한 로직
+    //todo a. UID로 그룹을 형성, b. user 객체로 그룹형성
 
-    public void addUser(User user){
-        users.add(user);
+    public void addUser(String uid){
+       uids.add(uid);
     }
 
-    public boolean removeUser(User user) {
-        return users.remove(user);
+    public boolean removeUser(String uid) {
+        return uids.remove(uid);
     }
 
-    public List<User> getUsers() {
-        return new ArrayList<>(users);
-    }
+    public List<String> getUsers() {return new ArrayList<>(uids);}
 
-    public int size() {
-        return users.size();
-    }
+    public int size() {return uids.size();}
 }

@@ -26,7 +26,6 @@ public class FirebaseConfig {
             //초기화
             FirebaseApp.initializeApp(options);
 
-
         }catch (Exception e){
             e.printStackTrace();
         }
