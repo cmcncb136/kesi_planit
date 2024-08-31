@@ -8,9 +8,13 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class User {
-    private Long id;
+    private String uid;
     private String email;
     private String nickname;
+    private String imgPath;
+    private String gender;
+    private String birth;
+
 
     public void changeNickname(String newNickname) {
         this.nickname = newNickname;

@@ -11,12 +11,12 @@ public class UserRepoImpl implements UserRepo {
     private final UserJpaRepo userJpaRepo;
 
     @Override
-    public User findById(long id) {
-        return userJpaRepo.findById(id);
+    public UserJpaEntity findById(String uid) {
+        return userJpaRepo.findById(uid).orElse(null);
     }
 
     @Override
-    public void save(User user) {
-
+    public void save(UserJpaEntity user) {
+        userJpaRepo.save(user);
     }
 }
