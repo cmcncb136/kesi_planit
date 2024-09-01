@@ -14,7 +14,7 @@ public class UserService {
     private final UserRepo userRepo;
 
     @Transactional
-    public User getUserById(Long uid) {
+    public User getUserById(String uid) {
         User user = userRepo.findById(uid).toModel();
         return user;
     }

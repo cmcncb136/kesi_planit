@@ -67,7 +67,7 @@ public class ScheduleJpaEntity {
     public static ScheduleJpaEntity from(Schedule schedule){
         return ScheduleJpaEntity.builder()
                 .colorId(schedule.getColor().toString())
-                .makerUid(schedule.getMaker().getId())
+                .makerUid(schedule.getMaker().getUid())
                 .description(schedule.getDescription())
                 .title(schedule.getTitle())
                 .endDate(schedule.getEndDate())
@@ -75,7 +75,6 @@ public class ScheduleJpaEntity {
                 .endTime(schedule.getEndTime())
                 .startTime(schedule.getStartTime())
                 .build();
-
     }
 
 }

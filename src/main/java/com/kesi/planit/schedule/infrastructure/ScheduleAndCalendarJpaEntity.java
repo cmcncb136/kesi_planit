@@ -1,9 +1,12 @@
 package com.kesi.planit.schedule.infrastructure;
 
+import com.kesi.planit.schedule.domain.ScheduleAndCalendar;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 //DB 상에서 Schedule과 Calendar를 연결해주는 클래스
 /*
@@ -14,6 +17,7 @@ import jakarta.persistence.Id;
 * n : 1, 1 :n 으로 만든다.
  */
 @Entity
+@NoArgsConstructor
 public class ScheduleAndCalendarJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +26,27 @@ public class ScheduleAndCalendarJpaEntity {
     private Long calendarId;
 
     private Long scheduleId;
+
+    @Builder
+    public ScheduleAndCalendarJpaEntity(Long id, Long calendarId, Long scheduleId) {
+        this.id = id;
+        this.calendarId = calendarId;
+        this.scheduleId = scheduleId;
+    }
+
+    public ScheduleAndCalendar tooModel(){
+        return ScheduleAndCalendar.builder()
+                .id(id)
+                .calendarId(calendarId)
+                .scheduleId(scheduleId)
+                .build();
+    }
+
+    public static ScheduleAndCalendarJpaEntity from(ScheduleAndCalendar scheduleAndCalendar){
+        return ScheduleAndCalendarJpaEntity.builder()
+                .id(scheduleAndCalendar.getId())
+                .calendarId(scheduleAndCalendar.getCalendarId())
+                .scheduleId(scheduleAndCalendar.getScheduleId())
+                .build();
+    }
 }

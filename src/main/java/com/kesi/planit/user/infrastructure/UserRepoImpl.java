@@ -16,7 +16,7 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
-    public void save(UserJpaEntity user) {
-        userJpaRepo.save(user);
+    public UserJpaEntity save(UserJpaEntity user) {
+        return userJpaRepo.save(user);
     }
 }

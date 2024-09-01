@@ -14,6 +14,7 @@ import java.util.List;
 @Builder
 @Getter
 public class Schedule {
+    private Long id;
     private User maker;
     private List<Calendar> calendars; //참석자 캘린더 및 공유방 캘린더
     private Color color;
