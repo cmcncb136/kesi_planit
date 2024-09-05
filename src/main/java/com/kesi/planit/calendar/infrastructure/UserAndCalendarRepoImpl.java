@@ -17,7 +17,7 @@ public class UserAndCalendarRepoImpl implements UserAndCalendarRepo {
     }
 
     @Override
-    public List<UserAndCalendarJpaEntity> findByUserId(String uid) {
+    public List<UserAndCalendarJpaEntity> findByUid(String uid) {
         return userAndCalendarJapRepo.findByUid(uid);
     }
 

@@ -24,7 +24,7 @@ public class ScheduleAndCalendarService {
         return scheduleAndCalendarRepo.save(ScheduleAndCalendarJpaEntity.from(scheduleAndCalendar)).tooModel();
     }
 
-    public List<ScheduleAndCalendar> findBySchedule(Schedule schedule) {
+    public List<ScheduleAndCalendar> getBySchedule(Schedule schedule) {
         return getBySchedule(schedule.getId());
     }
 
@@ -34,8 +34,7 @@ public class ScheduleAndCalendarService {
     }
 
 
-
-    public List<ScheduleAndCalendar> findByCalendar(Calendar calendar){
+    public List<ScheduleAndCalendar> getByCalendar(Calendar calendar){
         return scheduleAndCalendarRepo.findByCalendarId(calendar.getId())
                 .stream().map(ScheduleAndCalendarJpaEntity::tooModel).toList();
     }
