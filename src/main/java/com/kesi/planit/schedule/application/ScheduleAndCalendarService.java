@@ -25,9 +25,15 @@ public class ScheduleAndCalendarService {
     }
 
     public List<ScheduleAndCalendar> findBySchedule(Schedule schedule) {
-        return scheduleAndCalendarRepo.findByScheduleId(schedule.getId())
+        return getBySchedule(schedule.getId());
+    }
+
+    public List<ScheduleAndCalendar> getBySchedule(Long scheduleId) {
+        return scheduleAndCalendarRepo.findByScheduleId(scheduleId)
                 .stream().map(ScheduleAndCalendarJpaEntity::tooModel).toList();
     }
+
+
 
     public List<ScheduleAndCalendar> findByCalendar(Calendar calendar){
         return scheduleAndCalendarRepo.findByCalendarId(calendar.getId())
