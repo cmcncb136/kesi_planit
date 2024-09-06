@@ -34,33 +34,6 @@ public class UserAndCalendarService {
         );
     }
 
-    //Calendar Id가 같은 값을 가져온다.
-    //User 객체를 만들어 도메인으로 매핑시킨다.
-    public List<UserAndCalendar> getByCalendar(Calendar calendar) {
-        List<UserAndCalendarJpaEntity> userAndCalendarJpaEntityList
-                = userAndCalendarRepo.findByCalendarId(calendar.getId());
 
-        List<UserAndCalendar> userAndCalendarList = new ArrayList<>();
 
-        for(UserAndCalendarJpaEntity userAndCalendarJpaEntity : userAndCalendarJpaEntityList) {
-            User user = userService.getUserById(userAndCalendarJpaEntity.getUid());
-            userAndCalendarList.add(userAndCalendarJpaEntity.toModel(user, calendar));
-        }
-
-        return userAndCalendarList;
-    }
-
-    public List<UserAndCalendar> getByUser(User user) {
-        List<UserAndCalendarJpaEntity> userAndCalendarJpaEntityList
-                = userAndCalendarRepo.findByUid(user.getUid());
-
-        List<UserAndCalendar> userAndCalendarList = new ArrayList<>();
-
-        for(UserAndCalendarJpaEntity userAndCalendarJpaEntity : userAndCalendarJpaEntityList) {
-            Calendar calendar = calendarService.getById(userAndCalendarJpaEntity.getCalendarId());
-            userAndCalendarList.add(userAndCalendarJpaEntity.toModel(user, calendar));
-        }
-
-        return userAndCalendarList;
-    }
 }

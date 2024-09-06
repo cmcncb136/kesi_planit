@@ -23,12 +23,12 @@ public class SessionController {
 
         //todo: uid 유효성 검사
         //todo: 입력된 birthdate 분할
-        User user = User.builder()
-                .id(Long.valueOf(code))
-                .nickname("")
-                .gender(true)
-                .birthdate("")
-                .build();
+//        User user = User.builder()
+//                .id(Long.valueOf(code))
+//                .nickname("")
+//                .gender(true)
+//                .birthdate("")
+//                .build();
         return null;
     }
 }

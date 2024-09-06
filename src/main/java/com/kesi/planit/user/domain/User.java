@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 
 @Builder
 @Getter
-@RequiredArgsConstructor
 public class User {
     private String uid;
     private String email;

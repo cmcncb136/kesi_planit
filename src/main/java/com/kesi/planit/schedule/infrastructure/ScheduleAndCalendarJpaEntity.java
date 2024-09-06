@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 //DB 상에서 Schedule과 Calendar를 연결해주는 클래스
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 * n : 1, 1 :n 으로 만든다.
  */
 @Entity
+@Getter
 @NoArgsConstructor
 public class ScheduleAndCalendarJpaEntity {
     @Id

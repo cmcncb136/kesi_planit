@@ -14,6 +14,6 @@ public class GroupController {
 
     @PostMapping("/create")
     public void createGroup(@RequestBody Group group) {
-        group
+        //group
     }
 }
