@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserRepo {
     UserJpaEntity findById(String uid);
+    UserJpaEntity findByEmail(String email);
+
 
     UserJpaEntity save(UserJpaEntity user);
 }

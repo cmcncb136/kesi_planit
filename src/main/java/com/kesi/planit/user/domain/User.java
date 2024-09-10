@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
+
 @Builder
 @Getter
 public class User {
@@ -12,7 +14,8 @@ public class User {
     private String nickname;
     private String imgPath;
     private String gender;
-    private String birth;
+    private LocalDate birth;
+    private LocalDate joinDate;
 
 
     public void changeNickname(String newNickname) {

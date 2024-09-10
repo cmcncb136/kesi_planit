@@ -16,6 +16,11 @@ public class UserRepoImpl implements UserRepo {
     }
 
     @Override
+    public UserJpaEntity findByEmail(String email) {
+        return userJpaRepo.findByEmail(email);
+    }
+
+    @Override
     public UserJpaEntity save(UserJpaEntity user) {
         return userJpaRepo.save(user);
     }
