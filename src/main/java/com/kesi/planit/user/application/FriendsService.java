@@ -2,14 +2,35 @@ package com.kesi.planit.user.application;
 
 import com.kesi.planit.core.CommonResult;
 import com.kesi.planit.user.application.repository.FriendsRelationRepo;
+import com.kesi.planit.user.domain.FriendsRelation;
 import com.kesi.planit.user.domain.User;
 import com.kesi.planit.user.infrastructure.FriendsRelationJpaEntity;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class FriendsService {
     private FriendsRelationRepo friendsRelationRepo;
     private UserService userService;
 
-    //Todo. email 검색시 친구 목록을 반환하는 코드 작성
+    //친구 관계 정보를 반환
+    public List<FriendsRelation> getFriendsRelationsByUid(String uid) {
+        User sourceUser = userService.getUserById(uid);
+        return friendsRelationRepo.findBySourceEmail(sourceUser.getEmail()).stream().
+                map(it -> it.toModel(
+                        sourceUser,
+                        userService.getUserByEmail(it.getTargetEmail()
+        ))).toList();
+    }
+
+    //친구 정보를 반환
+    public List<User> getFriendsByUid(String uid){
+        User sourceUser = userService.getUserById(uid);
+        return friendsRelationRepo.findBySourceEmail(sourceUser.getEmail()).stream().map(
+                it -> userService.getUserByEmail(it.getTargetEmail())
+        ).toList();
+    }
 
     //친구 검색
     public CommonResult addFriends(String uid, String targetEmail) {
