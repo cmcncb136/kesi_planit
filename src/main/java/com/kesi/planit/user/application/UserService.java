@@ -10,6 +10,9 @@ import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.calendar.domain.UserAndCalendar;
 import com.kesi.planit.calendar.infrastructure.UserAndCalendarJpaEntity;
 import com.kesi.planit.core.CommonResult;
+import com.kesi.planit.group.application.repository.GroupAndUserRepo;
+import com.kesi.planit.group.domain.Group;
+import com.kesi.planit.group.infrastructure.GroupAndUserJpaEntity;
 import com.kesi.planit.user.application.repository.UserRepo;
 import com.kesi.planit.user.domain.User;
 import com.kesi.planit.user.infrastructure.UserJpaEntity;
@@ -27,7 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepo userRepo;
-    private final UserAndCalendarRepo userAndCalendarRepo;
+    private final GroupAndUserRepo groupAndUserRepo;
 
     @Transactional
     public User getUserById(String uid) {
@@ -39,12 +42,10 @@ public class UserService {
         return userRepo.findByEmail(email).toModel();
     }
 
-
-    //Calendar Id가 같은 값을 가져온다.
     //User 객체를 만들어 도메인으로 매핑시킨다.
-    public List<User> getByCalendar(Calendar calendar) {
-        List<UserAndCalendarJpaEntity> userAndCalendarJpaEntityList
-                = userAndCalendarRepo.findByCalendarId(calendar.getId());
+    public List<User> getByGid(Long gid) {
+        List<GroupAndUserJpaEntity> userAndCalendarJpaEntityList
+                = groupAndUserRepo.findByGid(gid);
 
         return userAndCalendarJpaEntityList.stream().
                 map(it -> getUserById(it.getUid())).toList();

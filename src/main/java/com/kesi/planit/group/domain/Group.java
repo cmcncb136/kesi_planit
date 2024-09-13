@@ -1,5 +1,6 @@
 package com.kesi.planit.group.domain;
 
+import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,22 +11,24 @@ import java.util.List;
 @Builder
 @Getter
 public class Group {
-    //todo 채팅방 관련
-    private long groupId;
+    private long gid;
+
     private String groupName;
-    private List<String> uids;
+    private List<User> users;
+    private User maker;
+    private Calendar groupCalendar;
 
-    //todo a. UID로 그룹을 형성, b. user 객체로 그룹형성
 
-    public void addUser(String uid){
-       uids.add(uid);
+    public void addUser(User user) {
+        users.add(user);
     }
 
-    public boolean removeUser(String uid) {
-        return uids.remove(uid);
+    public boolean removeUser(User user) {
+        return users.remove(user);
     }
 
-    public List<String> getUsers() {return new ArrayList<>(uids);}
+    public List<User> getUsers() {
+        return users;
+    }
 
-    public int size() {return uids.size();}
 }

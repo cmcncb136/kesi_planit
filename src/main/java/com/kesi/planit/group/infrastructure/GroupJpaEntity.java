@@ -1,42 +1,45 @@
 package com.kesi.planit.group.infrastructure;
 
+import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.group.domain.Group;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.kesi.planit.user.domain.User;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Data
+@Getter
 @Entity
+@Table(name = "group")
 public class GroupJpaEntity {
-
     @Id
-    private Long groupId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long gid;
 
     @Column(nullable = true)
     private String groupName;
 
-    @Column(nullable = true)
-    //todo: OneToMany를 안쓰고 하는 방법을 잘 모르겠다
-    @ElementCollection
-    private List<String> uids;
+    private String makerUid;
+
+    private Long calendarId;
 
     public static GroupJpaEntity from(Group group) {
         GroupJpaEntity result = new GroupJpaEntity();
-        result.groupId = group.getGroupId();
+        result.gid = group.getGid();
         result.groupName = group.getGroupName();
-        result.uids = group.getUsers();
+        result.makerUid = group.getMaker().getUid();
+        result.calendarId = group.getGroupCalendar().getId();
         return result;
     }
 
-    public Group toModel(){
-    return Group.builder()
-            .groupId(groupId)
-            .groupName(groupName)
-            .build();
+    public Group toModel(List<User> users, Calendar calendar) {
+        return Group.builder()
+                .gid(gid)
+                .groupName(groupName)
+                .users(users)
+                .groupCalendar(calendar)
+                .build();
     }
 }
