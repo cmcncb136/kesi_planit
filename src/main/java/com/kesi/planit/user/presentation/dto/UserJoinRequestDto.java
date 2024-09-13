@@ -1,5 +1,6 @@
 package com.kesi.planit.user.presentation.dto;
 
+import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.user.domain.User;
 
 import java.time.LocalDate;

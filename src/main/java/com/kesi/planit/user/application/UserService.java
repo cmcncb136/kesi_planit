@@ -2,6 +2,8 @@ package com.kesi.planit.user.application;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.kesi.planit.calendar.application.CalendarService;
+import com.kesi.planit.calendar.application.UserAndCalendarService;
 import com.kesi.planit.calendar.application.repository.CalendarRepo;
 import com.kesi.planit.calendar.application.repository.UserAndCalendarRepo;
 import com.kesi.planit.calendar.domain.Calendar;
@@ -29,12 +31,11 @@ public class UserService {
 
     @Transactional
     public User getUserById(String uid) {
-        User user = userRepo.findById(uid).toModel();
-        return user;
+        return userRepo.findById(uid).toModel();
     }
 
-    //친구 추가시 NPE 발생할 수 있음
-    public User getUserByEmail(String email) {
+    //친구 추가시 존재하지 않는 이메일에 대해서 NPE 발생할 수 있음
+    public User getUserByEmail(String email) throws NullPointerException {
         return userRepo.findByEmail(email).toModel();
     }
 
@@ -49,17 +50,6 @@ public class UserService {
                 map(it -> getUserById(it.getUid())).toList();
     }
 
-
-    public CommonResult join(String uid, UserJoinRequestDto joinUser) throws FirebaseAuthException {
-        String email = FirebaseAuth.getInstance().getUser(uid).getEmail();
-        User user = joinUser.toModel(uid, email, "basic.jpg", LocalDate.now());
-        user = save(user);
-
-        if(user == null)
-            return new CommonResult(400, "join fail!", false);
-
-        return new CommonResult(200, "join success!", true);
-    }
 
 
     public User save(User user){

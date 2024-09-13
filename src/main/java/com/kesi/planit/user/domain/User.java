@@ -1,8 +1,8 @@
 package com.kesi.planit.user.domain;
 
+import com.kesi.planit.calendar.domain.Calendar;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -16,6 +16,8 @@ public class User {
     private String gender;
     private LocalDate birth;
     private LocalDate joinDate;
+
+
 
 
     public void changeNickname(String newNickname) {

@@ -20,18 +20,21 @@ public class UserAndCalendarJpaEntity {
     private Long id;
     private Long calendarId;
     private String uid;
+    private Boolean personal;
 
     @Builder
-    public UserAndCalendarJpaEntity(Long id, Long calendarId, String uid) {
+    public UserAndCalendarJpaEntity(Long id, Long calendarId, String uid, Boolean personal) {
         this.id = id;
         this.calendarId = calendarId;
         this.uid = uid;
+        this.personal = personal;
     }
 
     public UserAndCalendar toModel(User user, Calendar calendar){
         return UserAndCalendar.builder()
                 .user(user)
                 .calendar(calendar)
+                .personal(personal)
                 .id(id)
                 .build();
     }
@@ -39,6 +42,7 @@ public class UserAndCalendarJpaEntity {
     public static UserAndCalendarJpaEntity from(UserAndCalendar userAndCalendar){
         return UserAndCalendarJpaEntity.builder()
                 .id(userAndCalendar.getId())
+                .personal(userAndCalendar.getPersonal())
                 .uid(userAndCalendar.getUser().getUid())
                 .calendarId(userAndCalendar.getCalendar().getId())
                 .build();

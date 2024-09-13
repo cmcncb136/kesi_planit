@@ -12,5 +12,7 @@ public class UserAndCalendar {
     private Long id;
     private Calendar calendar;
     private User user;
+    private Boolean personal;
+
 
 }
