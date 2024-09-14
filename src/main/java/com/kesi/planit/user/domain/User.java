@@ -16,6 +16,7 @@ public class User {
     private String gender;
     private LocalDate birth;
     private LocalDate joinDate;
+    private Calendar myCalendar;
 
 
 

@@ -1,5 +1,6 @@
 package com.kesi.planit.user.infrastructure;
 
+import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -32,8 +33,10 @@ public class UserJpaEntity {
 
     private LocalDate joinDate;
 
+    private Long calendarId;
+
     @Builder
-    public UserJpaEntity(String uid, String email, String nickname, String imagePath, String gender, LocalDate birth, LocalDate joinDate) {
+    public UserJpaEntity(String uid, String email, String nickname, String imagePath, String gender, LocalDate birth, LocalDate joinDate, Long calendarId) {
         this.uid = uid;
         this.email = email;
         this.nickname = nickname;
@@ -41,6 +44,7 @@ public class UserJpaEntity {
         this.gender = gender;
         this.birth = birth;
         this.joinDate = joinDate;
+        this.calendarId = calendarId;
     }
 
     public static UserJpaEntity from(User user) {
@@ -52,10 +56,11 @@ public class UserJpaEntity {
         result.joinDate = user.getJoinDate();
         result.gender = user.getGender();
         result.imagePath = user.getImgPath();
+        result.calendarId = user.getMyCalendar().getId();
         return result;
     }
 
-    public User toModel(){
+    public User toModel(Calendar calendar){
         return User.builder()
                 .uid(this.uid)
                 .email(this.email)
@@ -64,6 +69,7 @@ public class UserJpaEntity {
                 .joinDate(this.joinDate)
                 .gender(this.gender)
                 .imgPath(this.imagePath)
+                .myCalendar(calendar)
                 .build();
     }
 }

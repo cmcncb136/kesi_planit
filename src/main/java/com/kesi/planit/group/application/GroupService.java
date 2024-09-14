@@ -22,6 +22,10 @@ public class GroupService {
     private final CalendarService calendarService;
     private final UserService userService;
 
+    //Todo. 개인 캘린더와 그룹 캘린더를 구분할 필요가 있음
+    //한 명도 그룹임으로 개인 캘린더 이면서 그룹 캘린더이다.
+    //따라서 유저를 통해서를 참조 가능하고 그룹을 통해서도 참조 가능해야 한다.
+
 
     public List<Group> getByUid(String uid) {
         //Group Entity 가져오기

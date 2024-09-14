@@ -3,9 +3,7 @@ package com.kesi.planit.user.application;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.kesi.planit.calendar.application.CalendarService;
-import com.kesi.planit.calendar.application.UserAndCalendarService;
 import com.kesi.planit.calendar.domain.Calendar;
-import com.kesi.planit.calendar.domain.UserAndCalendar;
 import com.kesi.planit.core.CommonResult;
 import com.kesi.planit.user.domain.User;
 import com.kesi.planit.user.presentation.dto.UserJoinRequestDto;
@@ -18,7 +16,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class JoinService {
     private UserService userService;
-    private UserAndCalendarService userAndCalendarService;
     private CalendarService calendarService;
 
     public CommonResult join(String uid, UserJoinRequestDto joinUser) throws FirebaseAuthException {
@@ -38,11 +35,7 @@ public class JoinService {
             return new CommonResult(400, "join fail!", false);
 
         //사용자 - 캘린더 정보 저장
-        userAndCalendarService.save(UserAndCalendar.builder()
-                .personal(true)
-                .user(user)
-                .calendar(calendar)
-                .build());
+
 
 
 
