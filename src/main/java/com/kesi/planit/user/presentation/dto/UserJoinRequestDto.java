@@ -10,7 +10,7 @@ public class UserJoinRequestDto {
     private String gender;
     private String birth;
 
-    public User toModel(String uid, String email, String imgPath, LocalDate joinDate){
+    public User toModel(String uid, String email, String imgPath, LocalDate joinDate, Calendar calendar){
         return User.builder()
                 .nickname(nickname)
                 .gender(gender)
@@ -19,6 +19,7 @@ public class UserJoinRequestDto {
                 .imgPath(imgPath)
                 .joinDate(joinDate)
                 .birth(LocalDate.parse(birth))
+                .myCalendar(calendar)
                 .build();
     }
 }

@@ -26,18 +26,12 @@ public class JoinService {
         calendar = calendarService.save(calendar);
 
 
-
         //사용자 저장
-        User user = joinUser.toModel(uid, email, "basic.jpg", LocalDate.now());
+        User user = joinUser.toModel(uid, email, "basic.jpg", LocalDate.now(), calendar);
         user = userService.save(user);
 
         if(user == null)
             return new CommonResult(400, "join fail!", false);
-
-        //사용자 - 캘린더 정보 저장
-
-
-
 
         return new CommonResult(200, "join success!", true);
     }

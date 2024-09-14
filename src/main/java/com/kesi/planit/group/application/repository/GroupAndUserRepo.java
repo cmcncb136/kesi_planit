@@ -9,6 +9,7 @@ import java.util.List;
 public interface GroupAndUserRepo {
     GroupAndUserJpaEntity findById(Long id);
     GroupAndUserJpaEntity save(GroupAndUserJpaEntity groupAndUser);
+    List<GroupAndUserJpaEntity> saveAll(List<GroupAndUserJpaEntity> groupAndUsers);
     List<GroupAndUserJpaEntity> findByGid(Long gid);
     List<GroupAndUserJpaEntity> findByUid(String uid);
     void deleteById(Long id);

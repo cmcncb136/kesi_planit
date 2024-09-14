@@ -1,6 +1,5 @@
 package com.kesi.planit.schedule.infrastructure;
 
-import com.kesi.planit.schedule.domain.ScheduleAndCalendar;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,26 +28,13 @@ public class ScheduleAndCalendarJpaEntity {
 
     private Long scheduleId;
 
+    private boolean access;
+
     @Builder
-    public ScheduleAndCalendarJpaEntity(Long id, Long calendarId, Long scheduleId) {
+    public ScheduleAndCalendarJpaEntity(Long id, Long calendarId, Long scheduleId, boolean access) {
         this.id = id;
         this.calendarId = calendarId;
         this.scheduleId = scheduleId;
-    }
-
-    public ScheduleAndCalendar tooModel(){
-        return ScheduleAndCalendar.builder()
-                .id(id)
-                .calendarId(calendarId)
-                .scheduleId(scheduleId)
-                .build();
-    }
-
-    public static ScheduleAndCalendarJpaEntity from(ScheduleAndCalendar scheduleAndCalendar){
-        return ScheduleAndCalendarJpaEntity.builder()
-                .id(scheduleAndCalendar.getId())
-                .calendarId(scheduleAndCalendar.getCalendarId())
-                .scheduleId(scheduleAndCalendar.getScheduleId())
-                .build();
+        this.access = access;
     }
 }
