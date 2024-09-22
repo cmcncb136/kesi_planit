@@ -51,7 +51,7 @@ public class ScheduleJpaEntity {
     }
 
 
-    public Schedule toModel(User user, List<Calendar> calendars){
+    public Schedule toModel(User user, List<Schedule.ScheduleReferCalendar> scheduleReferCalendars){
         return Schedule.builder()
                 .color(Color.decode(colorId))
                 .maker(user)
@@ -62,7 +62,7 @@ public class ScheduleJpaEntity {
                 .endDate(endDate)
                 .startTime(startTime)
                 .endTime(endTime)
-                .calendars(calendars)
+                .calendars(scheduleReferCalendars)
                 .build();
     }
 

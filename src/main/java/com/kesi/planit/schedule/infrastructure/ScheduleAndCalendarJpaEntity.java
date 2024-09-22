@@ -1,5 +1,7 @@
 package com.kesi.planit.schedule.infrastructure;
 
+import com.kesi.planit.calendar.domain.Calendar;
+import com.kesi.planit.schedule.domain.Schedule;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,4 +39,22 @@ public class ScheduleAndCalendarJpaEntity {
         this.scheduleId = scheduleId;
         this.access = access;
     }
+
+    public Schedule.ScheduleReferCalendar toScheduleReferCalendar(Calendar calendar ) {
+        return Schedule.ScheduleReferCalendar.builder()
+                .id(id)
+                .access(access)
+                .calendar(calendar)
+                .build();
+    }
+
+    public static ScheduleAndCalendarJpaEntity from(Schedule schedule, Schedule.ScheduleReferCalendar scheduleReferCalendar) {
+        return ScheduleAndCalendarJpaEntity.builder()
+                .id(scheduleReferCalendar.getId())
+                .access(scheduleReferCalendar.isAccess())
+                .calendarId(scheduleReferCalendar.getCalendar().getId())
+                .scheduleId(schedule.getId())
+                .build();
+    }
+
 }

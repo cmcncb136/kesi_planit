@@ -9,6 +9,7 @@ import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Entity
@@ -34,7 +35,7 @@ public class GroupJpaEntity {
         return result;
     }
 
-    public Group toModel(List<User> users, Calendar calendar) {
+    public Group toModel(Map<String, Group.GroupInUser> users, Calendar calendar) {
         return Group.builder()
                 .gid(gid)
                 .groupName(groupName)

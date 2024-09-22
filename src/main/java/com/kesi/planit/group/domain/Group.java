@@ -1,11 +1,15 @@
 package com.kesi.planit.group.domain;
 
+import com.google.firebase.database.snapshot.StringNode;
 import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Builder
 @Getter
@@ -13,21 +17,36 @@ public class Group {
     private long gid;
 
     private String groupName;
-    private List<User> users;
+
+    //Group에 User 객체와 유저와 어떻게 연결되어 있는지 가지고 있음 편할듯
+    //String은 uid로 식별
+    private Map<String, GroupInUser> users;
     private User maker;
     private Calendar groupCalendar;
+    private Boolean otherChangePermission;
 
 
-    public void addUser(User user) {
-        users.add(user);
+    public void addUser(GroupInUser user) {
+        users.put(user.getUser().getUid(), user);
     }
 
-    public boolean removeUser(User user) {
-        return users.remove(user);
+    public GroupInUser removeUser(GroupInUser user) {
+        return users.remove(user.getUser().getUid());
     }
 
-    public List<User> getUsers() {
+    public Map<String, GroupInUser> getUsers() {
         return users;
     }
 
+
+
+    @Getter
+    @Builder
+    public static class GroupInUser {
+        private Long id;
+        private User user;
+        private boolean access;
+        private boolean open;
+
+    }
 }

@@ -16,13 +16,13 @@ import java.util.List;
 public class Schedule {
     private Long id;
     private User maker;
-    private List<Calendar> calendars; //참석자 캘린더 및 공유방 캘린더
+    private List<ScheduleReferCalendar> calendars; //참석자 캘린더 및 공유방 캘린더
     private Color color;
 
     private String title;
     private String description;
 
-    private boolean guestsCanModify; //방장 외 수정 권한
+    private boolean guestsCanModify; //작성자 외 수정권한
 
     private LocalDate startDate, endDate;  // 종일인 경우
     private LocalDateTime startTime, endTime; //종일이 아닌 경우
@@ -31,7 +31,11 @@ public class Schedule {
 
     }
 
-    //Todo. CRUD 설계
-
-
+    @Getter
+    @Builder
+    public static class ScheduleReferCalendar{
+        private Long id;
+        private Calendar calendar;
+        private boolean access;
+    }
 }

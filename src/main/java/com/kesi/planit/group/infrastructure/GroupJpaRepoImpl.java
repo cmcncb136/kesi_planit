@@ -23,6 +23,11 @@ public class GroupJpaRepoImpl implements GroupRepo {
     }
 
     @Override
+    public GroupJpaEntity findByCalendarId(Long calendarId) {
+        return groupJpaRepo.findByCalendarId(calendarId);
+    }
+
+    @Override
     public void deleteById(Long id) {
         groupJpaRepo.deleteById(id);
     }

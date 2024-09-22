@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GroupJpaRepo extends JpaRepository<GroupJpaEntity, Long> {
+    GroupJpaEntity findByCalendarId(long calendarId);
 }
