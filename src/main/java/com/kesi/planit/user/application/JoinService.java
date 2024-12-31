@@ -15,11 +15,12 @@ import java.time.LocalDate;
 @Service
 @AllArgsConstructor
 public class JoinService {
-    private UserService userService;
-    private CalendarService calendarService;
+    private final UserService userService;
+    private final CalendarService calendarService;
+    private final FirebaseAuth auth;
 
     public CommonResult join(String uid, UserJoinRequestDto joinUser) throws FirebaseAuthException {
-        String email = FirebaseAuth.getInstance().getUser(uid).getEmail();
+        String email = auth.getUser(uid).getEmail();
 
         //사용자 캘린더 생성
         Calendar calendar = Calendar.builder().build();

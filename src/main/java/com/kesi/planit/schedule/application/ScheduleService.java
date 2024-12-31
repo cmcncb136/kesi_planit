@@ -5,7 +5,6 @@ import com.kesi.planit.core.CommonResult;
 import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.application.repository.GroupAndUserRepo;
 import com.kesi.planit.group.domain.Group;
-import com.kesi.planit.group.infrastructure.GroupAndUserJpaEntity;
 import com.kesi.planit.schedule.application.repository.ScheduleAndCalendarRepo;
 import com.kesi.planit.schedule.application.repository.ScheduleRepo;
 import com.kesi.planit.schedule.domain.Schedule;

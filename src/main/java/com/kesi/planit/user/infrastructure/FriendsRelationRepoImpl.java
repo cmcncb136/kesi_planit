@@ -13,12 +13,12 @@ public class FriendsRelationRepoImpl implements FriendsRelationRepo {
 
     @Override
     public List<FriendsRelationJpaEntity> findBySourceEmail(String sourceEmail) {
-        return friendsRelationJpaRepo.findSourceEmail(sourceEmail);
+        return friendsRelationJpaRepo.findBySourceEmail(sourceEmail);
     }
 
     @Override
     public List<FriendsRelationJpaEntity> findByTargetEmail(String targetEmail) {
-        return friendsRelationJpaRepo.findTargetEmail(targetEmail);
+        return friendsRelationJpaRepo.findByTargetEmail(targetEmail);
     }
 
     @Override

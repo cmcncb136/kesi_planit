@@ -38,7 +38,8 @@ public class ScheduleJpaEntity {
     private LocalDateTime startTime, endTime;
 
     @Builder
-    public ScheduleJpaEntity(String makerUid, String colorId, String description, String title, Boolean guestsCanModify, LocalDate startDate, LocalDate endDate, LocalDateTime startTime, LocalDateTime endTime) {
+    public ScheduleJpaEntity(Long id, String makerUid, String colorId, String description, String title, Boolean guestsCanModify, LocalDate startDate, LocalDate endDate, LocalDateTime startTime, LocalDateTime endTime) {
+        this.id = id;
         this.makerUid = makerUid;
         this.colorId = colorId;
         this.description = description;
@@ -53,6 +54,7 @@ public class ScheduleJpaEntity {
 
     public Schedule toModel(User user, List<Schedule.ScheduleReferCalendar> scheduleReferCalendars){
         return Schedule.builder()
+                .id(id)
                 .color(Color.decode(colorId))
                 .maker(user)
                 .title(title)
@@ -68,6 +70,7 @@ public class ScheduleJpaEntity {
 
     public static ScheduleJpaEntity from(Schedule schedule){
         return ScheduleJpaEntity.builder()
+                .id(schedule.getId())
                 .colorId(schedule.getColor().toString())
                 .makerUid(schedule.getMaker().getUid())
                 .description(schedule.getDescription())

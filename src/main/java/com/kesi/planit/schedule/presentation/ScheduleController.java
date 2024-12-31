@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/schedule")
 public class ScheduleController {
-    private ScheduleService scheduleService;
+    private final ScheduleService scheduleService;
 
     @GetMapping("/")
     public List<ScheduleDto> getByCalendarId(@RequestParam("calendarId")Long calendarId) {

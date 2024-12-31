@@ -1,16 +1,13 @@
 package com.kesi.planit.group.infrastructure;
 
 import com.kesi.planit.group.application.repository.GroupRepo;
-import com.kesi.planit.group.domain.Group;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
-@Component
 @AllArgsConstructor
+@Component
 public class GroupJpaRepoImpl implements GroupRepo {
-    private final GroupJpaRepo groupJpaRepo;
-
+    private final GroupJpaRepository groupJpaRepo;
 
     @Override
     public GroupJpaEntity save(GroupJpaEntity groupJpaEntity) {

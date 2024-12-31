@@ -18,20 +18,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//Todo. 이제 그룹 시작
 @Service
 @AllArgsConstructor
 public class GroupService {
     private final GroupRepo groupRepo;
     private final GroupAndUserRepo groupAndUserRepo;
+
     //순환참조 주위!
     private final CalendarService calendarService;
     private final UserService userService;
-    private final GroupAndUserJpaRepo groupAndUserJpaRepo;
 
-    //Todo. 개인 캘린더와 그룹 캘린더를 구분할 필요가 있음
-    //한 명도 그룹임으로 개인 캘린더 이면서 그룹 캘린더이다.
-    //따라서 유저를 통해서를 참조 가능하고 그룹을 통해서도 참조 가능해야 한다.
 
     //그룹 추가
     //email로 조회하기 때문에 NFE 발생할 수 있음
@@ -62,20 +58,23 @@ public class GroupService {
                 .build());
 
         //Todo. 반환 값을 어떻게 할지 고민해야됨
-        return null;
+        return CommonResult.builder()
+                .code(200)
+                .msg(String.valueOf(group.getGid()))
+                .success(true).build();
     }
 
     public Group getByCalendarId(Long calendarId) {
         return getById(groupRepo.findByCalendarId(calendarId).getGid()); //맵으로 변환하는 코드 길어서 귀찮아....
     }
 
-    public Group getById(Long id){
+    public Group getById(Long id) {
         GroupJpaEntity groupJpaEntity = groupRepo.findById(id);
         //1. Gid로 그룹과 유저과 연결되어 있는 정보를 가져온다.
         //2. 가져오 정보를 Map<String(uid), GroupInUser> 행태로 만든다.
         return groupJpaEntity.toModel(
                 groupAndUserRepo.findByGid(groupJpaEntity.getGid()).stream().collect(Collectors.toMap(
-                        GroupAndUserJpaEntity::getUid,
+                        groupAndUserJpa -> groupAndUserJpa.getUid(),
                         groupAndUserJpa -> groupAndUserJpa.mappingGroupToGroupInUser(
                                 userService.getUserById(groupAndUserJpa.getUid()))
                 )),
@@ -85,21 +84,28 @@ public class GroupService {
 
 
     public List<Group> getByUid(String uid) {
+        return groupAndUserRepo.findByUid(uid).stream().map(groupAndUserJpaEntity
+                -> getById(groupAndUserJpaEntity.getGid())).toList();
+    }
+
         //Group Entity 가져오기
-        List<GroupJpaEntity> groupJpaEntities = groupAndUserRepo.findByUid(uid).stream().map(
-                it -> groupRepo.findById(it.getGid())
-        ).toList();
+//        List<GroupJpaEntity> groupJpaEntities = groupAndUserRepo.findByUid(uid).stream().map(
+//                it -> groupRepo.findById(it.getGid())
+//        ).toList();
+
+
+//        return groupJpaEntities.stream().
+//                map(groupJpaEntity -> getById(groupJpaEntity.getGid())).toList();
 
         //도메인 모델로 매핑시키기
-        return groupJpaEntities.stream().map(it -> it.toModel(
-                groupAndUserRepo.findByGid(it.getGid()).stream().collect(Collectors.toMap(
-                        GroupAndUserJpaEntity::getUid,
-                        groupAndUserJpa -> groupAndUserJpa.mappingGroupToGroupInUser(
-                                userService.getUserById(groupAndUserJpa.getUid()))
-                )),
-                calendarService.getById(it.getCalendarId())
-        )).toList();
-    }
+//        return groupJpaEntities.stream().map(it -> it.toModel(
+//                groupAndUserRepo.findByGid(it.getGid()).stream().collect(Collectors.toMap(
+//                        GroupAndUserJpaEntity::getUid,
+//                        groupAndUserJpa -> groupAndUserJpa.mappingGroupToGroupInUser(
+//                                userService.getUserById(groupAndUserJpa.getUid()))
+//                )),
+//                calendarService.getById(it.getCalendarId())
+//        )).toList();
 
 
 
@@ -110,12 +116,12 @@ public class GroupService {
 
         //유저 정보 연결을 초기화(저장) 및 최신화
         g.getUsers().values().stream().forEach(it -> {
-                   Group.GroupInUser groupInUser = groupAndUserRepo.save(GroupAndUserJpaEntity.
+                    Group.GroupInUser groupInUser = groupAndUserRepo.save(GroupAndUserJpaEntity.
                             from(g.getGid(), it)).mappingGroupToGroupInUser(it.getUser());
 
-                   g.getUsers().put(groupInUser.getUser().getUid(), groupInUser);
+                    g.getUsers().put(groupInUser.getUser().getUid(), groupInUser);
                 }
-                );
+        );
 
         return g;
     }

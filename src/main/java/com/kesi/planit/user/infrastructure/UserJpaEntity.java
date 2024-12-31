@@ -11,11 +11,10 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "user_table")
 @NoArgsConstructor
 public class UserJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 150) //현재 naver server에 mariaDB에 key 키 제한이 255(default) 보다 작아서 지정해 줌
     private String uid;
 

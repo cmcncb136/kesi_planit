@@ -9,6 +9,7 @@ import java.util.List;
 public class AlarmRepoImpl implements AlarmRepo {
     private final AlarmJpaRepo alarmJpaRepo;
 
+
     @Override
     public AlarmJpaEntity findById(long id) {
         return alarmJpaRepo.findById(id).orElse(null);

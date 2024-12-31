@@ -25,5 +25,4 @@ public class CalendarJpaEntity {
     public static CalendarJpaEntity from(Calendar calendar){
         return null;
     }
-
 }

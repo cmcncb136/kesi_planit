@@ -37,14 +37,4 @@ public class ScheduleRepoImpl implements ScheduleRepo{
     public List<ScheduleJpaEntity> findAll() {
         return scheduleJpaRepo.findAll();
     }
-
-    @Override
-    public List<ScheduleJpaEntity> findByCalendarId(Long calendarId) {
-        return scheduleJpaRepo.findByCalendarId(calendarId);
-    }
-
-    @Override
-    public List<ScheduleJpaEntity> findByCalendarIdAndDateBetween(Long calendarId, LocalDate start, LocalDate end) {
-        return scheduleJpaRepo.findByCalendarIdAndDateBetween(calendarId, start, end);
-    }
 }

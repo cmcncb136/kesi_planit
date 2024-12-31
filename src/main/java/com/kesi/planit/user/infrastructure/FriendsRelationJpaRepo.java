@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface FriendsRelationJpaRepo extends JpaRepository<FriendsRelationJpaEntity, Long> {
-    List<FriendsRelationJpaEntity> findSourceEmail(String sourceEmail);
-    List<FriendsRelationJpaEntity> findTargetEmail(String targetEmail);
+    List<FriendsRelationJpaEntity> findBySourceEmail(String sourceEmail);
+    List<FriendsRelationJpaEntity> findByTargetEmail(String targetEmail);
 }

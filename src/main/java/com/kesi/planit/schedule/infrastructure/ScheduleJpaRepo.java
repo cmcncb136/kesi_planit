@@ -9,6 +9,4 @@ import java.util.List;
 
 @Repository
 public interface ScheduleJpaRepo extends JpaRepository<ScheduleJpaEntity, Long> {
-    List<ScheduleJpaEntity> findByCalendarId(Long calendarId);
-    List<ScheduleJpaEntity> findByCalendarIdAndDateBetween(Long calendarId, LocalDate start, LocalDate end);
 }
