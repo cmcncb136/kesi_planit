@@ -30,7 +30,7 @@ public class ScheduleRepositoryTest {
                 .endTime(LocalDateTime.now().plusHours(10))
                 .startTime(LocalDateTime.now())
                 .colorId("FFFFFFFF")
-                .guestsCanModify(true)
+                .guestEditPermission(true)
                 .build();
 
         //when
@@ -45,7 +45,7 @@ public class ScheduleRepositoryTest {
         assertThat(result.getEndTime()).isEqualTo(scheduleJpaEntity.getEndTime());
         assertThat(result.getStartTime()).isEqualTo(scheduleJpaEntity.getStartTime());
         assertThat(result.getColorId()).isEqualTo("FFFFFFFF");
-        assertThat(result.getGuestsCanModify()).isEqualTo(true);
+        assertThat(result.getGuestEditPermission()).isEqualTo(true);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class ScheduleRepositoryTest {
                 .endTime(LocalDateTime.now().plusHours(10))
                 .startTime(LocalDateTime.now())
                 .colorId("FFFFFFFF")
-                .guestsCanModify(true)
+                .guestEditPermission(true)
                 .build();
 
         ScheduleJpaEntity savedSchedule = scheduleRepository.save(scheduleJpaEntity);
@@ -91,7 +91,7 @@ public class ScheduleRepositoryTest {
                 .endTime(LocalDateTime.now().plusHours(10))
                 .startTime(LocalDateTime.now())
                 .colorId("FFFFFFFF")
-                .guestsCanModify(true)
+                .guestEditPermission(true)
                 .build();
 
         ScheduleJpaEntity savedSchedule = scheduleRepository.save(scheduleJpaEntity);
@@ -107,7 +107,7 @@ public class ScheduleRepositoryTest {
                 .startDate(savedSchedule.getStartDate())
                 .endTime(savedSchedule.getEndTime())
                 .startTime(savedSchedule.getStartTime())
-                .guestsCanModify(savedSchedule.getGuestsCanModify())
+                .guestEditPermission(savedSchedule.getGuestEditPermission())
                 .build();
 
         ScheduleJpaEntity result = scheduleRepository.save(updateSchedule);
@@ -122,7 +122,7 @@ public class ScheduleRepositoryTest {
         assertThat(result.getStartDate()).isEqualTo(updateSchedule.getStartDate());
         assertThat(result.getEndTime()).isEqualTo(updateSchedule.getEndTime());
         assertThat(result.getStartTime()).isEqualTo(updateSchedule.getStartTime());
-        assertThat(result.getGuestsCanModify()).isEqualTo(updateSchedule.getGuestsCanModify());
+        assertThat(result.getGuestEditPermission()).isEqualTo(updateSchedule.getGuestEditPermission());
     }
 
     @Test
@@ -137,7 +137,7 @@ public class ScheduleRepositoryTest {
                 .endTime(LocalDateTime.now().plusHours(10))
                 .startTime(LocalDateTime.now())
                 .colorId("FFFFFFFF")
-                .guestsCanModify(true)
+                .guestEditPermission(true)
                 .build();
 
         ScheduleJpaEntity savedSchedule = scheduleRepository.save(scheduleJpaEntity);
@@ -162,7 +162,7 @@ public class ScheduleRepositoryTest {
                 .endTime(LocalDateTime.now().plusHours(10))
                 .startTime(LocalDateTime.now())
                 .colorId("FFFFFFFF")
-                .guestsCanModify(true)
+                .guestEditPermission(true)
                 .build();
 
         ScheduleJpaEntity scheduleJpaEntity2 = ScheduleJpaEntity.builder()
@@ -173,7 +173,7 @@ public class ScheduleRepositoryTest {
                 .endTime(LocalDateTime.now().plusHours(10))
                 .startTime(LocalDateTime.now())
                 .colorId("FFFFFFFF")
-                .guestsCanModify(true)
+                .guestEditPermission(true)
                 .build();
 
         scheduleRepository.save(scheduleJpaEntity1);
@@ -185,4 +185,6 @@ public class ScheduleRepositoryTest {
         //then
         assertThat(result.size()).isEqualTo(2);
     }
+
+
 }

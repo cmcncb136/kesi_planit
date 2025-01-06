@@ -3,6 +3,7 @@ package com.kesi.planit.schedule.application.repository;
 import com.kesi.planit.schedule.infrastructure.ScheduleAndCalendarJpaEntity;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component

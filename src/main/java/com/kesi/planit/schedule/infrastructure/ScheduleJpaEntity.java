@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
 import java.awt.*;
 import java.time.LocalDate;
@@ -26,45 +25,49 @@ public class ScheduleJpaEntity {
     private Long id;
 
     private String makerUid;
-
+    private Long sourceCalendarId; //만들어진 캘린더 정보
     private String colorId; //#XXXXXXXX로 관리
 
     private String description;
     private String title;
-
-    private Boolean guestsCanModify;
-
+    private Boolean guestEditPermission;
     private LocalDate startDate, endDate;
     private LocalDateTime startTime, endTime;
 
     @Builder
-    public ScheduleJpaEntity(Long id, String makerUid, String colorId, String description, String title, Boolean guestsCanModify, LocalDate startDate, LocalDate endDate, LocalDateTime startTime, LocalDateTime endTime) {
+    public ScheduleJpaEntity(Long id, String makerUid, String colorId,
+                             String description, String title,
+                             Boolean guestEditPermission, LocalDate startDate,
+                             LocalDate endDate, LocalDateTime startTime,
+                             LocalDateTime endTime, Long sourceCalendarId) {
         this.id = id;
         this.makerUid = makerUid;
         this.colorId = colorId;
         this.description = description;
         this.title = title;
-        this.guestsCanModify = guestsCanModify;
+        this.guestEditPermission = guestEditPermission;
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.sourceCalendarId = sourceCalendarId;
     }
 
 
-    public Schedule toModel(User user, List<Schedule.ScheduleReferCalendar> scheduleReferCalendars){
+    public Schedule toModel(User user, Calendar sourceCalendar, List<Schedule.ScheduleReferCalendar> scheduleReferCalendars){
         return Schedule.builder()
                 .id(id)
                 .color(Color.decode(colorId))
                 .maker(user)
                 .title(title)
                 .description(description)
-                .guestsCanModify(guestsCanModify)
+                .guestEditPermission(guestEditPermission)
                 .startDate(startDate)
                 .endDate(endDate)
                 .startTime(startTime)
                 .endTime(endTime)
                 .calendars(scheduleReferCalendars)
+                .sourceCalendar(sourceCalendar)
                 .build();
     }
 
@@ -79,6 +82,7 @@ public class ScheduleJpaEntity {
                 .startDate(schedule.getStartDate())
                 .endTime(schedule.getEndTime())
                 .startTime(schedule.getStartTime())
+                .sourceCalendarId(schedule.getSourceCalendar().getId())
                 .build();
     }
 

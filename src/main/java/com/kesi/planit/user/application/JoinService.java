@@ -8,6 +8,7 @@ import com.kesi.planit.core.CommonResult;
 import com.kesi.planit.user.domain.User;
 import com.kesi.planit.user.presentation.dto.UserJoinRequestDto;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class JoinService {
     private final CalendarService calendarService;
     private final FirebaseAuth auth;
 
-    public CommonResult join(String uid, UserJoinRequestDto joinUser) throws FirebaseAuthException {
+    public ResponseEntity<String> join(String uid, UserJoinRequestDto joinUser) throws FirebaseAuthException {
         String email = auth.getUser(uid).getEmail();
 
         //사용자 캘린더 생성
@@ -31,8 +32,8 @@ public class JoinService {
         user = userService.save(user);
 
         if(user == null)
-            return new CommonResult(400, "join fail!", false);
+            return ResponseEntity.status(1).body("join fail!");
 
-        return new CommonResult(200, "join success!", true);
+        return ResponseEntity.ok("join success!");
     }
 }

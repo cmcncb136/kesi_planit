@@ -8,6 +8,7 @@ import com.kesi.planit.user.presentation.dto.UserDto;
 import com.kesi.planit.user.presentation.dto.UserJoinRequestDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
@@ -18,12 +19,15 @@ public class UserController {
     private final JoinService joinService;
 
     @PostMapping("/")
-    public CommonResult join(HttpServletRequest request, @RequestBody UserJoinRequestDto joinUser) throws FirebaseAuthException {
+    public ResponseEntity<String> join(HttpServletRequest request, @RequestBody UserJoinRequestDto joinUser) throws FirebaseAuthException {
         return joinService.join(request.getAttribute("uid").toString(), joinUser);
     }
 
     @GetMapping("/")
-    public UserDto getByUid(HttpServletRequest request) {
-        return UserDto.from(userService.getUserById(request.getAttribute("uid").toString()));
+    public ResponseEntity<UserDto> getByUid(HttpServletRequest request) {
+        UserDto result = UserDto.from(userService.getUserById(request.getAttribute("uid").toString()));
+        return result != null ?
+                ResponseEntity.ok(result)
+                : ResponseEntity.notFound().build();
     }
 }

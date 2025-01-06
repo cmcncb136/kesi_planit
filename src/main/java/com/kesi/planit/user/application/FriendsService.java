@@ -5,6 +5,7 @@ import com.kesi.planit.user.application.repository.FriendsRelationRepo;
 import com.kesi.planit.user.domain.FriendsRelation;
 import com.kesi.planit.user.domain.User;
 import com.kesi.planit.user.infrastructure.FriendsRelationJpaEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,13 +34,13 @@ public class FriendsService {
     }
 
     //친구 검색
-    public CommonResult addFriends(String uid, String targetEmail) {
+    public ResponseEntity<String> addFriends(String uid, String targetEmail) {
         User source = userService.getUserById(uid);
         User target;
         try{
             target = userService.getUserById(targetEmail);
         }catch (NullPointerException e){
-            return new CommonResult(400, "Don't find friends", false);
+            return ResponseEntity.notFound().build();
         }
 
         friendsRelationRepo.save(FriendsRelationJpaEntity.builder()
@@ -47,6 +48,6 @@ public class FriendsService {
                         .targetEmail(target.getEmail())
                 .build());
 
-        return new CommonResult(200, "Added friends", true);
+        return ResponseEntity.ok("Added friends");
     }
 }

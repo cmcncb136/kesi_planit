@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class FriendsRelation {
+public class  FriendsRelation {
     private User source;
     private User target;
 

@@ -19,8 +19,6 @@ public class User {
     private Calendar myCalendar;
 
 
-
-
     public void changeNickname(String newNickname) {
         this.nickname = newNickname;
     }

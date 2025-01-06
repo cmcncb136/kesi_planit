@@ -9,4 +9,6 @@ import java.util.List;
 public interface GroupAndUserJpaRepo extends JpaRepository<GroupAndUserJpaEntity, Long> {
     List<GroupAndUserJpaEntity> findByGid(Long gid);
     List<GroupAndUserJpaEntity> findByUid(String uid);
+    void deleteByUidAndGid(String uid, Long gid);
+    GroupAndUserJpaEntity findByUidAndGid(String uid, Long gid);
 }

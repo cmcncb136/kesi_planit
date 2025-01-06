@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.awt.*;
-import java.lang.reflect.Member;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,13 +15,14 @@ import java.util.List;
 public class Schedule {
     private Long id;
     private User maker;
+    private Calendar sourceCalendar;
     private List<ScheduleReferCalendar> calendars; //참석자 캘린더 및 공유방 캘린더
     private Color color;
 
     private String title;
     private String description;
 
-    private boolean guestsCanModify; //작성자 외 수정권한
+    private boolean guestEditPermission; //작성자 외 수정권한
 
     private LocalDate startDate, endDate;  // 종일인 경우
     private LocalDateTime startTime, endTime; //종일이 아닌 경우
@@ -36,6 +36,6 @@ public class Schedule {
     public static class ScheduleReferCalendar{
         private Long id;
         private Calendar calendar;
-        private boolean access;
+        private User connectUser;
     }
 }

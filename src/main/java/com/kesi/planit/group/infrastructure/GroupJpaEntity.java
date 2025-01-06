@@ -19,11 +19,8 @@ public class GroupJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gid;
-
     private String groupName;
-
     private String makerUid;
-
     private Long calendarId;
 
     @Builder

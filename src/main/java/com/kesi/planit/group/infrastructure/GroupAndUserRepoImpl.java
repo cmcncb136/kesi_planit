@@ -16,6 +16,11 @@ public class GroupAndUserRepoImpl implements GroupAndUserRepo {
     }
 
     @Override
+    public GroupAndUserJpaEntity findByUidAndGid(String uid, Long gid) {
+        return null;
+    }
+
+    @Override
     public GroupAndUserJpaEntity save(GroupAndUserJpaEntity groupAndUser) {
         return groupAndUserJpaRepo.save(groupAndUser);
     }
@@ -38,5 +43,10 @@ public class GroupAndUserRepoImpl implements GroupAndUserRepo {
     @Override
     public void deleteById(Long id) {
         groupAndUserJpaRepo.deleteById(id);
+    }
+
+    @Override
+    public void deleteByUidAndGid(String uid, Long gid) {
+
     }
 }
