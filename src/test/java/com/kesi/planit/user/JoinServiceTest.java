@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
@@ -76,10 +77,10 @@ public class JoinServiceTest {
         Mockito.when(auth.getUser(uid)).thenReturn(userRecord);
 
         //when
-        CommonResult commonResult = joinService.join(uid, joinRequestDto);
+        ResponseEntity response = joinService.join(uid, joinRequestDto);
 
         //then
-        assertThat(commonResult.getCode()).isEqualTo(200);
+        assertThat(response.getStatusCode()).isEqualTo(200);
     }
 
 }
