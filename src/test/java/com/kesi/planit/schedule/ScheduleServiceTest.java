@@ -203,7 +203,7 @@ public class ScheduleServiceTest {
         //given
         Group group = Group.builder().groupCalendar(calendarList.get(0)).groupName("test")
                 .maker(user).gid(1L)
-                .users(Map.of(user.getUid(), Group.GroupInUser.builder().isDetailedInfoShared(true).user(user).build()))
+                .users(Map.of(user.getUid(), Group.GroupInUser.builder().allowedSecurityLevel(3).user(user).build()))
                 .build();
 
 

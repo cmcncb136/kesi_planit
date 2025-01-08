@@ -64,7 +64,7 @@ public class ScheduleService {
         groups.forEach(it -> {
             Group.GroupInUser groupInUser = it.getUsers().get(user.getUid());
 
-            if(groupInUser.isDetailedInfoShared()) { //유저가 자신의 일정을 공유한 그룹 캘린더에만 추가
+            if(true) { //Todo. 나중에 Schedule 수정 후 다시 수정 groupInUser.getAllowedSecurityLevel()) { //유저가 자신의 일정을 공유한 그룹 캘린더에만 추가
                 //연결 정보 생성 및 저장
                 scheduleAndCalendarRepo.save(ScheduleAndCalendarJpaEntity.builder()
                         .calendarId(it.getGroupCalendar().getId()).scheduleId(schedule.getId())

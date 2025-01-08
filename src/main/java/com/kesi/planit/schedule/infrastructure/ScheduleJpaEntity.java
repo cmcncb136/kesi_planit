@@ -30,7 +30,9 @@ public class ScheduleJpaEntity {
 
     private String description;
     private String title;
+
     private Boolean guestEditPermission;
+
     private LocalDate startDate, endDate;
     private LocalDateTime startTime, endTime;
 

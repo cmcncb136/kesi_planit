@@ -18,25 +18,22 @@ public class GroupAndUserJpaEntity {
 
     private String uid;
     private Long gid;
+    private Integer allowedSecurityLevel; //사용자가 이 그룹에 허용한 보안등급
 
-    private boolean isCalendarShared; //그 그룹에 자신의 캘린더를 공유할지
-    private boolean isDetailedInfoShared; //그 그룹에 자신의 캘린더 디테일한 정보까지 공유할지
 
     @Builder
-    public GroupAndUserJpaEntity(Long id, String uid, Long gid, boolean isCalendarShared, boolean isDetailedInfoShared) {
+    public GroupAndUserJpaEntity(Long id, String uid, Long gid, Integer allowedSecurityLevel) {
         this.id = id;
         this.uid = uid;
         this.gid = gid;
-        this.isCalendarShared = isCalendarShared;
-        this.isDetailedInfoShared = isDetailedInfoShared;
+        this.allowedSecurityLevel = allowedSecurityLevel;
     }
 
     public Group.GroupInUser mappingGroupToGroupInUser(User user) {
         return Group.GroupInUser.builder()
                 .id(id)
+                .allowedSecurityLevel(allowedSecurityLevel)
                 .user(user)
-                .isCalendarShared(isCalendarShared)
-                .isDetailedInfoShared(isDetailedInfoShared)
                 .build();
     }
 
@@ -45,8 +42,7 @@ public class GroupAndUserJpaEntity {
                 .id(groupInUser.getId())
                 .gid(gid)
                 .uid(groupInUser.getUser().getUid())
-                .isCalendarShared(groupInUser.isCalendarShared())
-                .isDetailedInfoShared(groupInUser.isDetailedInfoShared())
+                .allowedSecurityLevel(groupInUser.getAllowedSecurityLevel())
                 .build();
     }
 }

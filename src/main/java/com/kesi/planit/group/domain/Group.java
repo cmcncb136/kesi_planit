@@ -27,18 +27,12 @@ public class Group {
         return users.remove(user.getUser().getUid());
     }
 
-    public Map<String, GroupInUser> getUsers() {
-        return users;
-    }
-
 
     @Getter
     @Builder
     public static class GroupInUser {
         private Long id;
         private User user;
-        private boolean isCalendarShared;
-        private boolean isDetailedInfoShared;
-
+        private Integer allowedSecurityLevel;
     }
 }

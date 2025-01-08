@@ -49,8 +49,7 @@ public class GroupService {
                 .users(users.stream().collect(Collectors.toMap(it -> it.getUid(),
                         it -> Group.GroupInUser.builder()
                                 .user(it)
-                                .isDetailedInfoShared(false)
-                                .isCalendarShared(false)
+                                .allowedSecurityLevel(0)
                                 .build())))
                 .groupCalendar(calendar)
                 .maker(maker)
