@@ -25,8 +25,10 @@ public class SecurityConfig {
         http
                 .csrf(auth->auth.disable())
                 .formLogin(auth->auth.disable())
-                .authorizeHttpRequests(auth ->
-                        auth.anyRequest().permitAll()) //Spring Security 보안 기능보다는 필터 기능만을 쓰기 때문에 전체 허용해준다.
+                .authorizeHttpRequests(auth -> {
+                    auth.anyRequest().permitAll(); // 나머지 요청 허용
+                })
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))// iframe 허용
                 .addFilterBefore(firebaseTokenFilter, UsernamePasswordAuthenticationFilter.class); //이 필터에서 모두 차단
         return http.build();
     }
