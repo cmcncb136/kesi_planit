@@ -18,7 +18,7 @@ public class FirebaseConfig {
         try{
             //Json 파일 가져오기
             FileInputStream serviceAccount =
-                    new FileInputStream("src/main/resources/calendar-api-test-37954-firebase-adminsdk-5aj00-5c0a1a9544.json");
+                    new FileInputStream("src/main/resources/kesi-b027c-firebase-adminsdk-h67u3-018671b961.json");
 
             //json 파일로 옵션 생성
             FirebaseOptions options = new FirebaseOptions.Builder()

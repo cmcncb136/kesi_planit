@@ -3,6 +3,7 @@ package com.kesi.planit.calendar.infrastructure;
 import com.kesi.planit.calendar.domain.Calendar;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CalendarJpaEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     //Calendar를 구현하는데 있어서 소유자를 명시할 필요가 있다.
@@ -29,6 +30,6 @@ public class CalendarJpaEntity {
     }
 
     public static CalendarJpaEntity from(Calendar calendar){
-        return CalendarJpaEntity.builder().id(calendar.getId()).build();
+        return CalendarJpaEntity.builder().id(calendar.getId() == null ? 0 : calendar.getId()).build();
     }
 }

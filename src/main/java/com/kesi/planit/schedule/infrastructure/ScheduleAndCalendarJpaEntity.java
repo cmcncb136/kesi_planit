@@ -25,6 +25,7 @@ public class ScheduleAndCalendarJpaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long calendarId;
+    private Long scheduleId;
     private Long scheduleSecurityId;
 
 
