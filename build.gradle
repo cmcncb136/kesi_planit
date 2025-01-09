@@ -43,6 +43,9 @@ dependencies {
 
     runtimeOnly 'com.h2database:h2'//test 코드를 사용할 때 H2 DB 사용
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher' //jnuit 기능 사용
+
+    //FTP
+    implementation 'commons-net:commons-net:3.9.0'
 }
 
 tasks.named('test') {

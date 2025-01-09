@@ -10,4 +10,5 @@ import java.util.List;
 public interface FriendsRelationJpaRepo extends JpaRepository<FriendsRelationJpaEntity, Long> {
     List<FriendsRelationJpaEntity> findBySourceEmail(String sourceEmail);
     List<FriendsRelationJpaEntity> findByTargetEmail(String targetEmail);
+    FriendsRelationJpaEntity findBySourceEmailAndTargetEmail(String sourceEmail, String targetEmail);
 }

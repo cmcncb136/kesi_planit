@@ -22,6 +22,11 @@ public class FriendsRelationRepoImpl implements FriendsRelationRepo {
     }
 
     @Override
+    public FriendsRelationJpaEntity findBySourceEmailAndTargetEmail(String sourceEmail, String targetEmail) {
+        return friendsRelationJpaRepo.findBySourceEmailAndTargetEmail(sourceEmail, targetEmail);
+    }
+
+    @Override
     public FriendsRelationJpaEntity save(FriendsRelationJpaEntity friendsRelation) {
         return friendsRelationJpaRepo.save(friendsRelation);
     }

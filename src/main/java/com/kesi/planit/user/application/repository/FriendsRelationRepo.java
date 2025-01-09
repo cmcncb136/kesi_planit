@@ -9,6 +9,7 @@ import java.util.List;
 public interface FriendsRelationRepo {
     List<FriendsRelationJpaEntity> findBySourceEmail(String sourceEmail);
     List<FriendsRelationJpaEntity> findByTargetEmail(String targetEmail);
+    FriendsRelationJpaEntity findBySourceEmailAndTargetEmail(String sourceEmail, String targetEmail);
     FriendsRelationJpaEntity save(FriendsRelationJpaEntity friendsRelation);
     FriendsRelationJpaEntity findById(Long id);
     void deleteById(Long id);

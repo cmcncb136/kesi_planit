@@ -2,15 +2,14 @@ package com.kesi.planit.user.presentation;
 
 import com.kesi.planit.core.CommonResult;
 import com.kesi.planit.user.application.FriendsService;
+import com.kesi.planit.user.presentation.dto.FriendUpdateRequestDto;
 import com.kesi.planit.user.presentation.dto.FriendsDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.Fetch;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +21,12 @@ public class FriendsController {
 
     @GetMapping("/")
     public ResponseEntity<List<FriendsDto>> getFriends(HttpServletRequest request) {
-        return ResponseEntity.ok(friendsService.getFriendsByUid(request.getAttribute("uid").toString())
-                .stream().map(it -> FriendsDto.from(it)).toList());
+        return ResponseEntity.ok(friendsService.getFriendsByUid((String) request.getAttribute("uid")));
+    }
+
+    @PutMapping("/")
+    public ResponseEntity<String> updateFriends(@RequestBody FriendUpdateRequestDto friendsDto, HttpServletRequest request) {
+        return friendsService.updateFriendsRelation(friendsDto, (String) request.getAttribute("uid"));
     }
 
     @PostMapping("/")
