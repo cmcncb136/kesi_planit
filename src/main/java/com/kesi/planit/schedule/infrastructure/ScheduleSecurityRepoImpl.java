@@ -2,11 +2,13 @@ package com.kesi.planit.schedule.infrastructure;
 
 import com.kesi.planit.schedule.application.repository.ScheduleSecurityRepo;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+@Component
 @AllArgsConstructor
 public class ScheduleSecurityRepoImpl implements ScheduleSecurityRepo {
     private final ScheduleSecurityJpaRepo scheduleSecurityJpaRepo;
