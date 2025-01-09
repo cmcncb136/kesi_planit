@@ -16,7 +16,6 @@ public class Schedule {
     private Long id;
     private User maker;
     private Calendar sourceCalendar;
-    private List<ScheduleReferCalendar> calendars; //참석자 캘린더 및 공유방 캘린더
     private Color color;
 
     private String title;
@@ -31,11 +30,4 @@ public class Schedule {
 
     }
 
-    @Getter
-    @Builder
-    public static class ScheduleReferCalendar{
-        private Long id;
-        private Calendar calendar;
-        private User connectUser;
-    }
 }

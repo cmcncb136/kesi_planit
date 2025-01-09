@@ -1,5 +1,8 @@
 package com.kesi.planit.schedule.infrastructure;
 
+import com.kesi.planit.calendar.domain.Calendar;
+import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
