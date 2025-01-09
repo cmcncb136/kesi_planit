@@ -75,7 +75,7 @@ public class FTPService {
 
 
     //파일 업로드
-    public boolean uploadFileToFTP(MultipartFile file, String uid, String path, String name){
+    public String uploadFileToFTP(MultipartFile file, String uid, String path, String name){
         FTPClient ftp = connectFTP();
 
         try{
@@ -96,7 +96,8 @@ public class FTPService {
             //log.info("fileBytes : {}", fileBytes.length);
             byte[] fileData = file.getBytes(); //받은 값을 Byte로 변경
 
-            return ftp.storeFile(name, new ByteArrayInputStream(fileData)); //파일 저장(자동으로 덮어씀)
+            return ftp.storeFile(name, new ByteArrayInputStream(fileData)) ?
+                    ftp.printWorkingDirectory().substring(0, DEFAULT_PATH.length() - 1) : null;
         } catch (IOException e) {
             log.warn(e.getMessage());
             throw new RuntimeException(e);

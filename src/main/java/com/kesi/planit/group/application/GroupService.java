@@ -3,7 +3,9 @@ package com.kesi.planit.group.application;
 import com.kesi.planit.calendar.application.CalendarService;
 import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.core.CommonResult;
+import com.kesi.planit.group.Presentation.dto.GroupDto;
 import com.kesi.planit.group.Presentation.dto.GroupMakeInfoRequestDto;
+import com.kesi.planit.group.Presentation.dto.GroupSimpleDto;
 import com.kesi.planit.group.application.repository.GroupAndUserRepo;
 import com.kesi.planit.group.application.repository.GroupRepo;
 import com.kesi.planit.group.domain.Group;
@@ -12,10 +14,13 @@ import com.kesi.planit.group.infrastructure.GroupJpaEntity;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -31,10 +36,15 @@ public class GroupService {
     //그룹 추가
     //email로 조회하기 때문에 NFE 발생할 수 있음
     //Todo. 추후 예외처리
-    public CommonResult addGroup(String makerUid, GroupMakeInfoRequestDto groupMakeInfoRequestDto) {
-        List<User> users = groupMakeInfoRequestDto.inviteUserEmails.stream()
-                .map(it -> userService.getUserByEmail(it)).toList();
+    public ResponseEntity<Long> createGroup(String makerUid, GroupMakeInfoRequestDto groupMakeInfoRequestDto) {
+        List<User> users;
 
+        try {
+            users = groupMakeInfoRequestDto.inviteUserEmails.stream()
+                    .map(it -> userService.getUserByEmail(it)).toList();
+        }catch (NullPointerException e){
+            return ResponseEntity.badRequest().build();
+        }
         User maker = userService.getUserById(makerUid);
 
         //그룹을 만든 팀원에 추가
@@ -44,24 +54,23 @@ public class GroupService {
         Calendar calendar = calendarService.save(Calendar.builder().build());
 
         //그룹 생성
+        //Todo. 상대방에 초대되었다는 메시지를 보내야됨.
+        //allowedSecurityLevel 5인 경우 설정되지 않았음을 의미한다고 가정
+        //허락한 경우만 그룹에 추가해야 되나?
         Group group = Group.builder()
                 .groupName(groupMakeInfoRequestDto.groupName)
                 .users(users.stream().collect(Collectors.toMap(it -> it.getUid(),
                         it -> Group.GroupInUser.builder()
                                 .user(it)
-                                .allowedSecurityLevel(0)
+                                .allowedSecurityLevel(5)
                                 .build())))
                 .groupCalendar(calendar)
                 .maker(maker)
                 .build();
 
-        createGroup(group);
 
-        //Todo. 반환 값을 어떻게 할지 고민해야됨
-        return CommonResult.builder()
-                .code(200)
-                .msg(String.valueOf(group.getGid()))
-                .success(true).build();
+        saveUserRelation(save(group));
+        return ResponseEntity.ok().body(group.getGid());
     }
 
     public Group getByCalendarId(Long calendarId) {
@@ -82,6 +91,21 @@ public class GroupService {
         );
     }
 
+    public ResponseEntity<GroupDto> getGroupDto(Long gid, String uid){
+        Group group = getById(gid);
+
+        if(group.getUsers().get(uid) == null){ //그룹에 속하지 않은 맴버라면
+            return ResponseEntity.badRequest().build();  //정보를 주지 않는다.
+        }
+
+        return ResponseEntity.ok(GroupDto.from(group));
+    }
+
+    public ResponseEntity<List<GroupSimpleDto>> getGroupSimpleDto(String uid){
+        List<Group> inGroups = getByUid(uid);
+        return ResponseEntity.ok(inGroups.stream().map(GroupSimpleDto::from).toList());
+    }
+
 
     public List<Group> getByUid(String uid) {
         return groupAndUserRepo.findByUid(uid).stream().map(groupAndUserJpaEntity
@@ -95,14 +119,11 @@ public class GroupService {
         );
     }
 
-    public Group createGroup(Group group) {
-        Group g = save(group);
-
+    public void saveUserRelation(Group g) {
         //유저 정보 연결을 초기화(저장) 및 최신화
-        g.getUsers().values().stream().forEach(it ->
+        g.getUsers().values().forEach(it ->
                 groupAndUserRepo.save(GroupAndUserJpaEntity.from(g.getGid(), it))
         );
-        return g;
     }
 
     public Group exitGroup(Group group, User user){

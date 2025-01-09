@@ -96,5 +96,4 @@ public class GroupRepositoryTest {
         //then
         assertThat(result).isEqualTo(null);
     }
-
 }
