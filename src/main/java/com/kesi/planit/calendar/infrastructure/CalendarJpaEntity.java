@@ -1,15 +1,13 @@
 package com.kesi.planit.calendar.infrastructure;
 
 import com.kesi.planit.calendar.domain.Calendar;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "calendar")
 public class CalendarJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
