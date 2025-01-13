@@ -39,7 +39,7 @@ public class ScheduleService {
 
     //개인일정인 추가된 경우 속한 그룹중 자신의 일정을 공유하기로한 그룹 캘린더 아이디를 추가
     public void addPersonalSchedule(User user, PersonalScheduleDto personalScheduleDto, List<Group> excludeGroup) {
-        //스케줄 도메인 객체 생성
+        //스케줄 도메인 객체 생성 및 저장
         Schedule  schedule = this.save(personalScheduleDto.toModel(user));
 
         //security 정보 생성 및 저장

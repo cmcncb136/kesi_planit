@@ -27,7 +27,6 @@ public class Schedule {
     private LocalDateTime startTime, endTime; //종일이 아닌 경우
 
     public void createAlarm(){
-
+        
     }
-
 }
