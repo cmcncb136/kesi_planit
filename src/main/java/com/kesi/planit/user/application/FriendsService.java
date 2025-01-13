@@ -66,7 +66,7 @@ public class FriendsService {
         User source = userService.getUserById(uid);
         User target;
         try{
-            target = userService.getUserById(targetEmail);
+            target = userService.getUserByEmail(targetEmail);
         }catch (NullPointerException e){
             return ResponseEntity.notFound().build();
         }
