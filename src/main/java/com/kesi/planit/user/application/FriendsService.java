@@ -7,15 +7,17 @@ import com.kesi.planit.user.domain.User;
 import com.kesi.planit.user.infrastructure.FriendsRelationJpaEntity;
 import com.kesi.planit.user.presentation.dto.FriendUpdateRequestDto;
 import com.kesi.planit.user.presentation.dto.FriendsDto;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class FriendsService {
-    private FriendsRelationRepo friendsRelationRepo;
-    private UserService userService;
+    private final FriendsRelationRepo friendsRelationRepo;
+    private final UserService userService;
 
     //친구 관계 정보를 반환
     public List<FriendsRelation> getFriendsRelationsByUid(String uid) {
