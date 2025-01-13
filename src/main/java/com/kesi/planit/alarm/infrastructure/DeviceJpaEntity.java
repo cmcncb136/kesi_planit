@@ -5,17 +5,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.units.qual.C;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Table(name = "device")
-
 public class DeviceJpaEntity {
     @Id
     @Column(length = 150)
