@@ -15,21 +15,21 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/friends")
+@RequestMapping("friends")
 public class FriendsController {
     private final FriendsService friendsService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<FriendsDto>> getFriends(HttpServletRequest request) {
         return ResponseEntity.ok(friendsService.getFriendsByUid((String) request.getAttribute("uid")));
     }
 
-    @PutMapping("/")
+    @PutMapping("")
     public ResponseEntity<String> updateFriends(@RequestBody FriendUpdateRequestDto friendsDto, HttpServletRequest request) {
         return friendsService.updateFriendsRelation(friendsDto, (String) request.getAttribute("uid"));
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<String> addFriends(@Param("email") String email, HttpServletRequest request){
         return friendsService.addFriends(
                 request.getAttribute("uid").toString(),

@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,7 +42,8 @@ public class GroupService {
 
         try {
             users = groupMakeInfoRequestDto.inviteUserEmails.stream()
-                    .map(it -> userService.getUserByEmail(it)).toList();
+                    .map(it -> userService.getUserByEmail(it))
+                    .collect(Collectors.toCollection(ArrayList::new));
         }catch (NullPointerException e){
             return ResponseEntity.badRequest().build();
         }
