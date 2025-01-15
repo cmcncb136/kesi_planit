@@ -44,6 +44,7 @@ public class GroupJpaEntity {
         return Group.builder()
                 .gid(gid)
                 .groupName(groupName)
+                .maker(users.get(makerUid).getUser()) //Todo. 나중에 만든 유저는 없어질 수 있음 추후 코드 수정 필요
                 .users(users)
                 .groupCalendar(calendar)
                 .build();
