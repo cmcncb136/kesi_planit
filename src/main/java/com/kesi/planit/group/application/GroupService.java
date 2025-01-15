@@ -70,8 +70,9 @@ public class GroupService {
                 .maker(maker)
                 .build();
 
+        group = save(group);
+        saveUserRelation(group);
 
-        saveUserRelation(save(group));
         return ResponseEntity.ok().body(group.getGid());
     }
 
