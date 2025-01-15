@@ -4,17 +4,19 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.FileInputStream;
 
 @Configuration
 public class FirebaseConfig {
 
-    @Bean //외부에 객체를 빈으로 등록하고 싶은 경우 사용
-    public FirebaseAuth init(){
+    @PostConstruct
+    public void init(){
         try{
             //Json 파일 가져오기
             FileInputStream serviceAccount =
@@ -31,8 +33,16 @@ public class FirebaseConfig {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
 
+    //외부에 객체를 빈으로 등록하고 싶은 경우 사용
+    @Bean
+    public FirebaseAuth initFirebaseAuth(){
         return FirebaseAuth.getInstance();
     }
 
+    @Bean
+    public FirebaseMessaging initFirebaseMessaging(){
+        return FirebaseMessaging.getInstance();
+    }
 }
