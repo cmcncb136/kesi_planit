@@ -8,7 +8,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Component
-public class DeviceJpaImpl implements DeviceRepo {
+public class DeviceRepoImpl implements DeviceRepo {
     private DeviceJpaRepo deviceJpaRepo;
 
     @Override

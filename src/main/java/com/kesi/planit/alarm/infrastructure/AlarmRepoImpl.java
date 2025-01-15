@@ -2,10 +2,12 @@ package com.kesi.planit.alarm.infrastructure;
 
 import com.kesi.planit.alarm.application.repository.AlarmRepo;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Component
 public class AlarmRepoImpl implements AlarmRepo {
     private final AlarmJpaRepo alarmJpaRepo;
 
