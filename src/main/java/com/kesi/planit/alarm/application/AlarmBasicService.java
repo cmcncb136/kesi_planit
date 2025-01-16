@@ -1,22 +1,25 @@
 package com.kesi.planit.alarm.application;
 
+import com.kesi.planit.alarm.domain.AlarmBasic;
 import com.kesi.planit.alarm.domain.AlarmData;
 import com.kesi.planit.alarm.domain.AlarmType;
+
+import java.util.HashMap;
 
 public class AlarmBasicService implements AlarmTypeData{
     @Override
     public AlarmData getById(Long id) {
-        return null;
+        return createFakeAlarmData();
     }
 
     @Override
     public AlarmData getByAlarmId(Long alarmId) {
-        return null;
+        return createFakeAlarmData();
     }
 
     @Override
     public AlarmData save(AlarmData alarmData) {
-        return null;
+        return createFakeAlarmData();
     }
 
     @Override
@@ -26,6 +29,11 @@ public class AlarmBasicService implements AlarmTypeData{
 
     @Override
     public AlarmType getAlarmType() {
-        return null;
+        return AlarmType.BASIC;
+    }
+
+
+    private AlarmData createFakeAlarmData() {
+        return new AlarmBasic();
     }
 }

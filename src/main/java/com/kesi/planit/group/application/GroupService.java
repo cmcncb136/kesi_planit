@@ -1,5 +1,6 @@
 package com.kesi.planit.group.application;
 
+import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.calendar.application.CalendarService;
 import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.core.CommonResult;
@@ -32,6 +33,7 @@ public class GroupService {
     //순환참조 주위!
     private final CalendarService calendarService;
     private final UserService userService;
+    private final AlarmService alarmService;
 
 
     //그룹 추가
@@ -56,9 +58,7 @@ public class GroupService {
         Calendar calendar = calendarService.save(Calendar.builder().build());
 
         //그룹 생성
-        //Todo. 상대방에 초대되었다는 메시지를 보내야됨.
         //allowedSecurityLevel 5인 경우 설정되지 않았음을 의미한다고 가정
-        //허락한 경우만 그룹에 추가해야 되나?
         Group group = Group.builder()
                 .groupName(groupMakeInfoRequestDto.groupName)
                 .users(users.stream().collect(Collectors.toMap(it -> it.getUid(),
@@ -72,6 +72,9 @@ public class GroupService {
 
         group = save(group);
         saveUserRelation(group);
+
+        //Todo. 상대방에 초대되었다는 메시지를 보내야됨.
+        alarmService.createGroupAlarm(group);
 
         return ResponseEntity.ok().body(group.getGid());
     }

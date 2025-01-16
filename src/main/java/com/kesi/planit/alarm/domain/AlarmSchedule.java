@@ -15,6 +15,11 @@ public class AlarmSchedule implements AlarmData{
 
 
     @Override
+    public void setAlarmId(long alarmId) {
+        this.alarmId = alarmId;
+    }
+
+    @Override
     public HashMap<String, String> toAlarmData() {
         HashMap<String, String> map = new HashMap<>();
         map.put("gid", String.valueOf(gid));

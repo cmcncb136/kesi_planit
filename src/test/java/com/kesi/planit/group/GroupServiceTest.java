@@ -1,5 +1,6 @@
 package com.kesi.planit.group;
 
+import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.calendar.application.CalendarService;
 import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.group.application.GroupService;
@@ -41,6 +42,9 @@ public class GroupServiceTest {
 
     @MockBean
     GroupAndUserRepo groupAndUserRepo;
+
+    @MockBean
+    AlarmService alarmService;
 
     UserJpaEntity userJpaEntity;
     ArrayList<UserJpaEntity> userJpaEntityList;
@@ -102,7 +106,7 @@ public class GroupServiceTest {
 
     @BeforeEach
     void setup(){
-        groupService = new GroupService(groupRepo, groupAndUserRepo, calendarService, userService);
+        groupService = new GroupService(groupRepo, groupAndUserRepo, calendarService, userService, alarmService);
     }
 
     @Test

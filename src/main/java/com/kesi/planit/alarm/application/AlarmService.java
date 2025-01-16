@@ -2,20 +2,90 @@ package com.kesi.planit.alarm.application;
 
 import com.kesi.planit.alarm.application.repository.AlarmRepo;
 import com.kesi.planit.alarm.domain.Alarm;
+import com.kesi.planit.alarm.domain.AlarmData;
+import com.kesi.planit.alarm.domain.AlarmGroup;
+import com.kesi.planit.alarm.domain.AlarmType;
 import com.kesi.planit.alarm.infrastructure.AlarmJpaEntity;
+import com.kesi.planit.group.domain.Group;
+import com.kesi.planit.user.application.UserService;
+import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class AlarmService {
     private final AlarmRepo alarmRepo;
+    private final AlarmTypeService alarmTypeService;
+    private final UserService userService;
+    private FCMService fcmService;
 
     private Alarm getById(long id) {
         AlarmJpaEntity alarmJpaEntity = alarmRepo.findById(id);
 
-        return null;
+        User user = userService.getUserById(alarmJpaEntity.getUid());
+        AlarmData alarmData = alarmTypeService.getAlarmTypeById(alarmJpaEntity.getId(), alarmJpaEntity.getAlarmType());
+
+        return alarmJpaEntity.toModel(user, alarmData);
     }
 
+    public void createGroupAlarm(Group group) {
+        //Alarm 생성 및 저장
+        List<Alarm> alarmList = new ArrayList<>();
 
+        group.getUsers().values().forEach(user -> {
+            if(!user.getUser().getUid().equals(group.getMaker().getUid())){ //방을 생성한 사람에게는 알림을 보내지 않음
+                AlarmGroup alarmGroup = AlarmGroup.builder().gid(group.getGid()).build();
+
+               alarmList.add(saveAlarm(Alarm.builder()
+                        .alarmType(AlarmType.GROUP)
+                        .title("그룹 초대")
+                        .content(group.getMaker().getNickname() + " 님께서 '" + group.getGroupName() + "' 그룹에 초대하였습니다.")
+                        .data(alarmGroup)
+                        .build()));
+            }
+        });
+
+        //FCM으로 메시지 전송
+        alarmList.forEach(alarm -> {
+            fcmService.sendNotification(alarm.getUser().getUid(), alarm.toMessageDto());
+        });
+    }
+
+    //알림 아이디는 저장할 때 자동으로 매칭시켜줌.
+    public Alarm saveAlarm(Alarm alarm) {
+        //Alarm 저장
+        AlarmJpaEntity alarmJpaEntity = alarmRepo.save(AlarmJpaEntity.from(alarm));
+
+        //AlarmData 저장
+        AlarmData alarmData = alarm.getData();
+        alarmData.setAlarmId(alarmJpaEntity.getId());
+        alarmData = alarmTypeService.saveAlarmType(alarm.getAlarmType(), alarm.getData());
+
+        //반환
+        return alarmJpaEntity.toModel(alarm.getUser(), alarmData);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
