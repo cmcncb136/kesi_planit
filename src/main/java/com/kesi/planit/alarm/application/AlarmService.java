@@ -6,11 +6,14 @@ import com.kesi.planit.alarm.domain.AlarmData;
 import com.kesi.planit.alarm.domain.AlarmGroup;
 import com.kesi.planit.alarm.domain.AlarmType;
 import com.kesi.planit.alarm.infrastructure.AlarmJpaEntity;
+import com.kesi.planit.alarm.presentation.dto.AlarmDataDto;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
 import org.checkerframework.checker.units.qual.A;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +34,36 @@ public class AlarmService {
         AlarmData alarmData = alarmTypeService.getAlarmTypeById(alarmJpaEntity.getId(), alarmJpaEntity.getAlarmType());
 
         return alarmJpaEntity.toModel(user, alarmData);
+    }
+
+    private List<Alarm> getByUid(String uid){
+        User user = userService.getUserById(uid);
+
+        return alarmRepo.findByUid(user.getUid()).stream().map(alarmJpaEntity ->
+            alarmJpaEntity.toModel(user,
+                    alarmTypeService.getAlarmTypeById(alarmJpaEntity.getId(), alarmJpaEntity.getAlarmType()))
+        ).toList();
+    }
+
+
+    public ResponseEntity<AlarmDataDto> getAlarmDataDtoById(long id) {
+        try{
+            Alarm alarm = getById(id);
+            return ResponseEntity.ok(AlarmDataDto.toDto(alarm));
+        }catch (NullPointerException e){
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<List<AlarmDataDto>> getAlarmDataDtoByUid(String uid){
+        try{
+            List<Alarm> alarmList = getByUid(uid);
+            return
+                    ResponseEntity.ok(alarmList.stream()
+                            .map(AlarmDataDto::toDto).toList());
+        }catch (NullPointerException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     public void createGroupAlarm(Group group) {

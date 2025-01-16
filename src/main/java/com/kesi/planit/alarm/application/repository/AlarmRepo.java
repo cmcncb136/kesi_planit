@@ -7,6 +7,7 @@ import java.util.List;
 public interface AlarmRepo {
     AlarmJpaEntity findById(long id);
     AlarmJpaEntity save(AlarmJpaEntity alarm);
+    List<AlarmJpaEntity> findByUid(String uid);
     List<AlarmJpaEntity> findAll();
     void deleteById(long id);
 }

@@ -23,6 +23,11 @@ public class AlarmRepoImpl implements AlarmRepo {
     }
 
     @Override
+    public List<AlarmJpaEntity> findByUid(String uid) {
+        return alarmJpaRepo.findByUid(uid);
+    }
+
+    @Override
     public List<AlarmJpaEntity> findAll() {
         return alarmJpaRepo.findAll();
     }

@@ -23,7 +23,6 @@ public class FCMService {
         return ResponseEntity.ok(device.getFcmToken());
     }
 
-    //Todo. 알림 내역을 저장할 필요가 있다.
     public void sendNotification(String uid, MessageDto messageDto) {
         List<Device> deviceList = deviceService.getByUid(uid); //사용자에 토큰 목록을 가져온다.
         List<String> fcmTokenList = deviceList.stream().map(Device::getFcmToken).toList();

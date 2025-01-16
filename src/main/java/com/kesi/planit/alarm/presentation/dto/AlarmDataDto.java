@@ -1,0 +1,32 @@
+package com.kesi.planit.alarm.presentation.dto;
+
+import com.kesi.planit.alarm.domain.Alarm;
+import com.kesi.planit.alarm.domain.AlarmData;
+import com.kesi.planit.alarm.domain.AlarmType;
+import com.kesi.planit.user.domain.User;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.HashMap;
+
+@Builder
+public class AlarmDataDto {
+    public long id;
+    public String title;
+    public String content;
+    public AlarmType alarmType;
+    public LocalDateTime createTime;
+    public HashMap<String, String> data;
+
+    public static AlarmDataDto toDto(Alarm alarm){
+        return AlarmDataDto.builder()
+                .id(alarm.getId())
+                .title(alarm.getTitle())
+                .content(alarm.getContent())
+                .alarmType(alarm.getAlarmType())
+                .createTime(alarm.getCreateTime())
+                .data(alarm.getData().toAlarmData())
+                .build();
+    }
+}
