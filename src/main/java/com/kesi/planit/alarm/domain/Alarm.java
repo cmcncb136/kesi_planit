@@ -25,4 +25,6 @@ public class Alarm {
     public MessageDto toMessageDto() {
         return null;
     }
+
+
 }

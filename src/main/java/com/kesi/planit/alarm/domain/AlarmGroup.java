@@ -21,6 +21,7 @@ public class AlarmGroup implements AlarmData {
     public HashMap<String, String> toAlarmData() {
         HashMap<String, String> map = new HashMap<>();
         map.put("gid", String.valueOf(gid));
+        map.put("type", AlarmType.GROUP.name());
         return map;
     }
 }

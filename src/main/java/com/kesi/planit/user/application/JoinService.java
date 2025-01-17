@@ -28,7 +28,7 @@ public class JoinService {
         calendar = calendarService.save(calendar);
 
         //사용자 저장
-        User user = joinUser.toModel(uid, email, "basic.jpg", LocalDate.now(), calendar);
+        User user = joinUser.toModel(uid, email, "/profile.jpg", LocalDate.now(), calendar);
         user = userService.save(user);
 
         if(user == null)

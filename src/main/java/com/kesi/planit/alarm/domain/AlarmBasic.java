@@ -6,13 +6,17 @@ import lombok.Getter;
 import java.util.HashMap;
 
 @Getter
-public class AlarmBasic implements AlarmData{
+public class AlarmBasic implements AlarmData {
 
     @Override
-    public void setAlarmId(long alarmId) {}
+    public void setAlarmId(long alarmId) {
+    }
 
     @Override
     public HashMap<String, String> toAlarmData() {
-        return new HashMap<>();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("type", AlarmType.BASIC.name());
+
+        return map;
     }
 }

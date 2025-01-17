@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping("/profile")
-    public ResponseEntity<String> updateProfile(@RequestPart("html") MultipartFile img, HttpServletRequest request) {
-        String url = ftpService.uploadFileToFTP(img, (String)request.getAttribute("uid"), "./", "profile.jpg");
+    public ResponseEntity<String> updateProfile(@RequestPart("image") MultipartFile image, HttpServletRequest request) {
+        String url = ftpService.uploadFileToFTP(image, (String)request.getAttribute("email"), "./", "profile.jpg");
 
         if(url == null)
             return ResponseEntity.internalServerError().build();

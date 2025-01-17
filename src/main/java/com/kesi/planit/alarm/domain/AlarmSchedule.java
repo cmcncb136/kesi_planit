@@ -24,6 +24,7 @@ public class AlarmSchedule implements AlarmData{
         HashMap<String, String> map = new HashMap<>();
         map.put("gid", String.valueOf(gid));
         map.put("scheduleId", String.valueOf(scheduleId));
+        map.put("type", AlarmType.SCHEDULE.name());
 
         return map;
     }

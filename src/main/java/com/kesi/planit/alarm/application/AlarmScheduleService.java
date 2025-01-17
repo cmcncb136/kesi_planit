@@ -1,6 +1,7 @@
 package com.kesi.planit.alarm.application;
 
 import com.kesi.planit.alarm.application.repository.AlarmTypeRepo;
+import com.kesi.planit.alarm.domain.Alarm;
 import com.kesi.planit.alarm.domain.AlarmData;
 import com.kesi.planit.alarm.domain.AlarmType;
 import com.kesi.planit.alarm.infrastructure.AlarmScheduleJpaEntity;

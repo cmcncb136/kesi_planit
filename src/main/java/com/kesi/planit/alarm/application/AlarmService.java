@@ -25,7 +25,7 @@ public class AlarmService {
     private final AlarmRepo alarmRepo;
     private final AlarmTypeService alarmTypeService;
     private final UserService userService;
-    private FCMService fcmService;
+    private final FCMService fcmService;
 
     private Alarm getById(long id) {
         AlarmJpaEntity alarmJpaEntity = alarmRepo.findById(id);
@@ -77,6 +77,7 @@ public class AlarmService {
                alarmList.add(saveAlarm(Alarm.builder()
                         .alarmType(AlarmType.GROUP)
                         .title("그룹 초대")
+                        .user(user.getUser())
                         .content(group.getMaker().getNickname() + " 님께서 '" + group.getGroupName() + "' 그룹에 초대하였습니다.")
                         .data(alarmGroup)
                         .build()));

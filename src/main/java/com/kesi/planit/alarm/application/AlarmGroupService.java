@@ -3,6 +3,7 @@ package com.kesi.planit.alarm.application;
 import com.kesi.planit.alarm.application.repository.AlarmRepo;
 import com.kesi.planit.alarm.application.repository.AlarmTypeRepo;
 import com.kesi.planit.alarm.domain.AlarmData;
+import com.kesi.planit.alarm.domain.AlarmGroup;
 import com.kesi.planit.alarm.domain.AlarmType;
 import com.kesi.planit.alarm.infrastructure.AlarmGroupJapEntity;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,8 @@ public class AlarmGroupService implements AlarmTypeData{
     @Override
     public AlarmData save(AlarmData alarmData) {
         //ClassCastException이 발생할 수 있음
-        return alarmTypeRepo.save((AlarmGroupJapEntity) alarmData).toModel();
+        AlarmGroup alarmGroup = (AlarmGroup) alarmData;
+        return alarmTypeRepo.save(AlarmGroupJapEntity.from(alarmGroup)).toModel();
     }
 
     @Override

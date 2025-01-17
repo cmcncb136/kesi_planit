@@ -8,6 +8,4 @@ import lombok.Getter;
 public class Device {
     private String fcmToken;
     private String uid;
-
-
 }

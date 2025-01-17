@@ -15,7 +15,7 @@ import java.io.IOException;
 public class FTPService {
     private static FTPClient ftp = null;
     private static final Logger log = LoggerFactory.getLogger(FTPService.class);
-    public static final String DEFAULT_PATH = "planIt";
+    public static final String DEFAULT_PATH = "plan_it";
 
     @Value("${ftp.server}")
     private String server;
@@ -52,7 +52,7 @@ public class FTPService {
 
             ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
             ftp.enterLocalPassiveMode();//매우매우 중요! 패시브 모드
-            return this.ftp = ftp;
+            return FTPService.ftp = ftp;
         }catch (IOException e){
             throw new RuntimeException("FPT Connection Exception!");
         }

@@ -97,6 +97,32 @@ public class GroupService {
         );
     }
 
+    public void checkGroup(GroupMakeInfoRequestDto dto, User uid){
+        User user = userService.getUserById(uid.getUid());
+        ArrayList<User> userList = dto.inviteUserEmails.stream().map(userService::getUserByEmail)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        userList.add(user);
+
+        List<Group> groupList = getByUid(user.getUid());
+
+        groupList.forEach(group -> {
+            boolean notFound = false;
+
+            for(User u : userList){
+                if(!group.getUsers().containsKey(u.getUid())){
+                    notFound = true;
+                    break;
+                }
+            }
+
+            if(!notFound && group.getUsers().size() == userList.size()){
+
+            }
+        });
+    }
+
+
     public ResponseEntity<GroupDto> getGroupDto(Long gid, String uid){
         Group group = getById(gid);
 
