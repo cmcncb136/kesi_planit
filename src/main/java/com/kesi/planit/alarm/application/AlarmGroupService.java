@@ -26,7 +26,6 @@ public class AlarmGroupService implements AlarmTypeData{
 
     @Override
     public AlarmData save(AlarmData alarmData) {
-        //ClassCastException이 발생할 수 있음
         AlarmGroup alarmGroup = (AlarmGroup) alarmData;
         return alarmTypeRepo.save(AlarmGroupJapEntity.from(alarmGroup)).toModel();
     }

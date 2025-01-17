@@ -1,14 +1,12 @@
 package com.kesi.planit.schedule.presentation;
 
-import com.kesi.planit.schedule.application.ScheduleService;
-import com.kesi.planit.schedule.domain.Schedule;
-import com.kesi.planit.schedule.presentation.dto.ScheduleDto;
+import com.kesi.planit.schedule.application.ScheduleSecurityService;
+import com.kesi.planit.schedule.presentation.dto.PersonalScheduleDto;
+import com.kesi.planit.schedule.presentation.dto.RequestPersonalScheduleDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,17 +15,30 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("schedule")
 public class ScheduleController {
-    private final ScheduleService scheduleService;
+    private final ScheduleSecurityService scheduleSecurityService;
 
     @GetMapping("")
-    public List<ScheduleDto> getByCalendarId(@RequestParam("calendarId")Long calendarId) {
-        return scheduleService.getByCalendarId(calendarId);
+    public ResponseEntity<List<PersonalScheduleDto>> getByCalendarId(@RequestParam("monthDate") String month, HttpServletRequest request) {
+        return scheduleSecurityService.getPersonalSchedulesInMonth(month, (String) request.getAttribute("uid"));
     }
 
-    @GetMapping("/personal")
-    public List<ScheduleDto> getByPersonalIdAndMonth(HttpServletRequest request, String monthDate) {
+    @PostMapping("")
+    public ResponseEntity<String> addPersonalSchedule(@RequestBody RequestPersonalScheduleDto personalScheduleDto, HttpServletRequest request) {
+        return scheduleSecurityService.addPersonalSchedule((String)request.getAttribute("uid"), personalScheduleDto);
+    }
+
+    @GetMapping("/other")
+    public List<PersonalScheduleDto> getByPersonalIdAndMonth(HttpServletRequest request, String monthDate, Long calendarId) {
         return null;
     }
 
+    @PostMapping("/group")
+    public ResponseEntity<String> addGroupSchedule(){
+        return null;
+    }
 
+    @GetMapping("/group")
+    public List<PersonalScheduleDto> getGroupSchedule(){
+        return null;
+    }
 }

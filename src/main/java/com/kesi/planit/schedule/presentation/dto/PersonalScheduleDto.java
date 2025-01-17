@@ -1,33 +1,30 @@
 package com.kesi.planit.schedule.presentation.dto;
 
-import com.google.cloud.firestore.collection.LLRBNode;
+import com.kesi.planit.group.Presentation.dto.GroupMemberDto;
 import com.kesi.planit.schedule.domain.Schedule;
-import com.kesi.planit.user.domain.User;
+import lombok.Builder;
 
-import java.awt.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
+@Builder
 public class PersonalScheduleDto {
+    public Long id;
+    public GroupMemberDto makerName;
     public String colorId;
     public String title;
     public String description;
     public String startDate, endDate;
     public String startTime, endTime;
-    public Integer securityLevel;
 
-    public Schedule toModel(User maker) {
-
-        return Schedule.builder()
-                .color(Color.getColor(colorId))
-                .title(title)
-                .description(description)
-                .startDate(LocalDate.parse(startDate))
-                .endDate(LocalDate.parse(endDate))
-                .startTime(LocalDateTime.parse(startTime))
-                .endTime(LocalDateTime.parse(endTime))
-                .maker(maker)
-                .guestEditPermission(false)
+    public static PersonalScheduleDto from(Schedule schedule) {
+        return PersonalScheduleDto.builder()
+                .id(schedule.getId())
+                .makerName(GroupMemberDto.from(schedule.getMaker()))
+                .colorId(schedule.getColor().toString())
+                .title(schedule.getTitle())
+                .description(schedule.getDescription())
+                .startDate(schedule.getStartDate().toString())
+                .endDate(schedule.getEndDate().toString())
+                .startTime(schedule.getStartTime().toString())
+                .endTime(schedule.getEndTime().toString())
                 .build();
     }
 }

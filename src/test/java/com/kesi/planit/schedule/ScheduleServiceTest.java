@@ -5,11 +5,10 @@ import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.schedule.application.ScheduleService;
-import com.kesi.planit.schedule.application.repository.ScheduleAndCalendarRepo;
 import com.kesi.planit.schedule.application.repository.ScheduleRepo;
 import com.kesi.planit.schedule.application.repository.ScheduleSecurityRepo;
 import com.kesi.planit.schedule.domain.Schedule;
-import com.kesi.planit.schedule.infrastructure.ScheduleAndCalendarJpaEntity;
+import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.schedule.infrastructure.ScheduleJpaEntity;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
@@ -25,7 +24,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,14 +36,7 @@ public class ScheduleServiceTest {
     CalendarService calendarService;
     @MockBean
     UserService userService;
-    @MockBean
-    GroupService groupService;
 
-
-    @MockBean
-    ScheduleAndCalendarRepo scheduleAndCalendarRepo;
-    @MockBean
-    ScheduleSecurityRepo scheduleSecurityRepo;
     @MockBean
     ScheduleRepo scheduleRepo;
 
@@ -119,7 +110,7 @@ public class ScheduleServiceTest {
     void setup(){
         scheduleService = new ScheduleService(
                 scheduleRepo, calendarService,
-                userService, groupService, scheduleSecurityRepo, scheduleAndCalendarRepo
+                userService
         );
 
     }
@@ -155,14 +146,8 @@ public class ScheduleServiceTest {
         //스케줄 객체 생성
         Schedule originalSchedule = scheduleJpaEntity.toModel(user, user.getMyCalendar());
 
-        //스케줄 캘린더 관계 객체 생성
-        ScheduleAndCalendarJpaEntity scheduleAndCalendarJpaEntity = ScheduleAndCalendarJpaEntity.builder()
-                .scheduleSecurityId(originalSchedule.getId()).calendarId(user.getMyCalendar().getId()).build();
-
         ScheduleService spyScheduleService = Mockito.spy(scheduleService);
         Mockito.doReturn(originalSchedule).when(spyScheduleService).save(originalSchedule);
-        Mockito.when(scheduleAndCalendarRepo.save(Mockito.any(ScheduleAndCalendarJpaEntity.class)))
-                .thenReturn(scheduleAndCalendarJpaEntity);
 
         //when
         //Schedule result = spyScheduleService.createSchedule(originalSchedule);
@@ -182,7 +167,6 @@ public class ScheduleServiceTest {
         Mockito.when(userService.getUserById(user.getUid())).thenReturn(user);
         Mockito.when(calendarService.getById(user.getMyCalendar().getId())).thenReturn(user.getMyCalendar());
 
-        Mockito.when(scheduleAndCalendarRepo.findByScheduleId(1L)).thenReturn(new ArrayList<>());
 
         //when
         Schedule result = scheduleService.getById(1L);
@@ -198,12 +182,9 @@ public class ScheduleServiceTest {
         //given
         Group group = Group.builder().groupCalendar(calendarList.get(0)).groupName("test")
                 .maker(user).gid(1L)
-                .users(Map.of(user.getUid(), Group.GroupInUser.builder().allowedSecurityLevel(3).user(user).build()))
+                .users(Map.of(user.getUid(), Group.GroupInUser.builder().allowedSecurityLevel(SecurityLevel.HIGH).user(user).build()))
                 .build();
 
-
-        Mockito.when(groupService.getByCalendarId(calendarList.get(0).getId()))
-                .thenReturn(group);
 
     }
 }

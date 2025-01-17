@@ -12,6 +12,7 @@ import com.kesi.planit.group.application.repository.GroupRepo;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.group.infrastructure.GroupAndUserJpaEntity;
 import com.kesi.planit.group.infrastructure.GroupJpaEntity;
+import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
@@ -64,7 +65,7 @@ public class GroupService {
                 .users(users.stream().collect(Collectors.toMap(it -> it.getUid(),
                         it -> Group.GroupInUser.builder()
                                 .user(it)
-                                .allowedSecurityLevel(5)
+                                .allowedSecurityLevel(SecurityLevel.HIGH)
                                 .build())))
                 .groupCalendar(calendar)
                 .maker(maker)

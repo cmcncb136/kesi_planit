@@ -1,6 +1,7 @@
 package com.kesi.planit.group.domain;
 
 import com.kesi.planit.calendar.domain.Calendar;
+import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,6 +34,6 @@ public class Group {
     public static class GroupInUser {
         private Long id;
         private User user;
-        private Integer allowedSecurityLevel;
+        private SecurityLevel allowedSecurityLevel;
     }
 }

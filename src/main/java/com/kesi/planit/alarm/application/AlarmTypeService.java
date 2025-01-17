@@ -28,7 +28,9 @@ public class AlarmTypeService {
 
     public AlarmData saveAlarmType(AlarmType alarmType, AlarmData alarmData) {
         AlarmTypeData alarmTypeRepo = findAlarmType(alarmType);
+        System.out.println("alarm data save : " + alarmData.toAlarmData());
+        System.out.println("type : " + alarmTypeRepo.getAlarmType().name());
 
-        return  alarmTypeRepo.save(alarmData);
+        return alarmTypeRepo.save(alarmData);
     }
 }

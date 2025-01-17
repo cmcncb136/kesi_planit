@@ -1,6 +1,7 @@
 package com.kesi.planit.group.infrastructure;
 
 import com.kesi.planit.group.domain.Group;
+import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -18,11 +19,11 @@ public class GroupAndUserJpaEntity {
 
     private String uid;
     private Long gid;
-    private Integer allowedSecurityLevel; //사용자가 이 그룹에 허용한 보안등급
+    private SecurityLevel allowedSecurityLevel; //사용자가 이 그룹에 허용한 보안등급
 
 
     @Builder
-    public GroupAndUserJpaEntity(Long id, String uid, Long gid, Integer allowedSecurityLevel) {
+    public GroupAndUserJpaEntity(Long id, String uid, Long gid, SecurityLevel allowedSecurityLevel) {
         this.id = id;
         this.uid = uid;
         this.gid = gid;

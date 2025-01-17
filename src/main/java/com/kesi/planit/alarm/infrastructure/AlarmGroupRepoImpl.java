@@ -21,7 +21,7 @@ public class AlarmGroupRepoImpl implements AlarmTypeRepo<AlarmGroupJapEntity> {
 
     @Override
     public AlarmGroupJapEntity save(AlarmGroupJapEntity alarmGroupJapEntity) {
-        return alarmGroupJapEntity;
+        return alarmTypeJpaRepo.save(alarmGroupJapEntity);
     }
 
     @Override
