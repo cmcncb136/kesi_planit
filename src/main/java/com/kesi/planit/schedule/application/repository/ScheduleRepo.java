@@ -12,4 +12,5 @@ public interface ScheduleRepo {
     ScheduleJpaEntity update(ScheduleJpaEntity schedule);
     void delete(ScheduleJpaEntity schedule);
     List<ScheduleJpaEntity> findAll();
+    List<ScheduleJpaEntity> findBySourceCalendarIdDateRange(Long sourceCalendarId, LocalDate startDate, LocalDate endDate);
 }

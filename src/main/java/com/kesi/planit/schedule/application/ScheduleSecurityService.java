@@ -8,6 +8,8 @@ import com.kesi.planit.schedule.domain.Schedule;
 import com.kesi.planit.schedule.domain.ScheduleSecurity;
 import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.schedule.infrastructure.ScheduleSecurityEntity;
+import com.kesi.planit.schedule.presentation.dto.GroupScheduleDto;
+import com.kesi.planit.schedule.presentation.dto.GroupUserScheduleDto;
 import com.kesi.planit.schedule.presentation.dto.PersonalScheduleDto;
 import com.kesi.planit.schedule.presentation.dto.RequestPersonalScheduleDto;
 import com.kesi.planit.user.application.UserService;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +33,7 @@ public class ScheduleSecurityService {
     private final AlarmService alarmService;
 
     //그룹 일정 확인 후 시큐리티 설정
-    public ResponseEntity<String> addGroupScheduleSecurity(String uid, Long scheduleId, SecurityLevel securityLevel) {
+    public ResponseEntity<String> setGroupScheduleSecurity(String uid, Long scheduleId, SecurityLevel securityLevel) {
         Schedule schedule = scheduleService.getById(scheduleId);
         User user = userService.getUserById(uid);
         Group group = groupService.getByCalendarId(schedule.getSourceCalendar().getId());
@@ -47,12 +50,8 @@ public class ScheduleSecurityService {
         return ResponseEntity.ok("ok");
     }
 
-    public void otherSchedule(Long calendar, String uid){
-        Group group = groupService.getByCalendarId(calendar);
-        User user = userService.getUserById(uid);
-    }
-
-    public ResponseEntity<List<PersonalScheduleDto>> getPersonalSchedulesInMonth(String month, String uid) {
+    //개인 일정 조회
+    public ResponseEntity<List<PersonalScheduleDto>> getPersonalSchedulesAndMonth(String month, String uid) {
         LocalDate date = null;
         try {
             date = LocalDate.parse(month);
@@ -60,10 +59,62 @@ public class ScheduleSecurityService {
             return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok(getScheduleMonthByUid(date, uid).stream().map(
+        return ResponseEntity.ok(getScheduleSecurityMonthByUid(date, uid).stream().map(
                 it -> PersonalScheduleDto.from(
                         it.getSchedule())).toList());
     }
+
+    //그룹 일정 조회
+    public ResponseEntity<List<GroupScheduleDto>> getGroupSchedulesAndMonth(String month, String uid, Long gid) {
+        LocalDate date = null;
+        try {
+             date = LocalDate.parse(month);
+        }catch (DateTimeParseException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Group group = groupService.getById(gid);
+
+        if(!group.getUsers().containsKey(uid)) //그룹 유저가 아니라면
+            return ResponseEntity.badRequest().build();
+
+
+        return ResponseEntity.ok().body(scheduleService.getBySourceCalendarIdAndMonth(group.getGroupCalendar().getId(), date)
+                .stream().map(GroupScheduleDto::from).toList());
+    }
+
+    //그룹에 유저들의 일정을
+    public ResponseEntity<List<GroupUserScheduleDto>> getPersonalSchedule(String month, String uid, Long gid) {
+        LocalDate date = null;
+        try {
+            date = LocalDate.parse(month);
+        }catch (DateTimeParseException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Group group = groupService.getById(gid);
+
+        if(!group.getUsers().containsKey(uid)) //그룹 유저가 아니라면
+            return ResponseEntity.badRequest().build();
+
+        //Todo. 추후 쿼리문으로 수정할수도 있음.(group calendar 정보를 제외하고 조건 필요)
+        LocalDate finalDate = date;
+        List<Schedule> schedules = new ArrayList<>();
+
+        group.getUsers().values().forEach(user -> { //모든 유저에 대해서
+            //일정을 조회
+            getScheduleSecurityMonthByUid(finalDate, user.getUser().getUid()).forEach(scheduleSecurity -> {
+                Schedule schedule = scheduleSecurity.getSchedule(group); //유저가 설정한 보안등급에 따라서 정보를 가져옴
+
+                if(schedule.getSourceCalendar().getId() != group.getGroupCalendar().getId()) //같이 공유하고 있는 그룹 스케줄 정보는 제외
+                    schedules.add(schedule);
+            });
+        });
+
+        return ResponseEntity.ok(schedules.stream().map(GroupUserScheduleDto::from).toList());
+    }
+
+
 
     //개인 일정 추가
     public ResponseEntity<String> addPersonalSchedule(String uid, RequestPersonalScheduleDto personalScheduleDto) {
@@ -78,14 +129,12 @@ public class ScheduleSecurityService {
         }
 
         //security 정보 생성 및 저장
-        scheduleSecurityRepo.save(
-                ScheduleSecurityEntity.builder()
-                        .securityLevel(personalScheduleDto.securityLevel)
-                        .scheduleId(schedule.getId())
-                        .uid(user.getUid()).build()
-        );
+        ScheduleSecurity scheduleSecurity = save(ScheduleSecurity.builder()
+                .securityLevel(personalScheduleDto.getSecurityLevel())
+                .schedule(schedule).user(user)
+                .build());
 
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok(String.valueOf(scheduleSecurity.getId()));
     }
 
     //그룹 캘린더에 스케줄 추가
@@ -100,8 +149,11 @@ public class ScheduleSecurityService {
         alarmService.createGroupScheduleAlarm(group, schedule);
     }
 
-    //특정 유저 스케줄 조회
-    public List<ScheduleSecurity> getScheduleMonthByUid(LocalDate monthDate, String uid) {
+
+    //유저 스케줄 조회
+    //전체 조회는 허락하지 않음
+    //Todo. 다른 앱들에서는 많은 양에 데이터 동기화 작업을 어떻게 하는지 조사할필요 있음.
+    private List<ScheduleSecurity> getScheduleSecurityMonthByUid(LocalDate monthDate, String uid) {
         LocalDate startDate = LocalDate.of(monthDate.getYear(), monthDate.getMonthValue(), 1); //해당 월에 첫 날
         LocalDate endDate = LocalDate.of(monthDate.getYear(), monthDate.getMonthValue(), monthDate.lengthOfMonth()); //해당 월에 마지막 날
 
@@ -117,10 +169,11 @@ public class ScheduleSecurityService {
     }
 
 
-    public ScheduleSecurity getById(Long id) {
+    private ScheduleSecurity getById(Long id) {
         ScheduleSecurityEntity scheduleSecurityEntity = scheduleSecurityRepo.findById(id);
         User user = userService.getUserById(scheduleSecurityEntity.getUid());
         Schedule schedule = scheduleService.getById(scheduleSecurityEntity.getScheduleId());
+
         return scheduleSecurityEntity.toModel(schedule, user);
     }
 

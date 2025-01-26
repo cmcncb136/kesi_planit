@@ -19,7 +19,7 @@ public class ScheduleController {
 
     @GetMapping("")
     public ResponseEntity<List<PersonalScheduleDto>> getByCalendarId(@RequestParam("monthDate") String month, HttpServletRequest request) {
-        return scheduleSecurityService.getPersonalSchedulesInMonth(month, (String) request.getAttribute("uid"));
+        return scheduleSecurityService.getPersonalSchedulesAndMonth(month, (String) request.getAttribute("uid"));
     }
 
     @PostMapping("")

@@ -37,4 +37,9 @@ public class ScheduleRepoImpl implements ScheduleRepo{
     public List<ScheduleJpaEntity> findAll() {
         return scheduleJpaRepo.findAll();
     }
+
+    @Override
+    public List<ScheduleJpaEntity> findBySourceCalendarIdDateRange(Long sourceCalendarId, LocalDate startDate, LocalDate endDate) {
+        return scheduleJpaRepo.findBySourceCalendarIdDateRage(sourceCalendarId, startDate, endDate);
+    }
 }

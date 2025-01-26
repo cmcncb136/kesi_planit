@@ -77,10 +77,10 @@ public class JoinServiceTest {
         Mockito.when(auth.getUser(uid)).thenReturn(userRecord);
 
         //when
-        ResponseEntity response = joinService.join(uid, joinRequestDto);
+        ResponseEntity<String> response = joinService.join(uid, joinRequestDto);
 
         //then
-        assertThat(response.getStatusCode()).isEqualTo(200);
+        assertThat(response.getStatusCode().value()).isEqualTo(200);
     }
 
 }

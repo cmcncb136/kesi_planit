@@ -12,16 +12,15 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
-public class RequestPersonalScheduleDto {
+public class RequestGroupScheduleDto {
     public String colorId;
     public String title;
     public String description;
     public String startDate, endDate;
     public String startTime, endTime;
-    public SecurityLevel securityLevel;
+    public Boolean guestEditPermission;
 
     public Schedule toModel(User maker) {
-
         return Schedule.builder()
                 .color(Color.getColor(colorId))
                 .title(title)
@@ -31,7 +30,7 @@ public class RequestPersonalScheduleDto {
                 .startTime(LocalDateTime.parse(startTime))
                 .endTime(LocalDateTime.parse(endTime))
                 .maker(maker)
-                .guestEditPermission(false)
+                .guestEditPermission(guestEditPermission)
                 .build();
     }
 }

@@ -11,6 +11,7 @@ import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -37,6 +38,23 @@ public class ScheduleService {
                 schedule.getMaker(), schedule.getSourceCalendar());
     }
 
+
+    public List<Schedule> getBySourceCalendarIdAndDateRange(Long sourceCalendarId, LocalDate startDate, LocalDate endDate) {
+        Calendar calendar = calendarService.getById(sourceCalendarId);
+
+        return scheduleRepo.findBySourceCalendarIdDateRange(sourceCalendarId, startDate, endDate).stream().map(
+                scheduleJpaEntity ->  scheduleJpaEntity.toModel(
+                        userService.getUserById(scheduleJpaEntity.getMakerUid()),
+                        calendar
+                )
+        ).toList();
+    }
+
+    public List<Schedule> getBySourceCalendarIdAndMonth(Long sourceCalendarId, LocalDate month) {
+        LocalDate startDate = LocalDate.of(month.getYear(), month.getMonthValue(), 1);
+        LocalDate endDate = LocalDate.of(month.getYear(), month.getMonthValue(), month.getDayOfMonth());
+        return getBySourceCalendarIdAndDateRange(sourceCalendarId, startDate, endDate);
+    }
 
     //캘린더 아이디로 스케줄을 조회
     //너무 많은 양이 조회될 수 있음으로 나중에 성능개선에 대해서 생각해 볼 필요가 있음
