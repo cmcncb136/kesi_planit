@@ -1,6 +1,7 @@
 package com.kesi.planit.schedule.application;
 
 import com.kesi.planit.alarm.application.AlarmService;
+import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.schedule.application.repository.ScheduleSecurityRepo;
@@ -8,10 +9,7 @@ import com.kesi.planit.schedule.domain.Schedule;
 import com.kesi.planit.schedule.domain.ScheduleSecurity;
 import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.schedule.infrastructure.ScheduleSecurityEntity;
-import com.kesi.planit.schedule.presentation.dto.GroupScheduleDto;
-import com.kesi.planit.schedule.presentation.dto.GroupUserScheduleDto;
-import com.kesi.planit.schedule.presentation.dto.PersonalScheduleDto;
-import com.kesi.planit.schedule.presentation.dto.RequestPersonalScheduleDto;
+import com.kesi.planit.schedule.presentation.dto.*;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
@@ -84,7 +82,7 @@ public class ScheduleSecurityService {
     }
 
     //그룹에 유저들의 일정을
-    public ResponseEntity<List<GroupUserScheduleDto>> getPersonalSchedule(String month, String uid, Long gid) {
+    public ResponseEntity<List<GroupUserScheduleDto>> getGroupUserSchedulesAndMonth(String month, String uid, Long gid) {
         LocalDate date = null;
         try {
             date = LocalDate.parse(month);
@@ -138,15 +136,22 @@ public class ScheduleSecurityService {
     }
 
     //그룹 캘린더에 스케줄 추가
-    private void addGroupSchedule(Long calendarId, Schedule schedule) {
+    public  ResponseEntity<String> addGroupSchedule(Long gid, RequestGroupScheduleDto requestGroupScheduleDto, String uid) {
         //캘린더 id로 그룹을 찾는다.
-        Group group = groupService.getByCalendarId(calendarId);
+        Group group = groupService.getById(gid);
+        User maker = userService.getUserById(uid);
+        Schedule schedule = requestGroupScheduleDto.toModel(maker, group.getGroupCalendar());
+
+        if(!group.getUsers().containsKey(uid)) //맴버가 아니라면
+            return ResponseEntity.badRequest().build();
 
         //스케줄 정보 저장
         scheduleService.save(schedule);
 
         //각 사용자의 속한 그룹 최신화(현재 속한 그룹을 제외)
         alarmService.createGroupScheduleAlarm(group, schedule);
+
+        return ResponseEntity.ok("ok");
     }
 
 

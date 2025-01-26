@@ -30,6 +30,7 @@ public class RequestPersonalScheduleDto {
                 .endDate(LocalDate.parse(endDate))
                 .startTime(LocalDateTime.parse(startTime))
                 .endTime(LocalDateTime.parse(endTime))
+                .sourceCalendar(maker.getMyCalendar())
                 .maker(maker)
                 .guestEditPermission(false)
                 .build();
