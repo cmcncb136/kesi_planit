@@ -24,9 +24,11 @@ public class Group {
         users.put(user.getUser().getUid(), user);
     }
 
-    public GroupInUser removeUser(GroupInUser user) {
+    public GroupInUser exitUser(GroupInUser user) {
         return users.remove(user.getUser().getUid());
     }
+
+    public GroupInUser exitUser(String uid) { return users.remove(uid); }
 
 
     @Getter
@@ -35,5 +37,13 @@ public class Group {
         private Long id;
         private User user;
         private SecurityLevel allowedSecurityLevel;
+    }
+
+    public boolean checkMember(User user){
+        return users.containsKey(user.getUid());
+    }
+
+    public boolean checkMember(String uid){
+        return users.containsKey(uid);
     }
 }

@@ -38,21 +38,21 @@ public class ScheduleService {
                 schedule.getMaker(), schedule.getSourceCalendar());
     }
 
-
+    //유저와 연결된 스케줄 기간 조회
     public List<Schedule> getBySourceCalendarIdAndDateRange(Long sourceCalendarId, LocalDate startDate, LocalDate endDate) {
         Calendar calendar = calendarService.getById(sourceCalendarId);
 
         return scheduleRepo.findBySourceCalendarIdDateRange(sourceCalendarId, startDate, endDate).stream().map(
-                scheduleJpaEntity ->  scheduleJpaEntity.toModel(
-                        userService.getUserById(scheduleJpaEntity.getMakerUid()),
-                        calendar
-                )
-        ).toList();
+                scheduleJpaEntity ->
+                        scheduleJpaEntity.toModel(userService.getUserById(scheduleJpaEntity.getMakerUid()), calendar))
+                .toList();
     }
 
+    //유저와 연결된 스케줄 월별 조회
     public List<Schedule> getBySourceCalendarIdAndMonth(Long sourceCalendarId, LocalDate month) {
         LocalDate startDate = LocalDate.of(month.getYear(), month.getMonthValue(), 1);
-        LocalDate endDate = LocalDate.of(month.getYear(), month.getMonthValue(), month.getDayOfMonth());
+        LocalDate endDate = LocalDate.of(month.getYear(), month.getMonthValue(), month.lengthOfMonth());
+
         return getBySourceCalendarIdAndDateRange(sourceCalendarId, startDate, endDate);
     }
 

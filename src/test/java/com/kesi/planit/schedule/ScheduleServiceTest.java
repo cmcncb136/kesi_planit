@@ -115,9 +115,6 @@ public class ScheduleServiceTest {
 
     }
 
-    //   List.of(Schedule.ScheduleReferCalendar.builder()
-    //                        .id(1L).calendar(calendarList.get(0)).access(true).build()));
-
     @Test
     @DisplayName("schedule 저장")
     void save(){
@@ -139,25 +136,6 @@ public class ScheduleServiceTest {
 
 
     @Test
-    @DisplayName("schedule 생성")
-    void create(){
-        //given
-
-        //스케줄 객체 생성
-        Schedule originalSchedule = scheduleJpaEntity.toModel(user, user.getMyCalendar());
-
-        ScheduleService spyScheduleService = Mockito.spy(scheduleService);
-        Mockito.doReturn(originalSchedule).when(spyScheduleService).save(originalSchedule);
-
-        //when
-        //Schedule result = spyScheduleService.createSchedule(originalSchedule);
-
-        //then
-//        assertThat(result.getCalendars().size() ).isEqualTo(1);
-//        assertThat(result.getCalendars().get(0).getConnectUser().getUid()).isEqualTo(scheduleReferUser.getConnectUser().getUid());
-    }
-
-    @Test
     @DisplayName("스케줄 아이디 조회")
     void getById(){
         //given
@@ -173,18 +151,6 @@ public class ScheduleServiceTest {
 
         //then
         assertThat(result.getId()).isEqualTo(1L);
-
     }
 
-    @Test
-    @DisplayName("그룹에 스케줄 추가")
-    void addGroupSchedule(){
-        //given
-        Group group = Group.builder().groupCalendar(calendarList.get(0)).groupName("test")
-                .maker(user).gid(1L)
-                .users(Map.of(user.getUid(), Group.GroupInUser.builder().allowedSecurityLevel(SecurityLevel.HIGH).user(user).build()))
-                .build();
-
-
-    }
 }

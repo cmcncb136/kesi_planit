@@ -1,10 +1,8 @@
 package com.kesi.planit.schedule.application.repository;
 
 import com.kesi.planit.schedule.infrastructure.ScheduleSecurityEntity;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 

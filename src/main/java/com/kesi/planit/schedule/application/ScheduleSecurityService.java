@@ -1,7 +1,6 @@
 package com.kesi.planit.schedule.application;
 
 import com.kesi.planit.alarm.application.AlarmService;
-import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.schedule.application.repository.ScheduleSecurityRepo;
@@ -58,8 +57,7 @@ public class ScheduleSecurityService {
         }
 
         return ResponseEntity.ok(getScheduleSecurityMonthByUid(date, uid).stream().map(
-                it -> PersonalScheduleDto.from(
-                        it.getSchedule())).toList());
+                it -> PersonalScheduleDto.from(it.getSchedule())).toList());
     }
 
     //그룹 일정 조회
@@ -73,7 +71,7 @@ public class ScheduleSecurityService {
 
         Group group = groupService.getById(gid);
 
-        if(!group.getUsers().containsKey(uid)) //그룹 유저가 아니라면
+        if(group.checkMember(uid)) //그룹 유저가 아니라면
             return ResponseEntity.badRequest().build();
 
 
@@ -81,7 +79,7 @@ public class ScheduleSecurityService {
                 .stream().map(GroupScheduleDto::from).toList());
     }
 
-    //그룹에 유저들의 일정을
+    //그룹 유저들의 스케줄 일정을 월별 조회
     public ResponseEntity<List<GroupUserScheduleDto>> getGroupUserSchedulesAndMonth(String month, String uid, Long gid) {
         LocalDate date = null;
         try {
@@ -92,12 +90,13 @@ public class ScheduleSecurityService {
 
         Group group = groupService.getById(gid);
 
-        if(!group.getUsers().containsKey(uid)) //그룹 유저가 아니라면
+        if(!group.checkMember(uid)) //그룹 유저가 아니라면
             return ResponseEntity.badRequest().build();
 
         //Todo. 추후 쿼리문으로 수정할수도 있음.(group calendar 정보를 제외하고 조건 필요)
         LocalDate finalDate = date;
         List<Schedule> schedules = new ArrayList<>();
+        group.exitUser(uid); //조회하는 유저를 제외한 유저를 조히해야하기 때문에 조회하는 유저를 임시로 제외
 
         group.getUsers().values().forEach(user -> { //모든 유저에 대해서
             //일정을 조회
@@ -111,7 +110,6 @@ public class ScheduleSecurityService {
 
         return ResponseEntity.ok(schedules.stream().map(GroupUserScheduleDto::from).toList());
     }
-
 
 
     //개인 일정 추가
@@ -158,7 +156,7 @@ public class ScheduleSecurityService {
     //유저 스케줄 조회
     //전체 조회는 허락하지 않음
     //Todo. 다른 앱들에서는 많은 양에 데이터 동기화 작업을 어떻게 하는지 조사할필요 있음.
-    private List<ScheduleSecurity> getScheduleSecurityMonthByUid(LocalDate monthDate, String uid) {
+    public List<ScheduleSecurity> getScheduleSecurityMonthByUid(LocalDate monthDate, String uid) {
         LocalDate startDate = LocalDate.of(monthDate.getYear(), monthDate.getMonthValue(), 1); //해당 월에 첫 날
         LocalDate endDate = LocalDate.of(monthDate.getYear(), monthDate.getMonthValue(), monthDate.lengthOfMonth()); //해당 월에 마지막 날
 
@@ -187,4 +185,6 @@ public class ScheduleSecurityService {
         return scheduleSecurityRepo.save(ScheduleSecurityEntity.from(scheduleSecurity))
                 .toModel(scheduleSecurity.getSchedule(), scheduleSecurity.getUser());
     }
+
+
 }

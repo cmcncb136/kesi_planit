@@ -41,6 +41,7 @@ public class ScheduleRepositoryTest {
         assertThat(result.getDescription()).isEqualTo("test");
         assertThat(result.getEndDate()).isEqualTo(LocalDate.now());
         assertThat(result.getStartDate()).isEqualTo(LocalDate.now());
+
         //time은 아주 시간 지난도 달아집으로 객체에 상태와 비교
         assertThat(result.getEndTime()).isEqualTo(scheduleJpaEntity.getEndTime());
         assertThat(result.getStartTime()).isEqualTo(scheduleJpaEntity.getStartTime());
@@ -186,5 +187,40 @@ public class ScheduleRepositoryTest {
         assertThat(result.size()).isEqualTo(2);
     }
 
+    @Test
+    @DisplayName("캘린더에 월 스케줄 조회")
+    void findBySourceCalendarIAndDateRangeTest(){
+        //given
+        Long sourceCalendarId = 1L;
 
+        for(int i = 1; i <= 12; i++){ //매달
+            for(int j = 1; j <= 2; j++){ //2개씩 일정을 추가
+                scheduleRepository.save(
+                        ScheduleJpaEntity.builder()
+                                .title("test")
+                                .description("test")
+                                .endDate(LocalDate.of(2025, i, j))
+                                .startDate(LocalDate.of(2025, i, j))
+                                .endTime(LocalDateTime.of(2025, i, j, 10, 30))
+                                .startTime(LocalDateTime.of(2025, i, j, 10, 0))
+                                .colorId("FFFFFFFF")
+                                .guestEditPermission(true)
+                                .sourceCalendarId(sourceCalendarId)
+                                .build()
+                );
+            }
+        }
+
+        LocalDate date = LocalDate.of(2025, 1, 1);
+
+        //when
+        //1월 데이터 조회
+        List<ScheduleJpaEntity> scheduleJpaEntityList
+                = scheduleRepository.findBySourceCalendarIdDateRange(sourceCalendarId
+                , date
+                , LocalDate.of(date.getYear(), date.getMonthValue(), date.lengthOfMonth()));
+
+        //then
+        assertThat(scheduleJpaEntityList.size()).isEqualTo(2); //2개만 존재해야됨
+    }
 }
