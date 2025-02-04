@@ -3,10 +3,7 @@ package com.kesi.planit.schedule.infrastructure;
 import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.schedule.domain.Schedule;
 import com.kesi.planit.user.domain.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "schedule")
 public class ScheduleJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

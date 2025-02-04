@@ -16,7 +16,7 @@ public class AlarmDataDto {
     public String title;
     public String content;
     public AlarmType alarmType;
-    public LocalDateTime createTime;
+    public String createTime;
     public HashMap<String, String> data;
 
     public static AlarmDataDto toDto(Alarm alarm){
@@ -25,7 +25,7 @@ public class AlarmDataDto {
                 .title(alarm.getTitle())
                 .content(alarm.getContent())
                 .alarmType(alarm.getAlarmType())
-                .createTime(alarm.getCreateTime())
+                .createTime(alarm.getCreateTime().toString())
                 .data(alarm.getData().toAlarmData())
                 .build();
     }

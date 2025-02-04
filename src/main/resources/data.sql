@@ -41,3 +41,101 @@ VALUES (1003, 'TEST7', 'ksh@naver.com', 'test7@naver.com');
 INSERT INTO FRIENDS_RELATION (ID, ALIAS, SOURCE_EMAIL, TARGET_EMAIL)
 VALUES (1004, 'TEST8', 'ksh@naver.com', 'test8@naver.com');
 
+
+INSERT INTO schedule (maker_uid, source_calendar_id, color_id, description, title, guest_edit_permission, start_date, end_date, start_time, end_time)
+VALUES
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FF5733', 'Weekly team meeting', 'Team Meeting', true, '2025-02-01', '2025-02-01', '2025-02-01 10:00:00', '2025-02-01 11:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#33FF57', 'Project deadline for Q1', 'Project Deadline', false, '2025-02-05', '2025-02-05', '2025-02-05 14:00:00', '2025-02-05 15:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#5733FF', 'Birthday celebration for John', 'John’s Birthday', true, '2025-02-10', '2025-02-10', '2025-02-10 18:00:00', '2025-02-10 22:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FF33A1', 'Annual company retreat', 'Company Retreat', false, '2025-03-01', '2025-03-03', '2025-03-01 09:00:00', '2025-03-03 17:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#33A1FF', 'Family vacation in Jeju', 'Jeju Vacation', true, '2025-04-15', '2025-04-20', '2025-04-15 07:00:00', '2025-04-20 21:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FFD700', 'Gym workout session', 'Workout', false, '2025-02-07', '2025-02-07', '2025-02-07 06:00:00', '2025-02-07 07:30:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#8A2BE2', 'Dentist appointment', 'Dentist Visit', false, '2025-02-12', '2025-02-12', '2025-02-12 15:00:00', '2025-02-12 16:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#DC143C', 'Weekend hiking trip', 'Hiking Trip', true, '2025-02-17', '2025-02-17', '2025-02-17 08:00:00', '2025-02-17 13:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#32CD32', 'Coding hackathon', 'Hackathon Event', true, '2025-03-10', '2025-03-11', '2025-03-10 09:00:00', '2025-03-11 21:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FF4500', 'Weekend road trip', 'Road Trip', false, '2025-03-20', '2025-03-22', '2025-03-20 06:00:00', '2025-03-22 22:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#1E90FF', 'Online conference on AI', 'AI Conference', false, '2025-04-05', '2025-04-05', '2025-04-05 10:00:00', '2025-04-05 17:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FF1493', 'Friends’ reunion party', 'Reunion Party', true, '2025-04-10', '2025-04-10', '2025-04-10 19:00:00', '2025-04-10 23:30:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#008B8B', 'Study session for exams', 'Study Group', false, '2025-04-15', '2025-04-15', '2025-04-15 14:00:00', '2025-04-15 18:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#B22222', 'Wedding ceremony', 'Wedding Event', true, '2025-05-01', '2025-05-01', '2025-05-01 11:00:00', '2025-05-01 16:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#006400', 'Volunteer work at shelter', 'Volunteer Work', false, '2025-05-10', '2025-05-10', '2025-05-10 09:00:00', '2025-05-10 13:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#8B008B', 'Business trip to Seoul', 'Business Trip', false, '2025-05-15', '2025-05-17', '2025-05-15 08:00:00', '2025-05-17 21:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#00008B', 'Parents’ anniversary dinner', 'Anniversary Dinner', true, '2025-06-01', '2025-06-01', '2025-06-01 19:00:00', '2025-06-01 22:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#A52A2A', 'Photography workshop', 'Photo Workshop', false, '2025-06-10', '2025-06-10', '2025-06-10 10:00:00', '2025-06-10 16:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FF6347', 'Cooking class for beginners', 'Cooking Class', true, '2025-06-20', '2025-06-20', '2025-06-20 15:00:00', '2025-06-20 18:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#4682B4', 'Monthly book club meeting', 'Book Club', true, '2025-07-01', '2025-07-01', '2025-07-01 18:30:00', '2025-07-01 20:30:00');
+
+INSERT INTO schedule_security (schedule_id, uid, security_level)
+VALUES
+    (1, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'HIGH'),
+    (2, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'MEDIUM'),
+    (3, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW'),
+    (4, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'HIGH'),
+    (5, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW'),
+    (6, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'MEDIUM'),
+    (7, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'HIGH'),
+    (8, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW'),
+    (9, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'MEDIUM'),
+    (10, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'HIGH'),
+    (11, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW'),
+    (12, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'HIGH'),
+    (13, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'MEDIUM'),
+    (14, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW'),
+    (15, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'HIGH'),
+    (16, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'MEDIUM'),
+    (17, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW'),
+    (18, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'HIGH'),
+    (19, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'MEDIUM'),
+    (20, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW');
+
+
+INSERT INTO alarm (uid, title, content, alarm_type, create_time)
+VALUES
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Meeting Reminder', 'You have a team meeting at 10 AM.', 'SCHEDULE', '2025-02-01 09:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Project Deadline', 'Final project report is due today.', 'SCHEDULE', '2025-01-30 08:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Birthday Alert', 'John’s birthday is today. Don’t forget to wish him!', 'BASIC', '2025-01-30 07:30:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Company Retreat Info', 'Reminder: The company retreat starts tomorrow.', 'GROUP', '2025-01-28 18:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Vacation Flight Reminder', 'Your flight to Jeju is scheduled for 7 AM.', 'SCHEDULE', '2025-01-14 20:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Workout Session', 'Time to hit the gym! Your session starts at 6 AM.', 'BASIC', '2025-01-07 05:30:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Dentist Appointment', 'Reminder: You have a dentist visit today at 3 PM.', 'SCHEDULE', '2025-01-12 09:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Hiking Trip Alert', 'Prepare for your hiking trip tomorrow morning.', 'BASIC', '2025-01-16 19:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Hackathon Notification', 'Hackathon event starts at 9 AM. Get ready!', 'GROUP', '2025-01-09 21:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Road Trip Prep', 'Pack your bags! Your road trip starts tomorrow.', 'SCHEDULE', '2025-01-19 22:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'AI Conference Notice', 'The AI Conference starts at 10 AM.', 'GROUP', '2025-01-05 08:30:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Reunion Party Reminder', 'The friends’ reunion party is at 7 PM.', 'BASIC', '2025-01-10 12:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Exam Study Session', 'Study group session starts at 2 PM.', 'SCHEDULE', '2025-01-15 09:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Wedding Alert', 'Don’t forget the wedding at 11 AM.', 'SCHEDULE', '2025-01-01 10:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Volunteer Work Reminder', 'Your volunteer work at the shelter starts at 9 AM.', 'BASIC', '2025-01-10 08:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Business Trip Departure', 'Your trip to Seoul begins at 8 AM.', 'SCHEDULE', '2025-01-14 21:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Anniversary Dinner Alert', 'Your parents’ anniversary dinner is at 7 PM.', 'BASIC', '2025-01-01 13:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Photography Workshop', 'Your photo workshop starts at 10 AM.', 'SCHEDULE', '2025-01-09 20:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Cooking Class Reminder', 'Your cooking class starts at 3 PM.', 'GROUP', '2025-01-19 14:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Book Club Meeting', 'Book club meeting starts at 6:30 PM.', 'GROUP', '2025-01-01 12:00:00');
+
+
+INSERT INTO alarm_group (alarm_id, gid)
+VALUES
+    (4, 101),  -- Hackathon 알람 (GROUP) → 그룹 101
+    (9, 101),  -- Hackathon 알람 (GROUP) → 그룹 101
+    (11, 102), -- AI Conference 알람 (GROUP) → 그룹 102
+    (19, 103), -- Cooking Class 알람 (GROUP) → 그룹 103
+    (20, 104); -- Book Club 알람 (GROUP) → 그룹 104
+
+
+INSERT INTO alarm_schedule (alarm_id, gid, schedule_id)
+VALUES
+    (1, 201, 1),  -- Meeting Reminder (SCHEDULE) → 그룹 201, 일정 ID 1
+    (2, 202, 2),  -- Project Deadline (SCHEDULE) → 그룹 202, 일정 ID 2
+    (5, 203, 5),  -- Dentist Appointment (SCHEDULE) → 그룹 203, 일정 ID 7
+    (7, 203, 7),  -- Dentist Appointment (SCHEDULE) → 그룹 203, 일정 ID 7
+    (10, 204, 10), -- Road Trip Prep (SCHEDULE) → 그룹 204, 일정 ID 10
+    (13, 205, 13), -- Exam Study Session (SCHEDULE) → 그룹 205, 일정 ID 13
+    (14, 206, 14), -- Wedding Alert (SCHEDULE) → 그룹 206, 일정 ID 14
+    (16, 207, 16), -- Business Trip Departure (SCHEDULE) → 그룹 207, 일정 ID 16
+    (18, 208, 18); -- Photography Workshop (SCHEDULE) → 그룹 208, 일정 ID 18
+
+
+
+
+
+

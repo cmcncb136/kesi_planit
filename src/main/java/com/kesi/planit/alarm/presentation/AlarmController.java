@@ -25,4 +25,9 @@ public class AlarmController {
     public ResponseEntity<List<AlarmDataDto>> getAllAlarm(HttpServletRequest request) {
         return alarmService.getAlarmDataDtoByUid((String) request.getAttribute("uid"));
     }
+
+    @GetMapping("/month")
+    public ResponseEntity<List<AlarmDataDto>> getMonthAlarm(@RequestParam("month") String month, HttpServletRequest request) {
+        return null;
+    }
 }

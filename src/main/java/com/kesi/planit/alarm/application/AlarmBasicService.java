@@ -36,6 +36,6 @@ public class AlarmBasicService implements AlarmTypeData{
 
 
     private AlarmData createFakeAlarmData() {
-        return new AlarmBasic();
+        return AlarmBasic.builder().build();
     }
 }

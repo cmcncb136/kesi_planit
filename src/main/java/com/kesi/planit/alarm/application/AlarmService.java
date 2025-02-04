@@ -37,6 +37,7 @@ public class AlarmService {
     private List<Alarm> getByUid(String uid){
         User user = userService.getUserById(uid);
 
+        //Todo. 기간 조회로 변경해야 됨
         return alarmRepo.findByUid(user.getUid()).stream().map(alarmJpaEntity ->
             alarmJpaEntity.toModel(user,
                     alarmTypeService.getAlarmTypeById(alarmJpaEntity.getId(), alarmJpaEntity.getAlarmType()))
@@ -56,10 +57,10 @@ public class AlarmService {
     public ResponseEntity<List<AlarmDataDto>> getAlarmDataDtoByUid(String uid){
         try{
             List<Alarm> alarmList = getByUid(uid);
-            return
-                    ResponseEntity.ok(alarmList.stream()
-                            .map(AlarmDataDto::toDto).toList());
+
+            return ResponseEntity.ok(alarmList.stream().map(AlarmDataDto::toDto).toList());
         }catch (NullPointerException e){
+            System.out.println(e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

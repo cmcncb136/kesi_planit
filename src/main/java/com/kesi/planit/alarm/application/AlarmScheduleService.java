@@ -20,7 +20,7 @@ public class AlarmScheduleService implements AlarmTypeData{
 
     @Override
     public AlarmData getByAlarmId(Long alarmId) {
-        return alarmTypeRepo.findById(alarmId).toModel();
+        return alarmTypeRepo.findByAlarmId(alarmId).toModel();
     }
 
     @Override

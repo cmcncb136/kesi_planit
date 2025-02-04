@@ -6,6 +6,7 @@ import lombok.Getter;
 import java.util.HashMap;
 
 @Getter
+@Builder
 public class AlarmBasic implements AlarmData {
 
     @Override
