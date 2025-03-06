@@ -14,17 +14,15 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 public class Alarm {
-    private long id;
-    private User user;
-    private String title;
-    private String content;
-    private AlarmType alarmType;
-    private LocalDateTime createTime;
-    private AlarmData data;
+    private final Long id;
+    private final User user;
+    private final String title;
+    private final String content;
+    private final AlarmType alarmType;
+    private final LocalDateTime createTime;
 
     public MessageDto toMessageDto() {
         return null;
     }
-
 
 }

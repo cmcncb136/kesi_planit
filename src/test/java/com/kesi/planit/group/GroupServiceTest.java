@@ -1,5 +1,6 @@
 package com.kesi.planit.group;
 
+import com.kesi.planit.alarm.application.AlarmCRUDService;
 import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.calendar.application.CalendarService;
 import com.kesi.planit.calendar.domain.Calendar;
@@ -7,6 +8,7 @@ import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.application.repository.GroupAndUserRepo;
 import com.kesi.planit.group.application.repository.GroupRepo;
 import com.kesi.planit.group.domain.Group;
+import com.kesi.planit.group.domain.GroupUserMap;
 import com.kesi.planit.group.infrastructure.GroupAndUserJpaEntity;
 import com.kesi.planit.group.infrastructure.GroupJpaEntity;
 import com.kesi.planit.user.application.UserService;
@@ -212,8 +214,8 @@ public class GroupServiceTest {
         groupInUserHashMap1.put(user.getUid(), groupAndUserJpaEntity1.mappingGroupToGroupInUser(user));
         groupInUserHashMap2.put(user.getUid(), groupAndUserJpaEntity2.mappingGroupToGroupInUser(user));
 
-        Group group1 = groupJpaEntity1.toModel(groupInUserHashMap1, calendar1);
-        Group group2 = groupJpaEntity2.toModel(groupInUserHashMap2, calendar2);
+        Group group1 = groupJpaEntity1.toModel(new GroupUserMap(groupInUserHashMap1), calendar1);
+        Group group2 = groupJpaEntity2.toModel(new GroupUserMap(groupInUserHashMap2), calendar2);
 
         Mockito.when(groupAndUserRepo.findByUid(user.getUid())).thenReturn(
                 List.of(new GroupAndUserJpaEntity[]{groupAndUserJpaEntity1, groupAndUserJpaEntity2}));

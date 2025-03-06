@@ -32,6 +32,7 @@ public class FriendsService {
     public ResponseEntity<String> updateFriendsRelation(FriendUpdateRequestDto requestDto, String sourceUid) {
         User targetUser = userService.getUserByEmail(requestDto.targetEmail);
         User sourceUser = userService.getUserById(sourceUid);
+
         if(targetUser == null) {
             return ResponseEntity.badRequest().body("Target email doesn't exist");
         }

@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @Builder
 public class Device {
-    private String fcmToken;
-    private String uid;
+    private final String fcmToken;
+    private final String uid;
 }

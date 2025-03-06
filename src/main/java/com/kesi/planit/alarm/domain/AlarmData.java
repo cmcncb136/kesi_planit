@@ -1,8 +1,20 @@
 package com.kesi.planit.alarm.domain;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 
-public interface AlarmData {
-    void setAlarmId(long alarmId);
-    HashMap<String, String> toAlarmData();
+@Getter
+public abstract class AlarmData {
+    private final Alarm alarm;
+
+    public AlarmData(Alarm alarm) {
+        if(alarm == null)
+            throw new NullPointerException("alarm is null");
+
+        this.alarm = alarm;
+    }
+
+    public abstract HashMap<String, String> toAlarmData();
+
 }

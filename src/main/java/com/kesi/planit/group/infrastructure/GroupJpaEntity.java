@@ -2,6 +2,7 @@ package com.kesi.planit.group.infrastructure;
 
 import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.group.domain.Group;
+import com.kesi.planit.group.domain.GroupUserMap;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,12 +41,12 @@ public class GroupJpaEntity {
                .build();
     }
 
-    public Group toModel(Map<String, Group.GroupInUser> users, Calendar calendar) {
+    public Group toModel(GroupUserMap groupUserMap, Calendar calendar) {
         return Group.builder()
                 .gid(gid)
                 .groupName(groupName)
-                .maker(users.get(makerUid).getUser()) //Todo. 나중에 만든 유저는 없어질 수 있음 추후 코드 수정 필요
-                .users(users)
+                .maker(groupUserMap.get(makerUid).getUser()) //Todo. 나중에 만든 유저는 없어질 수 있음 추후 코드 수정 필요
+                .users(groupUserMap)
                 .groupCalendar(calendar)
                 .build();
     }

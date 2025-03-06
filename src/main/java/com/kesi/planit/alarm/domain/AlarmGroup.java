@@ -2,20 +2,22 @@ package com.kesi.planit.alarm.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.extern.java.Log;
 
 import java.util.HashMap;
 
 @Getter
-@Builder
-public class AlarmGroup implements AlarmData {
-    private long id;
-    private long gid;
-    private long alarmId;
+public class AlarmGroup extends AlarmData {
+    private final Long id;
+    private final Long gid;
 
-    @Override
-    public void setAlarmId(long alarmId) {
-        this.alarmId = alarmId;
+    @Builder
+    public AlarmGroup(Long id, Long gid, Alarm alarm) {
+        super(alarm);
+        this.id = id;
+        this.gid = gid;
     }
+
 
     @Override
     public HashMap<String, String> toAlarmData() {

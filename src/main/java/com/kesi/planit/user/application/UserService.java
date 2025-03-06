@@ -36,8 +36,7 @@ public class UserService {
 
     //User 객체를 만들어 도메인으로 매핑시킨다.
     public List<User> getByGid(Long gid) {
-        List<GroupAndUserJpaEntity> userAndCalendarJpaEntityList
-                = groupAndUserRepo.findByGid(gid);
+        List<GroupAndUserJpaEntity> userAndCalendarJpaEntityList = groupAndUserRepo.findByGid(gid);
 
         return userAndCalendarJpaEntityList.stream().
                 map(it -> getUserById(it.getUid())).toList();

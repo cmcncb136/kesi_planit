@@ -6,17 +6,17 @@ import lombok.Getter;
 import java.util.HashMap;
 
 @Getter
-@Builder
-public class AlarmSchedule implements AlarmData{
-    private long id;
-    private long gid;
-    private long scheduleId;
-    private long alarmId;
+public class AlarmSchedule extends AlarmData{
+    private final Long id;
+    private final Long gid;
+    private final Long scheduleId;
 
-
-    @Override
-    public void setAlarmId(long alarmId) {
-        this.alarmId = alarmId;
+    @Builder
+    public AlarmSchedule(Long id, Long gid, Long scheduleId, Alarm alarm) {
+        super(alarm);
+        this.id = id;
+        this.gid = gid;
+        this.scheduleId = scheduleId;
     }
 
     @Override

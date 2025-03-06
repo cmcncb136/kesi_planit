@@ -19,14 +19,14 @@ public class AlarmDataDto {
     public String createTime;
     public HashMap<String, String> data;
 
-    public static AlarmDataDto toDto(Alarm alarm){
+    public static AlarmDataDto toDto(Alarm alarm, AlarmData data){
         return AlarmDataDto.builder()
                 .id(alarm.getId())
                 .title(alarm.getTitle())
                 .content(alarm.getContent())
                 .alarmType(alarm.getAlarmType())
                 .createTime(alarm.getCreateTime().toString())
-                .data(alarm.getData().toAlarmData())
+                .data(data.toAlarmData())
                 .build();
     }
 }

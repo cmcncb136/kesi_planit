@@ -44,7 +44,7 @@ public class AlarmJpaEntity {
         this.alarmType = alarmType;
     }
 
-    public Alarm toModel(User user, AlarmData alarmData) {
+    public Alarm toModel(User user) {
         return Alarm.builder()
                 .id(id)
                 .user(user)
@@ -52,7 +52,6 @@ public class AlarmJpaEntity {
                 .content(content)
                 .alarmType(alarmType)
                 .createTime(createTime)
-                .data(alarmData)
                 .build();
     }
 

@@ -5,21 +5,33 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Builder
 @Getter
 public class User {
-    private String uid;
-    private String email;
+    private final String uid;
+    private final String email;
     private String nickname;
-    private String imgPath;
+    private final String imgPath;
     private String gender;
     private LocalDate birth;
-    private LocalDate joinDate;
-    private Calendar myCalendar;
-
+    private final LocalDate joinDate;
+    private final Calendar myCalendar;
 
     public void changeNickname(String newNickname) {
         this.nickname = newNickname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(uid, user.uid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(uid);
     }
 }

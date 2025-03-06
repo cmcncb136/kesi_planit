@@ -9,6 +9,8 @@ public class GroupUserScheduleDto {
     public Long id;
     public GroupMemberDto scheduleOwner;
     public String title;
+    public String link;
+    public String place;
     public String description;
     public String startDate, endDate;
     public String startTime, endTime;
@@ -18,6 +20,8 @@ public class GroupUserScheduleDto {
                 .id(schedule.getId())
                 .scheduleOwner(GroupMemberDto.from(schedule.getMaker()))
                 .title(schedule.getTitle())
+                .link(schedule.getLink())
+                .place(schedule.getPlace())
                 .description(schedule.getDescription())
                 .startDate(schedule.getStartDate().toString())
                 .endDate(schedule.getEndDate().toString())

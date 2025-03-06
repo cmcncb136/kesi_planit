@@ -5,11 +5,12 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Builder
 public class Calendar {
-    private Long id;
+    private final Long id;
 
 
     public void updateCalendar(Schedule schedule) {
@@ -24,5 +25,15 @@ public class Calendar {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Calendar calendar = (Calendar) o;
+        return Objects.equals(id, calendar.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

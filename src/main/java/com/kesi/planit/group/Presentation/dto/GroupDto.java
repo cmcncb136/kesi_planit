@@ -19,8 +19,7 @@ public class GroupDto {
                 .gid(group.getGid())
                 .groupName(group.getGroupName())
                 .maker(GroupMemberDto.from(group.getMaker()))
-                .members(group.getUsers().values().stream().map( it ->
-                        GroupMemberDto.from(it.getUser())).toList())
+                .members(group.getUserList().stream().map(GroupMemberDto::from).toList())
                 .calendarId(group.getGroupCalendar().getId())
                 .build();
     }

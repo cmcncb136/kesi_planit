@@ -10,26 +10,31 @@ import lombok.Getter;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Builder
 @Getter
 public class RequestGroupScheduleDto {
-    public String colorId;
+    public int colorValue;
     public String title;
     public String description;
+    public String link;
+    public String place;
     public String startDate, endDate;
     public String startTime, endTime;
     public Boolean guestEditPermission;
 
     public Schedule toModel(User maker, Calendar groupCalendar) {
         return Schedule.builder()
-                .color(Color.getColor(colorId))
+                .color(new Color(colorValue, true))
                 .title(title)
                 .description(description)
+                .link(link)
+                .place(place)
                 .startDate(LocalDate.parse(startDate))
                 .endDate(LocalDate.parse(endDate))
-                .startTime(LocalDateTime.parse(startTime))
-                .endTime(LocalDateTime.parse(endTime))
+                .startTime(LocalTime.parse(startTime))
+                .endTime(LocalTime.parse(endTime))
                 .sourceCalendar(groupCalendar)
                 .maker(maker)
                 .guestEditPermission(guestEditPermission)

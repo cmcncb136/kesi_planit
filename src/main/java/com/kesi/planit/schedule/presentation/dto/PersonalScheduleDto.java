@@ -8,8 +8,10 @@ import lombok.Builder;
 public class PersonalScheduleDto {
     public Long id;
     public GroupMemberDto makerName;
-    public String colorId;
+    public int colorValue;
     public String title;
+    public String link;
+    public String place;
     public String description;
     public String startDate, endDate;
     public String startTime, endTime;
@@ -18,8 +20,10 @@ public class PersonalScheduleDto {
         return PersonalScheduleDto.builder()
                 .id(schedule.getId())
                 .makerName(GroupMemberDto.from(schedule.getMaker()))
-                .colorId(schedule.getColor().toString())
+                .colorValue(schedule.getColor().getRGB())
                 .title(schedule.getTitle())
+                .link(schedule.getLink())
+                .place(schedule.getPlace())
                 .description(schedule.getDescription())
                 .startDate(schedule.getStartDate().toString())
                 .endDate(schedule.getEndDate().toString())

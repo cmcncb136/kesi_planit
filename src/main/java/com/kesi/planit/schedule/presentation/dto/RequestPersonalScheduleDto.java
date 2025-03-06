@@ -9,13 +9,16 @@ import lombok.Getter;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Builder
 @Getter
 public class RequestPersonalScheduleDto {
-    public String colorId;
+    public int colorValue;
     public String title;
     public String description;
+    public String link;
+    public String place;
     public String startDate, endDate;
     public String startTime, endTime;
     public SecurityLevel securityLevel;
@@ -23,13 +26,15 @@ public class RequestPersonalScheduleDto {
     public Schedule toModel(User maker) {
 
         return Schedule.builder()
-                .color(Color.getColor(colorId))
+                .color(new Color(colorValue, true))
                 .title(title)
                 .description(description)
+                .link(link)
+                .place(place)
                 .startDate(LocalDate.parse(startDate))
                 .endDate(LocalDate.parse(endDate))
-                .startTime(LocalDateTime.parse(startTime))
-                .endTime(LocalDateTime.parse(endTime))
+                .startTime(LocalTime.parse(startTime))
+                .endTime(LocalTime.parse(endTime))
                 .sourceCalendar(maker.getMyCalendar())
                 .maker(maker)
                 .guestEditPermission(false)

@@ -1,5 +1,6 @@
 package com.kesi.planit.alarm.infrastructure;
 
+import com.kesi.planit.alarm.domain.Alarm;
 import com.kesi.planit.alarm.domain.AlarmSchedule;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -27,10 +28,10 @@ public class AlarmScheduleJpaEntity {
         this.scheduleId = scheduleId;
     }
 
-    public AlarmSchedule toModel(){
+    public AlarmSchedule toModel(Alarm alarm){
         return AlarmSchedule.builder()
                 .id(this.id)
-                .alarmId(this.alarmId)
+                .alarm(alarm)
                 .gid(this.gid)
                 .scheduleId(this.scheduleId)
                 .build();
@@ -39,7 +40,7 @@ public class AlarmScheduleJpaEntity {
     public static AlarmScheduleJpaEntity from(AlarmSchedule alarmSchedule){
         return AlarmScheduleJpaEntity.builder()
                 .id(alarmSchedule.getId())
-                .alarmId(alarmSchedule.getAlarmId())
+                .alarmId(alarmSchedule.getAlarm().getId())
                 .gid(alarmSchedule.getGid())
                 .scheduleId(alarmSchedule.getScheduleId())
                 .build();

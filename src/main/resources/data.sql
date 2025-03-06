@@ -42,28 +42,28 @@ INSERT INTO FRIENDS_RELATION (ID, ALIAS, SOURCE_EMAIL, TARGET_EMAIL)
 VALUES (1004, 'TEST8', 'ksh@naver.com', 'test8@naver.com');
 
 
-INSERT INTO schedule (maker_uid, source_calendar_id, color_id, description, title, guest_edit_permission, start_date, end_date, start_time, end_time)
+INSERT INTO schedule (maker_uid, source_calendar_id, color_value, description, title, guest_edit_permission, start_date, end_date, start_time, end_time)
 VALUES
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FF5733', 'Weekly team meeting', 'Team Meeting', true, '2025-02-01', '2025-02-01', '2025-02-01 10:00:00', '2025-02-01 11:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#33FF57', 'Project deadline for Q1', 'Project Deadline', false, '2025-02-05', '2025-02-05', '2025-02-05 14:00:00', '2025-02-05 15:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#5733FF', 'Birthday celebration for John', 'John’s Birthday', true, '2025-02-10', '2025-02-10', '2025-02-10 18:00:00', '2025-02-10 22:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FF33A1', 'Annual company retreat', 'Company Retreat', false, '2025-03-01', '2025-03-03', '2025-03-01 09:00:00', '2025-03-03 17:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#33A1FF', 'Family vacation in Jeju', 'Jeju Vacation', true, '2025-04-15', '2025-04-20', '2025-04-15 07:00:00', '2025-04-20 21:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FFD700', 'Gym workout session', 'Workout', false, '2025-02-07', '2025-02-07', '2025-02-07 06:00:00', '2025-02-07 07:30:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#8A2BE2', 'Dentist appointment', 'Dentist Visit', false, '2025-02-12', '2025-02-12', '2025-02-12 15:00:00', '2025-02-12 16:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#DC143C', 'Weekend hiking trip', 'Hiking Trip', true, '2025-02-17', '2025-02-17', '2025-02-17 08:00:00', '2025-02-17 13:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#32CD32', 'Coding hackathon', 'Hackathon Event', true, '2025-03-10', '2025-03-11', '2025-03-10 09:00:00', '2025-03-11 21:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FF4500', 'Weekend road trip', 'Road Trip', false, '2025-03-20', '2025-03-22', '2025-03-20 06:00:00', '2025-03-22 22:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#1E90FF', 'Online conference on AI', 'AI Conference', false, '2025-04-05', '2025-04-05', '2025-04-05 10:00:00', '2025-04-05 17:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FF1493', 'Friends’ reunion party', 'Reunion Party', true, '2025-04-10', '2025-04-10', '2025-04-10 19:00:00', '2025-04-10 23:30:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#008B8B', 'Study session for exams', 'Study Group', false, '2025-04-15', '2025-04-15', '2025-04-15 14:00:00', '2025-04-15 18:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#B22222', 'Wedding ceremony', 'Wedding Event', true, '2025-05-01', '2025-05-01', '2025-05-01 11:00:00', '2025-05-01 16:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#006400', 'Volunteer work at shelter', 'Volunteer Work', false, '2025-05-10', '2025-05-10', '2025-05-10 09:00:00', '2025-05-10 13:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#8B008B', 'Business trip to Seoul', 'Business Trip', false, '2025-05-15', '2025-05-17', '2025-05-15 08:00:00', '2025-05-17 21:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#00008B', 'Parents’ anniversary dinner', 'Anniversary Dinner', true, '2025-06-01', '2025-06-01', '2025-06-01 19:00:00', '2025-06-01 22:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#A52A2A', 'Photography workshop', 'Photo Workshop', false, '2025-06-10', '2025-06-10', '2025-06-10 10:00:00', '2025-06-10 16:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#FF6347', 'Cooking class for beginners', 'Cooking Class', true, '2025-06-20', '2025-06-20', '2025-06-20 15:00:00', '2025-06-20 18:00:00'),
-('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, '#4682B4', 'Monthly book club meeting', 'Book Club', true, '2025-07-01', '2025-07-01', '2025-07-01 18:30:00', '2025-07-01 20:30:00');
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FFFF5733', 'Weekly team meeting', 'Team Meeting', true, '2025-02-01', '2025-02-01', '10:00:00', '11:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF33FF57', 'Project deadline for Q1', 'Project Deadline', false, '2025-02-05', '2025-02-05', '14:00:00', '15:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF5733FF', 'Birthday celebration for John', 'John’s Birthday', true, '2025-02-10', '2025-02-10', '18:00:00', '22:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FFFF33A1', 'Annual company retreat', 'Company Retreat', false, '2025-03-01', '2025-03-03', '09:00:00', '17:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF33A1FF', 'Family vacation in Jeju', 'Jeju Vacation', true, '2025-04-15', '2025-04-20', '07:00:00', '21:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FFFFD700', 'Gym workout session', 'Workout', false, '2025-02-07', '2025-02-07', '06:00:00', '07:30:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF8A2BE2', 'Dentist appointment', 'Dentist Visit', false, '2025-02-12', '2025-02-12', '15:00:00', '16:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FFDC143C', 'Weekend hiking trip', 'Hiking Trip', true, '2025-02-17', '2025-02-17', '08:00:00', '13:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF32CD32', 'Coding hackathon', 'Hackathon Event', true, '2025-03-10', '2025-03-11', '09:00:00', '21:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FFFF4500', 'Weekend road trip', 'Road Trip', false, '2025-03-20', '2025-03-22', '06:00:00', '22:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF1E90FF', 'Online conference on AI', 'AI Conference', false, '2025-04-05', '2025-04-05', '10:00:00', '17:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FFFF1493', 'Friends’ reunion party', 'Reunion Party', true, '2025-04-10', '2025-04-10', '19:00:00', '23:30:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF008B8B', 'Study session for exams', 'Study Group', false, '2025-04-15', '2025-04-15', '14:00:00', '18:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FFB22222', 'Wedding ceremony', 'Wedding Event', true, '2025-05-01', '2025-05-01', '11:00:00', '16:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF006400', 'Volunteer work at shelter', 'Volunteer Work', false, '2025-05-10', '2025-05-10', '09:00:00', '13:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF8B008B', 'Business trip to Seoul', 'Business Trip', false, '2025-05-15', '2025-05-17', '08:00:00', '21:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF00008B', 'Parents’ anniversary dinner', 'Anniversary Dinner', true, '2025-06-01', '2025-06-01', '19:00:00', '22:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FFA52A2A', 'Photography workshop', 'Photo Workshop', false, '2025-06-10', '2025-06-10', '10:00:00', '16:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FFFF6347', 'Cooking class for beginners', 'Cooking Class', true, '2025-06-20', '2025-06-20', '15:00:00', '18:00:00'),
+('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1000, 'FF4682B4', 'Monthly book club meeting', 'Book Club', true, '2025-07-01', '2025-07-01', '18:30:00', '20:30:00');
 
 INSERT INTO schedule_security (schedule_id, uid, security_level)
 VALUES

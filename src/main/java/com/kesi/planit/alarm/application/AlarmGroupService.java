@@ -13,21 +13,24 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AlarmGroupService implements AlarmTypeData{
     private final AlarmTypeRepo<AlarmGroupJapEntity> alarmTypeRepo;
+    private final AlarmCRUDService alarmCRUDService;
+
 
     @Override
     public AlarmData getById(Long id) {
-        return alarmTypeRepo.findByAlarmId(id).toModel();
+        AlarmGroupJapEntity alarmGroupJapEntity = alarmTypeRepo.findByAlarmId(id);
+        return alarmGroupJapEntity.toModel(alarmCRUDService.getById(id));
     }
 
     @Override
     public AlarmData getByAlarmId(Long alarmId) {
-        return alarmTypeRepo.findByAlarmId(alarmId).toModel();
+        return alarmTypeRepo.findByAlarmId(alarmId).toModel(alarmCRUDService.getById(alarmId));
     }
 
     @Override
     public AlarmData save(AlarmData alarmData) {
         AlarmGroup alarmGroup = (AlarmGroup) alarmData;
-        return alarmTypeRepo.save(AlarmGroupJapEntity.from(alarmGroup)).toModel();
+        return alarmTypeRepo.save(AlarmGroupJapEntity.from(alarmGroup)).toModel(alarmGroup.getAlarm());
     }
 
     @Override
