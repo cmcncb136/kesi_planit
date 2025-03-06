@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,9 +42,9 @@ public class ScheduleSecurityRepositoryTest {
                                 .description("test")
                                 .endDate(LocalDate.of(2025, i, j))
                                 .startDate(LocalDate.of(2025, i, j))
-                                .endTime(LocalDateTime.of(2025, i, j, 10, 30))
-                                .startTime(LocalDateTime.of(2025, i, j, 10, 0))
-                                .colorId("FFFFFFFF")
+                                .endTime(LocalTime.of(10, 30))
+                                .startTime(LocalTime.of(10, 0))
+                                .colorValue(0xFFFFFFFF)
                                 .guestEditPermission(true)
                                 .sourceCalendarId(sourceCalendarId)
                                 .build()

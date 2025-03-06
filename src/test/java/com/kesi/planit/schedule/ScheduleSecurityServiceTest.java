@@ -1,9 +1,11 @@
 package com.kesi.planit.schedule;
 
+import com.kesi.planit.alarm.application.AlarmCRUDService;
 import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.domain.Group;
+import com.kesi.planit.group.domain.GroupUserMap;
 import com.kesi.planit.schedule.application.ScheduleSecurityService;
 import com.kesi.planit.schedule.application.ScheduleService;
 import com.kesi.planit.schedule.application.repository.ScheduleSecurityRepo;
@@ -104,7 +106,7 @@ public class ScheduleSecurityServiceTest {
                 .maker(user)
                 .groupCalendar(groupCalendar)
                 .groupName("Group Test")
-                .users(users)
+                .users(new GroupUserMap(users))
                 .build();
 
         groupSchedule = Schedule.builder()
@@ -299,19 +301,3 @@ public class ScheduleSecurityServiceTest {
         assertThat(rst.getBody().size()).isEqualTo(10 * (userList.size() - 1));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

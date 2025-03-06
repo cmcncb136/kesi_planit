@@ -11,9 +11,9 @@ import java.awt.*;
 @Getter
 @Builder
 public class ScheduleSecurity {
-    private long id;
-    private Schedule schedule;
-    private User user;
+    private final long id;
+    private final Schedule schedule;
+    private final User user;
     private SecurityLevel securityLevel;
 
     public Schedule getSchedule(Group group) {

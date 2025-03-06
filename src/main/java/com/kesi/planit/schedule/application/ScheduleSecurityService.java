@@ -1,5 +1,6 @@
 package com.kesi.planit.schedule.application;
 
+import com.kesi.planit.alarm.application.AlarmCRUDService;
 import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.domain.Group;
@@ -35,7 +36,7 @@ public class ScheduleSecurityService {
         User user = userService.getUserById(uid);
         Group group = groupService.getByCalendarId(schedule.getSourceCalendar().getId());
 
-        if(!group.getUsers().containsKey(uid))
+        if(!group.getUsers().contains(uid))
             return ResponseEntity.badRequest().body("잘못된 접급입니다.");
 
         save(ScheduleSecurity.builder()
@@ -48,10 +49,10 @@ public class ScheduleSecurityService {
     }
 
     //개인 일정 조회
-    public ResponseEntity<List<PersonalScheduleDto>> getPersonalSchedulesAndMonth(String month, String uid) {
+    public ResponseEntity<List<PersonalScheduleDto>> getPersonalSchedulesAndMonth(String monthDate, String uid) {
         LocalDate date = null;
         try {
-            date = LocalDate.parse(month);
+            date = LocalDate.parse(monthDate);
         }catch (DateTimeParseException e) {
             return ResponseEntity.badRequest().build();
         }
@@ -98,12 +99,12 @@ public class ScheduleSecurityService {
         List<Schedule> schedules = new ArrayList<>();
         group.exitUser(uid); //조회하는 유저를 제외한 유저를 조히해야하기 때문에 조회하는 유저를 임시로 제외
 
-        group.getUsers().values().forEach(user -> { //모든 유저에 대해서
+        group.getUserList().forEach(user -> { //모든 유저에 대해서
             //일정을 조회
-            getScheduleSecurityMonthByUid(finalDate, user.getUser().getUid()).forEach(scheduleSecurity -> {
+            getScheduleSecurityMonthByUid(finalDate, user.getUid()).forEach(scheduleSecurity -> {
                 Schedule schedule = scheduleSecurity.getSchedule(group); //유저가 설정한 보안등급에 따라서 정보를 가져옴
 
-                if(schedule.getSourceCalendar().getId() != group.getGroupCalendar().getId()) //같이 공유하고 있는 그룹 스케줄 정보는 제외
+                if(!schedule.getSourceCalendar().equals(group.getGroupCalendar())) //같이 공유하고 있는 그룹 스케줄 정보는 제외
                     schedules.add(schedule);
             });
         });
@@ -140,7 +141,7 @@ public class ScheduleSecurityService {
         User maker = userService.getUserById(uid);
         Schedule schedule = requestGroupScheduleDto.toModel(maker, group.getGroupCalendar());
 
-        if(!group.getUsers().containsKey(uid)) //맴버가 아니라면
+        if(!group.getUsers().contains(uid)) //맴버가 아니라면
             return ResponseEntity.badRequest().build();
 
         //스케줄 정보 저장

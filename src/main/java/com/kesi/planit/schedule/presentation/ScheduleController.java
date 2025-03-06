@@ -17,8 +17,8 @@ public class ScheduleController {
     private final ScheduleSecurityService scheduleSecurityService;
 
     @GetMapping("")
-    public ResponseEntity<List<PersonalScheduleDto>> getByCalendarId(@RequestParam("monthDate") String month, HttpServletRequest request) {
-        return scheduleSecurityService.getPersonalSchedulesAndMonth(month, (String) request.getAttribute("uid"));
+    public ResponseEntity<List<PersonalScheduleDto>> getByCalendarId(@RequestParam("monthDate") String date, HttpServletRequest request) {
+        return scheduleSecurityService.getPersonalSchedulesAndMonth(date, (String) request.getAttribute("uid"));
     }
 
     @PostMapping("")

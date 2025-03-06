@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @SpringBootTest
@@ -27,9 +28,9 @@ public class ScheduleRepositoryTest {
                 .description("test")
                 .endDate(LocalDate.now())
                 .startDate(LocalDate.now())
-                .endTime(LocalDateTime.now().plusHours(10))
-                .startTime(LocalDateTime.now())
-                .colorId("FFFFFFFF")
+                .endTime(LocalTime.now().plusHours(10))
+                .startTime(LocalTime.now())
+                .colorValue(0xFFFF0000)
                 .guestEditPermission(true)
                 .build();
 
@@ -45,7 +46,7 @@ public class ScheduleRepositoryTest {
         //time은 아주 시간 지난도 달아집으로 객체에 상태와 비교
         assertThat(result.getEndTime()).isEqualTo(scheduleJpaEntity.getEndTime());
         assertThat(result.getStartTime()).isEqualTo(scheduleJpaEntity.getStartTime());
-        assertThat(result.getColorId()).isEqualTo("FFFFFFFF");
+        assertThat(result.getColorValue()).isEqualTo("FFFFFFFF");
         assertThat(result.getGuestEditPermission()).isEqualTo(true);
     }
 
@@ -57,9 +58,9 @@ public class ScheduleRepositoryTest {
                 .description("test")
                 .endDate(LocalDate.now())
                 .startDate(LocalDate.now())
-                .endTime(LocalDateTime.now().plusHours(10))
-                .startTime(LocalDateTime.now())
-                .colorId("FFFFFFFF")
+                .endTime(LocalTime.now().plusHours(10))
+                .startTime(LocalTime.now())
+                .colorValue(0x0000FF00)
                 .guestEditPermission(true)
                 .build();
 
@@ -70,7 +71,7 @@ public class ScheduleRepositoryTest {
         ScheduleJpaEntity result = scheduleRepository.findById(savedSchedule.getId());
 
         //then
-        assertThat(result.getColorId()).isEqualTo(savedSchedule.getColorId());
+        assertThat(result.getColorValue()).isEqualTo(savedSchedule.getColorValue());
         assertThat(result.getDescription()).isEqualTo(savedSchedule.getDescription());
         assertThat(result.getEndDate()).isEqualTo(savedSchedule.getEndDate());
         assertThat(result.getStartDate()).isEqualTo(savedSchedule.getStartDate());
@@ -89,9 +90,9 @@ public class ScheduleRepositoryTest {
                 .description("test")
                 .endDate(LocalDate.now())
                 .startDate(LocalDate.now())
-                .endTime(LocalDateTime.now().plusHours(10))
-                .startTime(LocalDateTime.now())
-                .colorId("FFFFFFFF")
+                .endTime(LocalTime.now().plusHours(10))
+                .startTime(LocalTime.now())
+                .colorValue(0xFF0000FF)
                 .guestEditPermission(true)
                 .build();
 
@@ -103,7 +104,7 @@ public class ScheduleRepositoryTest {
                 .title("update test")
                 .description(savedSchedule.getDescription())
                 .makerUid(savedSchedule.getMakerUid())
-                .colorId("DDDDDDDD")
+                .colorValue(0xFF0000FF)
                 .endDate(savedSchedule.getEndDate())
                 .startDate(savedSchedule.getStartDate())
                 .endTime(savedSchedule.getEndTime())
@@ -118,7 +119,7 @@ public class ScheduleRepositoryTest {
         assertThat(result.getTitle()).isEqualTo(updateSchedule.getTitle());
         assertThat(result.getDescription()).isEqualTo(updateSchedule.getDescription());
         assertThat(result.getMakerUid()).isEqualTo(updateSchedule.getMakerUid());
-        assertThat(result.getColorId()).isEqualTo(updateSchedule.getColorId());
+        assertThat(result.getColorValue()).isEqualTo(updateSchedule.getColorValue());
         assertThat(result.getEndDate()).isEqualTo(updateSchedule.getEndDate());
         assertThat(result.getStartDate()).isEqualTo(updateSchedule.getStartDate());
         assertThat(result.getEndTime()).isEqualTo(updateSchedule.getEndTime());
@@ -135,9 +136,9 @@ public class ScheduleRepositoryTest {
                 .description("test")
                 .endDate(LocalDate.now())
                 .startDate(LocalDate.now())
-                .endTime(LocalDateTime.now().plusHours(10))
-                .startTime(LocalDateTime.now())
-                .colorId("FFFFFFFF")
+                .endTime(LocalTime.now().plusHours(10))
+                .startTime(LocalTime.now())
+                .colorValue(0xFFFFFFFF)
                 .guestEditPermission(true)
                 .build();
 
@@ -160,9 +161,9 @@ public class ScheduleRepositoryTest {
                 .description("test")
                 .endDate(LocalDate.now())
                 .startDate(LocalDate.now())
-                .endTime(LocalDateTime.now().plusHours(10))
-                .startTime(LocalDateTime.now())
-                .colorId("FFFFFFFF")
+                .endTime(LocalTime.now().plusHours(10))
+                .startTime(LocalTime.now())
+                .colorValue(0xFF00FFFF)
                 .guestEditPermission(true)
                 .build();
 
@@ -171,9 +172,9 @@ public class ScheduleRepositoryTest {
                 .description("test")
                 .endDate(LocalDate.now())
                 .startDate(LocalDate.now())
-                .endTime(LocalDateTime.now().plusHours(10))
-                .startTime(LocalDateTime.now())
-                .colorId("FFFFFFFF")
+                .endTime(LocalTime.now().plusHours(10))
+                .startTime(LocalTime.now())
+                .colorValue(0xFFFFFF00)
                 .guestEditPermission(true)
                 .build();
 
@@ -201,9 +202,9 @@ public class ScheduleRepositoryTest {
                                 .description("test")
                                 .endDate(LocalDate.of(2025, i, j))
                                 .startDate(LocalDate.of(2025, i, j))
-                                .endTime(LocalDateTime.of(2025, i, j, 10, 30))
-                                .startTime(LocalDateTime.of(2025, i, j, 10, 0))
-                                .colorId("FFFFFFFF")
+                                .endTime(LocalTime.of(10, 30))
+                                .startTime(LocalTime.of(10, 0))
+                                .colorValue(0xFFFFFFFF)
                                 .guestEditPermission(true)
                                 .sourceCalendarId(sourceCalendarId)
                                 .build()
