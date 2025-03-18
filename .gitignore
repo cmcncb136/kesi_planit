@@ -18,6 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
+kesi-b027c-firebase-adminsdk-h67u3-018671b961.json
 application.properties
 .idea
 *.iws
