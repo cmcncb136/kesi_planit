@@ -1,32 +1,47 @@
 package com.kesi.planit.alarm.application;
 
+import com.kesi.planit.alarm.application.repository.AlarmTypeRepo;
+import com.kesi.planit.alarm.domain.Alarm;
 import com.kesi.planit.alarm.domain.AlarmBasic;
 import com.kesi.planit.alarm.domain.AlarmData;
 import com.kesi.planit.alarm.domain.AlarmType;
+import com.kesi.planit.alarm.infrastructure.AlarmBasicJpaEntity;
+import com.kesi.planit.alarm.infrastructure.AlarmBasicJpaRepo;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
 @Service
+@AllArgsConstructor
 public class AlarmBasicService implements AlarmTypeData{
+    private final AlarmTypeRepo<AlarmBasicJpaEntity> alarmTypeRepo;
+    private final AlarmCRUDService alarmCRUDService; //Todo. Alarm_Baisc DB 설계후 Alarm id를 저장하도록 해야됨
+
     @Override
     public AlarmData getById(Long id) {
-        return createFakeAlarmData();
+        AlarmBasicJpaEntity alarmBasicJpaEntity = alarmTypeRepo.findByAlarmId(id);
+        Alarm alarm = alarmCRUDService.getById(alarmBasicJpaEntity.getAlarmId());
+        return alarmTypeRepo.findById(id).toModel(alarm);
     }
 
     @Override
     public AlarmData getByAlarmId(Long alarmId) {
-        return createFakeAlarmData();
+        Alarm alarm = alarmCRUDService.getById(alarmId);
+        AlarmBasicJpaEntity alarmBasicJpaEntity = alarmTypeRepo.findByAlarmId(alarmId);
+        return alarmBasicJpaEntity.toModel(alarm);
     }
 
     @Override
     public AlarmData save(AlarmData alarmData) {
-        return createFakeAlarmData();
+        AlarmBasic alarmBasic = (AlarmBasic) alarmData;
+        AlarmBasicJpaEntity alarmBasicJpaEntity = alarmTypeRepo.save(AlarmBasicJpaEntity.from(alarmBasic));
+        return alarmBasicJpaEntity.toModel(alarmBasic.getAlarm());
     }
 
     @Override
     public void deleteById(Long id) {
-
+        alarmTypeRepo.deleteById(id);
     }
 
     @Override
@@ -34,8 +49,4 @@ public class AlarmBasicService implements AlarmTypeData{
         return AlarmType.BASIC;
     }
 
-
-    private AlarmData createFakeAlarmData() {
-        return AlarmBasic.builder().build();
-    }
 }

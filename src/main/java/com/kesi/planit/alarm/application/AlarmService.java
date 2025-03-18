@@ -1,7 +1,10 @@
 package com.kesi.planit.alarm.application;
 
+import com.google.firebase.messaging.Notification;
 import com.kesi.planit.alarm.domain.*;
 import com.kesi.planit.alarm.presentation.dto.AlarmDataDto;
+import com.kesi.planit.alarm.presentation.dto.MessageDto;
+import com.kesi.planit.alarm.presentation.dto.NotificationDto;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.schedule.domain.Schedule;
 import lombok.AllArgsConstructor;
@@ -21,6 +24,7 @@ public class AlarmService {
     public ResponseEntity<AlarmDataDto> getAlarmDataDtoById(long id) {
         try{
             Alarm alarm = alarmCRUDService.getById(id);
+
             AlarmData alarmData = alarmTypeService.getAlarmTypeById(alarm.getId(), alarm.getAlarmType());
             return ResponseEntity.ok(AlarmDataDto.toDto(alarm, alarmData));
         }catch (NullPointerException e){
@@ -32,8 +36,10 @@ public class AlarmService {
         try{
             List<Alarm> alarmList = alarmCRUDService.getByUid(uid);
 
-            return ResponseEntity.ok(alarmList.stream().map(alarm -> AlarmDataDto.toDto(alarm,
-                    alarmTypeService.getAlarmTypeById(alarm.getId(), alarm.getAlarmType()))).toList());
+            List<AlarmDataDto> alarmDataDtoList = alarmList.stream().map(alarm ->
+                    AlarmDataDto.toDto(alarm, alarmTypeService.getAlarmTypeById(alarm.getId(), alarm.getAlarmType()))).toList();
+
+            return ResponseEntity.ok(alarmDataDtoList);
 
         }catch (NullPointerException e){
             System.out.println(e.getMessage());
@@ -63,7 +69,13 @@ public class AlarmService {
 
         //FCM으로 메시지 전송
         alarmList.forEach(alarm -> {
-            fcmService.sendNotification(alarm.getUser().getUid(), alarm.toMessageDto()); //Todo. 추후 수정
+            AlarmData alarmData = alarmTypeService.getAlarmTypeById(alarm.getId(), alarm.getAlarmType());
+
+            fcmService.sendNotification(
+                    alarm.getUser().getUid(),
+                    MessageDto.builder().
+                            notificationDto(NotificationDto.toNotification(alarm))
+                            .data(alarmData.toAlarmData()).build());
         });
     }
 
@@ -87,9 +99,16 @@ public class AlarmService {
             }
         });
 
+
         //FCM으로 메시지 전송
         alarmList.forEach(alarm -> {
-            fcmService.sendNotification(alarm.getUser().getUid(), alarm.toMessageDto());
+            AlarmData alarmData = alarmTypeService.getAlarmTypeById(alarm.getId(), alarm.getAlarmType());
+
+            fcmService.sendNotification(
+                    alarm.getUser().getUid(),
+                    MessageDto.builder().
+                            notificationDto(NotificationDto.toNotification(alarm))
+                            .data(alarmData.toAlarmData()).build());
         });
     }
 

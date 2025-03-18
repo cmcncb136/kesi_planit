@@ -23,6 +23,11 @@ public class ScheduleSecurityRepoImpl implements ScheduleSecurityRepo {
     }
 
     @Override
+    public void deleteBySchedule(Long scheduleId) {
+        scheduleSecurityJpaRepo.deleteByScheduleId(scheduleId);
+    }
+
+    @Override
     public List<ScheduleSecurityEntity> findByScheduleId(Long scheduleId) {
         return scheduleSecurityJpaRepo.findByScheduleId(scheduleId);
     }
@@ -30,6 +35,11 @@ public class ScheduleSecurityRepoImpl implements ScheduleSecurityRepo {
     @Override
     public List<ScheduleSecurityEntity> findByUid(String uid) {
         return scheduleSecurityJpaRepo.findByUid(uid);
+    }
+
+    @Override
+    public ScheduleSecurityEntity findByUidAndScheduleId(String uid, Long scheduleId) {
+        return scheduleSecurityJpaRepo.findByUidAndScheduleId(uid, scheduleId);
     }
 
     @Override
@@ -44,12 +54,12 @@ public class ScheduleSecurityRepoImpl implements ScheduleSecurityRepo {
 
     @Override
     public List<ScheduleSecurityEntity> findSchedulesUidAndWithinDateRange(String uid, LocalDate startDate, LocalDate endDate) {
-        return scheduleSecurityJpaRepo.findSchedulesUidAndWithinDateRange(uid, startDate, endDate);
+        return scheduleSecurityJpaRepo.findSchedulesUidAndWithInDateRange(uid, startDate, endDate);
     }
 
     @Override
     public List<ScheduleSecurityEntity> findSchedulesWithinDateRange(LocalDate startDate, LocalDate endDate) {
-        return scheduleSecurityJpaRepo.findSchedulesWithinDateRange(startDate, endDate);
+        return scheduleSecurityJpaRepo.findSchedulesWithInDateRange(startDate, endDate);
     }
 
 }

@@ -2,6 +2,7 @@ package com.kesi.planit.alarm.application;
 
 import com.kesi.planit.alarm.application.repository.AlarmRepo;
 import com.kesi.planit.alarm.application.repository.AlarmTypeRepo;
+import com.kesi.planit.alarm.domain.Alarm;
 import com.kesi.planit.alarm.domain.AlarmData;
 import com.kesi.planit.alarm.domain.AlarmGroup;
 import com.kesi.planit.alarm.domain.AlarmType;
@@ -19,7 +20,9 @@ public class AlarmGroupService implements AlarmTypeData{
     @Override
     public AlarmData getById(Long id) {
         AlarmGroupJapEntity alarmGroupJapEntity = alarmTypeRepo.findByAlarmId(id);
-        return alarmGroupJapEntity.toModel(alarmCRUDService.getById(id));
+        Alarm alarm = alarmCRUDService.getById(id);
+
+        return alarmGroupJapEntity.toModel(alarm);
     }
 
     @Override

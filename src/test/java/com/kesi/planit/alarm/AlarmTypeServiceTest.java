@@ -43,19 +43,5 @@ public class AlarmTypeServiceTest {
         alarmTypeService = new AlarmTypeService(alarmTypeDataList);
     }
 
-    @Test
-    @DisplayName("알람 타입 찾기 테스트")
-    void findAlarmTypeTest(){
-        //given
-        //when
-        AlarmTypeData group = alarmTypeService.findAlarmType(AlarmType.GROUP);
-        AlarmTypeData basic = alarmTypeService.findAlarmType(AlarmType.BASIC);
-        AlarmTypeData schedule = alarmTypeService.findAlarmType(AlarmType.SCHEDULE);
-
-        //then
-        assertThat(group).isEqualTo(alarmGroupService);
-        assertThat(basic).isEqualTo(alarmBasicService);
-        assertThat(schedule).isEqualTo(alarmScheduleService);
-    }
 
 }

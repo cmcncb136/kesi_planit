@@ -29,9 +29,10 @@ public class ScheduleRepoImpl implements ScheduleRepo{
     }
 
     @Override
-    public void delete(ScheduleJpaEntity schedule) {
-        scheduleJpaRepo.delete(schedule);
+    public void deleteById(Long id) {
+        scheduleJpaRepo.deleteById(id);
     }
+
 
     @Override
     public List<ScheduleJpaEntity> findAll() {

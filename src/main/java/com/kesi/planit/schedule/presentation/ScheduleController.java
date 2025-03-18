@@ -4,6 +4,7 @@ import com.kesi.planit.schedule.application.ScheduleSecurityService;
 import com.kesi.planit.schedule.presentation.dto.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +18,23 @@ public class ScheduleController {
     private final ScheduleSecurityService scheduleSecurityService;
 
     @GetMapping("")
-    public ResponseEntity<List<PersonalScheduleDto>> getByCalendarId(@RequestParam("monthDate") String date, HttpServletRequest request) {
+    public ResponseEntity<List<PersonalScheduleDto>> getPersonalSchedulesWithMonth(@RequestParam("monthDate") String date, HttpServletRequest request) {
         return scheduleSecurityService.getPersonalSchedulesAndMonth(date, (String) request.getAttribute("uid"));
     }
 
     @PostMapping("")
-    public ResponseEntity<String> addPersonalSchedule(@RequestBody RequestPersonalScheduleDto personalScheduleDto, HttpServletRequest request) {
+    public ResponseEntity<Long> addPersonalSchedule(@RequestBody RequestPersonalScheduleDto personalScheduleDto, HttpServletRequest request) {
         return scheduleSecurityService.addPersonalSchedule((String)request.getAttribute("uid"), personalScheduleDto);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<Void> deletePersonalSchedule(@RequestParam("scheduleId") Long scheduleId, HttpServletRequest request) {
+        return scheduleSecurityService.removePersonalSchedule((String)request.getAttribute("uid"), scheduleId);
+    }
+
+    @PatchMapping("")
+    public ResponseEntity<PersonalScheduleDto> updatePersonalSchedule(@RequestBody RequestPersonalUpdateScheduleDto requestPersonalUpdateScheduleDto, HttpServletRequest request) {
+        return scheduleSecurityService.updatePersonalSchedule((String)request.getAttribute("uid"), requestPersonalUpdateScheduleDto);
     }
 
     @GetMapping("/group")
@@ -33,7 +44,7 @@ public class ScheduleController {
 
     @GetMapping("/other")
     public ResponseEntity<List<GroupUserScheduleDto>> getGroupUserSchedule(HttpServletRequest request, String monthDate, Long gid){
-        return scheduleSecurityService.getGroupUserSchedulesAndMonth(monthDate, (String)request.getAttribute("uid"), gid);
+        return scheduleSecurityService.getGroupUserSchedulesInMonth(monthDate, (String)request.getAttribute("uid"), gid);
     }
 
     @PostMapping("/group")

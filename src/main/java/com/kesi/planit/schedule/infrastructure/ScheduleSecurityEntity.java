@@ -13,7 +13,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "schedule_security")
+@Table(name = "schedule_security", indexes = {
+        @Index(name = "idx_uid", columnList = "uid"),
+        @Index(name = "idx_schedule", columnList = "schedule_id")
+})
 public class ScheduleSecurityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

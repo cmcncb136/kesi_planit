@@ -8,13 +8,22 @@ import lombok.Getter;
 import java.awt.*;
 
 
-@Getter
 @Builder
+@Getter
 public class ScheduleSecurity {
     private final long id;
-    private final Schedule schedule;
     private final User user;
     private SecurityLevel securityLevel;
+    private final Schedule schedule;
+
+    public Schedule getSchedule(User user) {
+       return getSchedule(user.getUid());
+    }
+
+    public Schedule getSchedule(String uid) {
+        if(!user.getUid().equals(uid)) throw new IllegalArgumentException("User is not the same user");
+        return schedule;
+    }
 
     public Schedule getSchedule(Group group) {
         //Todo. security 보다 낮은 경우 날짜 정보만 보내줌.
@@ -37,4 +46,6 @@ public class ScheduleSecurity {
 
         return schedule;
     }
+
+
 }

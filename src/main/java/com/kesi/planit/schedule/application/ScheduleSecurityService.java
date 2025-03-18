@@ -1,6 +1,5 @@
 package com.kesi.planit.schedule.application;
 
-import com.kesi.planit.alarm.application.AlarmCRUDService;
 import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.domain.Group;
@@ -9,10 +8,13 @@ import com.kesi.planit.schedule.domain.Schedule;
 import com.kesi.planit.schedule.domain.ScheduleSecurity;
 import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.schedule.infrastructure.ScheduleSecurityEntity;
+import com.kesi.planit.schedule.infrastructure.ScheduleSecurityJpaRepo;
 import com.kesi.planit.schedule.presentation.dto.*;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,45 @@ public class ScheduleSecurityService {
     private final UserService userService;
     private final GroupService groupService;
     private final AlarmService alarmService;
+
+    public ResponseEntity<PersonalScheduleDto> updatePersonalSchedule(String uid, RequestPersonalUpdateScheduleDto requestPersonalUpdateScheduleDto) {
+        ScheduleSecurity scheduleSecurity = getByUidAndScheduleId(uid, requestPersonalUpdateScheduleDto.id);
+        if(scheduleSecurity == null) return ResponseEntity.notFound().build();
+
+        //스케줄 정보 변경
+        Schedule originalSchedule = scheduleSecurity.getSchedule();
+
+        User user = userService.getUserById(uid);
+        if(!originalSchedule.getSourceCalendar().equals(user.getMyCalendar())) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
+        Schedule updateSchedule = requestPersonalUpdateScheduleDto.toModel(originalSchedule.getMaker());
+        Schedule savedSchedule = scheduleService.save(updateSchedule);
+
+        ScheduleSecurity updateSecuritySchedule = ScheduleSecurity.builder()
+                .schedule(savedSchedule)
+                .id(savedSchedule.getId())
+                .securityLevel(requestPersonalUpdateScheduleDto.securityLevel)
+                .user(user)
+                .build();
+
+        ScheduleSecurity savedSecuritySchedule = save(updateSecuritySchedule);
+
+        return ResponseEntity.ok(PersonalScheduleDto.from(savedSecuritySchedule, user.getUid()));
+    }
+
+    @Transactional
+    public ResponseEntity<Void> removePersonalSchedule(String uid, Long scheduleId) {
+        Schedule schedule = scheduleService.getById(scheduleId);
+        if(schedule == null) return ResponseEntity.notFound().build();
+
+        User user = userService.getUserById(uid);
+        if(!schedule.getSourceCalendar().equals(user.getMyCalendar())) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
+        deleteBySchedule(schedule);
+        scheduleService.deleteById(scheduleId);
+
+        return ResponseEntity.ok().build();
+    }
 
     //그룹 일정 확인 후 시큐리티 설정
     public ResponseEntity<String> setGroupScheduleSecurity(String uid, Long scheduleId, SecurityLevel securityLevel) {
@@ -58,7 +99,7 @@ public class ScheduleSecurityService {
         }
 
         return ResponseEntity.ok(getScheduleSecurityMonthByUid(date, uid).stream().map(
-                it -> PersonalScheduleDto.from(it.getSchedule())).toList());
+                it -> PersonalScheduleDto.from(it, uid)).toList());
     }
 
     //그룹 일정 조회
@@ -81,10 +122,10 @@ public class ScheduleSecurityService {
     }
 
     //그룹 유저들의 스케줄 일정을 월별 조회
-    public ResponseEntity<List<GroupUserScheduleDto>> getGroupUserSchedulesAndMonth(String month, String uid, Long gid) {
+    public ResponseEntity<List<GroupUserScheduleDto>> getGroupUserSchedulesInMonth(String monthDate, String uid, Long gid) {
         LocalDate date = null;
         try {
-            date = LocalDate.parse(month);
+            date = LocalDate.parse(monthDate);
         }catch (DateTimeParseException e) {
             return ResponseEntity.badRequest().build();
         }
@@ -94,10 +135,9 @@ public class ScheduleSecurityService {
         if(!group.checkMember(uid)) //그룹 유저가 아니라면
             return ResponseEntity.badRequest().build();
 
-        //Todo. 추후 쿼리문으로 수정할수도 있음.(group calendar 정보를 제외하고 조건 필요)
         LocalDate finalDate = date;
         List<Schedule> schedules = new ArrayList<>();
-        group.exitUser(uid); //조회하는 유저를 제외한 유저를 조히해야하기 때문에 조회하는 유저를 임시로 제외
+        group.exitUser(uid); //조회하는 유저를 제외한 유저를 제외해야되기 때문에 조회하는 유저를 임시로 제외
 
         group.getUserList().forEach(user -> { //모든 유저에 대해서
             //일정을 조회
@@ -114,7 +154,7 @@ public class ScheduleSecurityService {
 
 
     //개인 일정 추가
-    public ResponseEntity<String> addPersonalSchedule(String uid, RequestPersonalScheduleDto personalScheduleDto) {
+    public ResponseEntity<Long> addPersonalSchedule(String uid, RequestPersonalScheduleDto personalScheduleDto) {
         //스케줄 도메인 객체 생성 및 저장
         Schedule schedule = null;
         User user = userService.getUserById(uid);
@@ -122,16 +162,18 @@ public class ScheduleSecurityService {
         try {
             schedule = scheduleService.save(personalScheduleDto.toModel(user));
         }catch (Exception e) {
+            System.out.println("schedule save exception : " + e.getMessage());
             return ResponseEntity.badRequest().build();
         }
 
         //security 정보 생성 및 저장
         ScheduleSecurity scheduleSecurity = save(ScheduleSecurity.builder()
                 .securityLevel(personalScheduleDto.getSecurityLevel())
-                .schedule(schedule).user(user)
+                .schedule(schedule)
+                .user(user)
                 .build());
 
-        return ResponseEntity.ok(String.valueOf(scheduleSecurity.getId()));
+        return ResponseEntity.ok(scheduleSecurity.getSchedule(user).getId());
     }
 
     //그룹 캘린더에 스케줄 추가
@@ -141,13 +183,13 @@ public class ScheduleSecurityService {
         User maker = userService.getUserById(uid);
         Schedule schedule = requestGroupScheduleDto.toModel(maker, group.getGroupCalendar());
 
-        if(!group.getUsers().contains(uid)) //맴버가 아니라면
+        if(!group.checkMember(uid)) //맴버가 아니라면
             return ResponseEntity.badRequest().build();
 
         //스케줄 정보 저장
         scheduleService.save(schedule);
 
-        //각 사용자의 속한 그룹 최신화(현재 속한 그룹을 제외)
+        //그롭에 스케줄 추가를 회원들에게 알림
         alarmService.createGroupScheduleAlarm(group, schedule);
 
         return ResponseEntity.ok("ok");
@@ -181,6 +223,13 @@ public class ScheduleSecurityService {
         return scheduleSecurityEntity.toModel(schedule, user);
     }
 
+    private ScheduleSecurity getByUidAndScheduleId(String uid, Long scheduleId) {
+        ScheduleSecurityEntity entity = scheduleSecurityRepo.findByUidAndScheduleId(uid, scheduleId);
+        User user = userService.getUserById(entity.getUid());
+        Schedule schedule = scheduleService.getById(entity.getScheduleId());
+
+        return entity.toModel(schedule, user);
+    }
 
     public ScheduleSecurity save(ScheduleSecurity scheduleSecurity) {
         return scheduleSecurityRepo.save(ScheduleSecurityEntity.from(scheduleSecurity))
@@ -188,4 +237,7 @@ public class ScheduleSecurityService {
     }
 
 
+    public void deleteBySchedule(Schedule schedule) {
+        scheduleSecurityRepo.deleteBySchedule(schedule.getId());
+    }
 }

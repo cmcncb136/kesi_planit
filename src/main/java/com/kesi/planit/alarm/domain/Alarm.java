@@ -21,8 +21,4 @@ public class Alarm {
     private final AlarmType alarmType;
     private final LocalDateTime createTime;
 
-    public MessageDto toMessageDto() {
-        return null;
-    }
-
 }

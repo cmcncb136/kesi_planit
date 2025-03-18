@@ -1,6 +1,7 @@
 package com.kesi.planit.alarm.presentation.dto;
 
 import com.google.firebase.messaging.Notification;
+import com.kesi.planit.alarm.domain.Alarm;
 import lombok.Builder;
 
 @Builder
@@ -15,5 +16,11 @@ public class NotificationDto {
                 .setTitle(title)
                 .setImage(image)
                 .build();
+    }
+
+    public static NotificationDto toNotification(Alarm alarm) {
+        return NotificationDto.builder()
+                .title(alarm.getTitle())
+                .body(alarm.getContent()).build();
     }
 }

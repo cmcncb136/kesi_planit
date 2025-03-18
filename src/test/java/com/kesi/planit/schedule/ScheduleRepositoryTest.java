@@ -145,7 +145,7 @@ public class ScheduleRepositoryTest {
         ScheduleJpaEntity savedSchedule = scheduleRepository.save(scheduleJpaEntity);
 
         //when
-        scheduleRepository.delete(scheduleJpaEntity);
+        scheduleRepository.deleteById(scheduleJpaEntity.getId());
         ScheduleJpaEntity result = scheduleRepository.findById(savedSchedule.getId());
 
         //then

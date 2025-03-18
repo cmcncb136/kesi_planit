@@ -63,4 +63,12 @@ public class ScheduleService {
         //Todo. securityLevel에 의해서
         return null; //scheduleAndCalendarJpaEntities.stream().map(it -> getById(it.getScheduleId())).toList();
     }
+
+    public void delete(Schedule schedule) {
+        scheduleRepo.deleteById(schedule.getId());
+    }
+
+    public void deleteById(Long id) {
+        scheduleRepo.deleteById(id);
+    }
 }

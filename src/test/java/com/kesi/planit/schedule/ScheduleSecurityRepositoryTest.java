@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -67,7 +66,7 @@ public class ScheduleSecurityRepositoryTest {
         //when
         //x유저 1월 데이터 조회
         List<ScheduleSecurityEntity> scheduleSecurityEntities
-                = scheduleSecurityJpaRepo.findSchedulesUidAndWithinDateRange(
+                = scheduleSecurityJpaRepo.findSchedulesUidAndWithInDateRange(
                         uid, date, LocalDate.of(date.getYear(), date.getMonthValue(), date.lengthOfMonth()));
 
         //then

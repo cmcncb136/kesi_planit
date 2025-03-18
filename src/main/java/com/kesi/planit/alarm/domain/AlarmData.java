@@ -16,5 +16,4 @@ public abstract class AlarmData {
     }
 
     public abstract HashMap<String, String> toAlarmData();
-
 }

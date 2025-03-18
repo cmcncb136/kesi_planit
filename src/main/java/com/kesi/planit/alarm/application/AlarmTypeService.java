@@ -13,7 +13,7 @@ import java.util.List;
 public class AlarmTypeService {
     private final List<AlarmTypeData> alarmTypeRepoList;
 
-    public AlarmTypeData findAlarmType(AlarmType alarmType){
+    private AlarmTypeData findAlarmType(AlarmType alarmType){
         return alarmTypeRepoList.stream().filter(it ->
                 it.getAlarmType() == alarmType).findFirst().orElseThrow();
     }
@@ -21,6 +21,7 @@ public class AlarmTypeService {
 
     public AlarmData getAlarmTypeById(Long alarmId, AlarmType alarmType) {
         AlarmTypeData alarmTypeRepo = findAlarmType(alarmType);
+        System.out.println("alarmTypeRepo = " + alarmTypeRepo);
         return alarmTypeRepo.getByAlarmId(alarmId);
     }
 

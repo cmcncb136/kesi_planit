@@ -17,7 +17,9 @@ public class AlarmScheduleService implements AlarmTypeData {
 
     @Override
     public AlarmData getById(Long id) {
-        return alarmTypeRepo.findById(id).toModel(alarmCRUDService.getById(id));
+        AlarmScheduleJpaEntity alarmScheduleJpaEntity = alarmTypeRepo.findById(id);
+        Alarm alarm = alarmCRUDService.getById(alarmScheduleJpaEntity.getAlarmId());
+        return alarmTypeRepo.findById(id).toModel(alarm);
     }
 
     @Override

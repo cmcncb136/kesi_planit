@@ -4,11 +4,13 @@ import com.kesi.planit.alarm.domain.Alarm;
 import com.kesi.planit.alarm.domain.AlarmSchedule;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "alarm_schedule")
 @NoArgsConstructor
+@Getter
 public class AlarmScheduleJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

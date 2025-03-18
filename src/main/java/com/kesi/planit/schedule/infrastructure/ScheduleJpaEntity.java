@@ -15,7 +15,10 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "schedule")
+@Table(name = "schedule", indexes = {
+        @Index(name = "idx_schedule_start_date", columnList = "start_date"),
+        @Index(name = "idx_schedule_end_date", columnList = "end_date")
+})
 public class ScheduleJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +26,7 @@ public class ScheduleJpaEntity {
 
     private String makerUid;
     private Long sourceCalendarId; //만들어진 캘린더 정보
-    private String colorValue; //#XXXXXXXX로 관리
+    private String colorValue;
 
     private String description;
     private String title;
@@ -44,7 +47,7 @@ public class ScheduleJpaEntity {
                              LocalTime endTime, Long sourceCalendarId) {
         this.id = id;
         this.makerUid = makerUid;
-        this.colorValue = String.valueOf(colorValue);
+        this.colorValue = Integer.toHexString(colorValue);
         this.description = description;
         this.title = title;
         this.link = link;
@@ -90,6 +93,7 @@ public class ScheduleJpaEntity {
                 .endTime(schedule.getEndTime())
                 .startTime(schedule.getStartTime())
                 .sourceCalendarId(schedule.getSourceCalendar().getId())
+                .guestEditPermission(schedule.isGuestEditPermission())
                 .build();
     }
 

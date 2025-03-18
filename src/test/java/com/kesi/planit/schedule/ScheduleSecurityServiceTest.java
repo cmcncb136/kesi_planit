@@ -1,6 +1,5 @@
 package com.kesi.planit.schedule;
 
-import com.kesi.planit.alarm.application.AlarmCRUDService;
 import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.group.application.GroupService;
@@ -29,7 +28,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.awt.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -92,7 +91,7 @@ public class ScheduleSecurityServiceTest {
                 .description("Schedule Test")
                 .color(Color.BLACK).maker(user)
                 .sourceCalendar(calendar)
-                .startTime(LocalDateTime.now()).endTime(LocalDateTime.now().plusDays(1))
+                .startTime(LocalTime.now()).endTime(LocalTime.now())
                 .endDate(LocalDate.now()).endDate(LocalDate.now().plusDays(1))
                 .build();
 
@@ -115,7 +114,7 @@ public class ScheduleSecurityServiceTest {
                 .description("Group Schedule Test")
                 .color(Color.WHITE).maker(user)
                 .sourceCalendar(groupCalendar)
-                .startTime(LocalDateTime.now()).endTime(LocalDateTime.now().plusDays(1))
+                .startTime(LocalTime.now()).endTime(LocalTime.now())
                 .endDate(LocalDate.now()).endDate(LocalDate.now().plusDays(1))
                 .build();
     }
@@ -187,7 +186,7 @@ public class ScheduleSecurityServiceTest {
                 .thenReturn(ScheduleSecurityEntity.from(scheduleSecurity));
 
         //when
-        ResponseEntity<String> rst = scheduleSecurityService.addPersonalSchedule(user.getUid(), requestPersonalScheduleDto);
+        ResponseEntity<Long> rst = scheduleSecurityService.addPersonalSchedule(user.getUid(), requestPersonalScheduleDto);
 
         //then
         assertThat(rst.getStatusCode().value()).isEqualTo(200);
@@ -209,8 +208,8 @@ public class ScheduleSecurityServiceTest {
                     .color(Color.BLACK)
                     .startDate(LocalDate.now())
                     .endDate(LocalDate.now())
-                    .startTime(LocalDateTime.now())
-                    .endTime(LocalDateTime.now())
+                    .startTime(LocalTime.now())
+                    .endTime(LocalTime.now())
                     .maker(user)
                     .sourceCalendar(calendar)
                     .title("title")
@@ -272,8 +271,8 @@ public class ScheduleSecurityServiceTest {
                         .color(Color.BLACK)
                         .startDate(LocalDate.now())
                         .endDate(LocalDate.now())
-                        .startTime(LocalDateTime.now())
-                        .endTime(LocalDateTime.now()).maker(user)
+                        .startTime(LocalTime.now())
+                        .endTime(LocalTime.now()).maker(user)
                         .sourceCalendar(calendar).title("title")
                         .description("title description")
                         .guestEditPermission(true).id((long) i * 10 + j)
@@ -294,7 +293,7 @@ public class ScheduleSecurityServiceTest {
         Mockito.when(groupService.getById(group.getGid())).thenReturn(group);
 
         //when
-        ResponseEntity<List<GroupUserScheduleDto>> rst = scheduleSecurityService.getGroupUserSchedulesAndMonth(date.toString(), "s1", group.getGid());
+        ResponseEntity<List<GroupUserScheduleDto>> rst = scheduleSecurityService.getGroupUserSchedulesInMonth(date.toString(), "s1", group.getGid());
 
         //then
         assertThat(rst.getStatusCode().value()).isEqualTo(200);
