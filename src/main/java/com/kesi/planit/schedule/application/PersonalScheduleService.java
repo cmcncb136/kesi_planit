@@ -63,7 +63,7 @@ public class PersonalScheduleService {
         ScheduleSecurity updateScheduleSecurity = requestPersonalUpdateScheduleDto.toModel(user, scheduleSecurity.getId());
         scheduleSecurity.editPossible(updateScheduleSecurity);
 
-        ScheduleSecurity savedScheduleSecurity = scheduleSecurityService.save(scheduleSecurity);
+        ScheduleSecurity savedScheduleSecurity = scheduleSecurityService.save(updateScheduleSecurity);
         return ResponseEntity.ok(PersonalScheduleDto.from(savedScheduleSecurity, uid));
     }
 
