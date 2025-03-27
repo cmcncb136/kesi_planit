@@ -30,6 +30,25 @@ INSERT INTO USER_TABLE (UID, BIRTH, CALENDAR_ID, EMAIL, GENDER, IMAGE_PATH, JOIN
 VALUES ('95IcydqLUESf3ZTUcI3oNRarS0Y2', '1992-07-18', 1005, 'ksh@naver.com', 'Male', '/profile.jpg', '2023-05-30', 'Nick005');
 
 
+
+INSERT INTO group_table (maker_uid, calendar_id, group_name)
+VALUES
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'g1'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'g2'),
+    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 3, 'g3');
+
+INSERT INTO group_and_user (uid, gid, allowed_security_level)
+VALUES
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'HIGH'),
+    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 1, 'HIGH'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'HIGH'),
+    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 2, 'HIGH'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 3, 'HIGH'),
+    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 3, 'HIGH'),
+    ('QJBriy9zfPMAD8nk15KrWFKnLq73', 3, 'HIGH');
+
+
+
 INSERT INTO FRIENDS_RELATION (ID, ALIAS, SOURCE_EMAIL, TARGET_EMAIL)
 VALUES (1000, 'TEST4', 'ksh@naver.com', 'test4@naver.com');
 
@@ -45,7 +64,7 @@ VALUES (1003, 'TEST7', 'ksh@naver.com', 'test7@naver.com');
 INSERT INTO FRIENDS_RELATION (ID, ALIAS, SOURCE_EMAIL, TARGET_EMAIL)
 VALUES (1004, 'TEST8', 'ksh@naver.com', 'test8@naver.com');
 
-
+--PERSONAL SCHEDULE 1 ~ 24
 INSERT INTO schedule (maker_uid, source_calendar_id, color_value, description, title, guest_edit_permission, start_date, end_date, start_time, end_time)
 VALUES
 ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1005, 'FFFF5733', 'Weekly team meeting', 'Team Meeting', true, '2025-02-01', '2025-02-01', '10:00:00', '11:00:00'),
@@ -103,6 +122,52 @@ VALUES
     (24, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW');
 
 
+--GROUP SCHEDULE 25 ~ 33
+INSERT INTO schedule (maker_uid, source_calendar_id, color_value, description, title, guest_edit_permission, start_date, end_date, start_time, end_time)
+VALUES
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'FFFF5733', 'Weekly team meeting', 'Team Meeting', true, '2025-02-02', '2025-02-05', '10:00:00', '11:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'FFFF5733', 'Weekly team meeting', 'Team Meeting', true, '2025-03-02', '2025-03-05', '10:00:00', '11:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'FFFF5733', 'Kesi team meeting', 'Team Meeting', true, '2025-03-05', '2025-03-05', '10:00:00', '11:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'FF33A1FF', 'Project deadline review', 'Deadline Review', false, '2025-03-10', '2025-03-10', '14:00:00', '15:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 3, 'FF5733FF', 'Client presentation', 'Client Meeting', true, '2025-03-15', '2025-03-15', '09:30:00', '11:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'FF33FF57', 'Sprint planning session', 'Sprint Planning', false, '2025-03-20', '2025-03-20', '13:00:00', '15:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'FFFFA533', 'Quarterly report discussion', 'Quarterly Meeting', true, '2025-03-25', '2025-03-25', '10:00:00', '12:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'FF3380FF', 'Team building activity', 'Team Building', true, '2025-04-01', '2025-04-01', '15:00:00', '17:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 3, 'FF22A1D3', 'Technical workshop on AI', 'AI Workshop', false, '2025-04-05', '2025-04-05', '09:00:00', '12:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 3, 'FFAACC22', 'HR policy update meeting', 'HR Meeting', false, '2025-04-10', '2025-04-10', '10:30:00', '11:30:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'FF229955', 'Product demo for investors', 'Product Demo', true, '2025-04-15', '2025-04-15', '14:00:00', '16:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'FF8833DD', 'Backend system upgrade discussion', 'Tech Meeting', false, '2025-04-20', '2025-04-20', '15:00:00', '16:30:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 3, 'FFDDAA44', 'Security awareness training', 'Security Training', true, '2025-04-25', '2025-04-25', '09:00:00', '11:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'FF1155AA', 'Mobile app UI/UX review', 'Design Review', false, '2025-05-01', '2025-05-01', '13:30:00', '15:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'FF77CC55', 'All-hands company meeting', 'Company Meeting', true, '2025-05-05', '2025-05-05', '10:00:00', '11:30:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 3, 'FF5544CC', 'New feature brainstorming session', 'Feature Planning', false, '2025-05-10', '2025-05-10', '14:00:00', '16:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'FF996633', 'Marketing campaign kickoff', 'Marketing Kickoff', true, '2025-05-15', '2025-05-15', '09:30:00', '11:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'FFCC4488', 'Cloud infrastructure scaling discussion', 'Cloud Strategy', false, '2025-05-20', '2025-05-20', '15:30:00', '17:00:00'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 3, 'FF3322DD', 'End-of-quarter performance review', 'Performance Review', true, '2025-05-25', '2025-05-25', '10:00:00', '12:00:00');
+
+INSERT INTO schedule_security (schedule_id, uid, security_level)
+VALUES
+    (25, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'HIGH'),
+    (25, 'Tqth82Y2EFMR42egUYoVEyiGxr32', 'MEDIUM'),
+    (26, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW'),
+    (26, 'Tqth82Y2EFMR42egUYoVEyiGxr32', 'HIGH'),
+    (27, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW'),
+    (27, 'Tqth82Y2EFMR42egUYoVEyiGxr32', 'MEDIUM'),
+    (28, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'MEDIUM'),
+    (28, 'Tqth82Y2EFMR42egUYoVEyiGxr32', 'HIGH'),
+    (29, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'HIGH'),
+    (29, 'Tqth82Y2EFMR42egUYoVEyiGxr32', 'LOW'),
+    (30, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'MEDIUM'),
+    (30, 'Tqth82Y2EFMR42egUYoVEyiGxr32', 'LOW'),
+    (31, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'LOW'),
+    (31, 'Tqth82Y2EFMR42egUYoVEyiGxr32', 'HIGH'),
+    (32, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'HIGH'),
+    (32, 'Tqth82Y2EFMR42egUYoVEyiGxr32', 'MEDIUM'),
+    (33, '95IcydqLUESf3ZTUcI3oNRarS0Y2', 'MEDIUM'),
+    (33, 'Tqth82Y2EFMR42egUYoVEyiGxr32', 'LOW');
+
+
+
 
 INSERT INTO alarm (uid, title, content, alarm_type, create_time)
 VALUES
@@ -126,7 +191,6 @@ VALUES
     ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Photography Workshop', 'Your photo workshop starts at 10 AM.', 'SCHEDULE', '2025-01-09 20:00:00'),
     ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Cooking Class Reminder', 'Your cooking class starts at 3 PM.', 'GROUP', '2025-01-19 14:00:00'),
     ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Book Club Meeting', 'Book club meeting starts at 6:30 PM.', 'GROUP', '2025-01-01 12:00:00');
-
 
 INSERT INTO alarm_group (alarm_id, gid)
 VALUES
@@ -158,23 +222,6 @@ VALUES
     (12),
     (15),
     (17);
-
-INSERT INTO group_table (maker_uid, calendar_id, group_name)
-VALUES
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'g1'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'g2'),
-    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 3, 'g3');
-
-INSERT INTO group_and_user (uid, gid, allowed_security_level)
-VALUES
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'HIGH'),
-    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 1, 'HIGH'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'HIGH'),
-    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 2, 'HIGH'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 3, 'HIGH'),
-    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 3, 'HIGH'),
-    ('QJBriy9zfPMAD8nk15KrWFKnLq73', 3, 'HIGH');
-
 
 
 

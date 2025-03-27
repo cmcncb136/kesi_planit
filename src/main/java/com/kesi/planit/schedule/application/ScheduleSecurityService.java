@@ -190,6 +190,7 @@ public class ScheduleSecurityService {
                 .scheduleId(schedule.getId())
                 .securityLevel(scheduleSecurity.getSecurityLevel())
                 .uid(scheduleSecurity.getUser().getUid())
+                .id(scheduleSecurity.getId())
                 .build();
         //Todo. 추후 로직 최적화 필요
         return scheduleSecurityRepo.save(scheduleSecurityEntity)
