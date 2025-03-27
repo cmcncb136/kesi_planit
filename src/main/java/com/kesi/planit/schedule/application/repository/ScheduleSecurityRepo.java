@@ -1,6 +1,5 @@
 package com.kesi.planit.schedule.application.repository;
 
-import com.kesi.planit.schedule.domain.Schedule;
 import com.kesi.planit.schedule.infrastructure.ScheduleSecurityEntity;
 
 import java.time.LocalDate;

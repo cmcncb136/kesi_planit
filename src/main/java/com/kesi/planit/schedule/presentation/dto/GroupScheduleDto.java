@@ -2,6 +2,9 @@ package com.kesi.planit.schedule.presentation.dto;
 
 import com.kesi.planit.group.Presentation.dto.GroupMemberDto;
 import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.schedule.domain.ScheduleSecurity;
+import com.kesi.planit.schedule.domain.ScheduleSource;
+import com.kesi.planit.schedule.domain.SecurityLevel;
 import lombok.Builder;
 
 @Builder
@@ -15,8 +18,11 @@ public class GroupScheduleDto {
     public String description;
     public String startDate, endDate;
     public String startTime, endTime;
+    public SecurityLevel securityLevel;
 
-    public static GroupScheduleDto from(Schedule schedule) {
+
+    public static GroupScheduleDto from(ScheduleSecurity scheduleSecurity) {
+        ScheduleSource schedule = scheduleSecurity.getSchedule();
         return GroupScheduleDto.builder()
                 .id(schedule.getId())
                 .makerName(GroupMemberDto.from(schedule.getMaker()))
@@ -29,6 +35,7 @@ public class GroupScheduleDto {
                 .endDate(schedule.getEndDate().toString())
                 .startTime(schedule.getStartTime().toString())
                 .endTime(schedule.getEndTime().toString())
+                .securityLevel(scheduleSecurity.getSecurityLevel())
                 .build();
     }
 }

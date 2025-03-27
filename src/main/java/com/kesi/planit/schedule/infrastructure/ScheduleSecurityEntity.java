@@ -1,7 +1,6 @@
 package com.kesi.planit.schedule.infrastructure;
 
-import com.kesi.planit.calendar.domain.Calendar;
-import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.schedule.domain.ScheduleSource;
 import com.kesi.planit.schedule.domain.ScheduleSecurity;
 import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.user.domain.User;
@@ -36,7 +35,7 @@ public class ScheduleSecurityEntity {
         this.securityLevel = securityLevel;
     }
 
-    public ScheduleSecurity toModel(Schedule schedule, User user) {
+    public ScheduleSecurity toModel(ScheduleSource schedule, User user) {
         return ScheduleSecurity.builder()
                 .id(this.id)
                 .schedule(schedule)

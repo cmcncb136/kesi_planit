@@ -1,12 +1,11 @@
 package com.kesi.planit.alarm.application;
 
-import com.google.firebase.messaging.Notification;
 import com.kesi.planit.alarm.domain.*;
 import com.kesi.planit.alarm.presentation.dto.AlarmDataDto;
 import com.kesi.planit.alarm.presentation.dto.MessageDto;
 import com.kesi.planit.alarm.presentation.dto.NotificationDto;
 import com.kesi.planit.group.domain.Group;
-import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.schedule.domain.ScheduleSource;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -47,7 +46,7 @@ public class AlarmService {
         }
     }
 
-    public void createGroupScheduleAlarm(Group group, Schedule schedule) {
+    public void createGroupScheduleAlarm(Group group, ScheduleSource schedule) {
         //Alarm 생성 및 저장
         List<Alarm> alarmList = new ArrayList<>();
 

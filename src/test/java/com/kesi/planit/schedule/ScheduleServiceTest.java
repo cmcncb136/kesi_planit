@@ -2,13 +2,9 @@ package com.kesi.planit.schedule;
 
 import com.kesi.planit.calendar.application.CalendarService;
 import com.kesi.planit.calendar.domain.Calendar;
-import com.kesi.planit.group.application.GroupService;
-import com.kesi.planit.group.domain.Group;
-import com.kesi.planit.schedule.application.ScheduleService;
+import com.kesi.planit.schedule.application.ScheduleSourceService;
 import com.kesi.planit.schedule.application.repository.ScheduleRepo;
-import com.kesi.planit.schedule.application.repository.ScheduleSecurityRepo;
-import com.kesi.planit.schedule.domain.Schedule;
-import com.kesi.planit.schedule.domain.SecurityLevel;
+import com.kesi.planit.schedule.domain.ScheduleSource;
 import com.kesi.planit.schedule.infrastructure.ScheduleJpaEntity;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
@@ -24,13 +20,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 public class ScheduleServiceTest {
-    ScheduleService scheduleService;
+    ScheduleSourceService scheduleService;
 
     @MockBean
     CalendarService calendarService;
@@ -41,7 +36,7 @@ public class ScheduleServiceTest {
     ScheduleRepo scheduleRepo;
 
     ScheduleJpaEntity scheduleJpaEntity;
-    Schedule schedule;
+    ScheduleSource schedule;
 
     UserJpaEntity userJpaEntity;
     ArrayList<UserJpaEntity> userJpaEntityList;
@@ -108,7 +103,7 @@ public class ScheduleServiceTest {
 
     @BeforeEach
     void setup(){
-        scheduleService = new ScheduleService(
+        scheduleService = new ScheduleSourceService(
                 scheduleRepo, calendarService,
                 userService
         );
@@ -119,11 +114,11 @@ public class ScheduleServiceTest {
     @DisplayName("schedule 저장")
     void save(){
         //given
-        Schedule originalSchedule = scheduleJpaEntity.toModel(user, user.getMyCalendar());
+        ScheduleSource originalSchedule = scheduleJpaEntity.toModel(user, user.getMyCalendar());
         Mockito.when(scheduleRepo.save(Mockito.any(ScheduleJpaEntity.class))).thenReturn(scheduleJpaEntity);
 
         //when
-        Schedule savedSchedule = scheduleService.save(originalSchedule);
+        ScheduleSource savedSchedule = scheduleService.save(originalSchedule);
 
         //then
         assertThat(savedSchedule.getDescription()).isEqualTo(originalSchedule.getDescription());
@@ -147,7 +142,7 @@ public class ScheduleServiceTest {
 
 
         //when
-        Schedule result = scheduleService.getById(1L);
+        ScheduleSource result = scheduleService.getById(1L);
 
         //then
         assertThat(result.getId()).isEqualTo(1L);

@@ -1,15 +1,13 @@
 package com.kesi.planit.schedule.presentation.dto;
 
 import com.kesi.planit.calendar.domain.Calendar;
-import com.kesi.planit.schedule.domain.Schedule;
-import com.kesi.planit.schedule.domain.SecurityLevel;
+import com.kesi.planit.schedule.domain.ScheduleSource;
 import com.kesi.planit.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.awt.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Builder
@@ -24,8 +22,8 @@ public class RequestGroupScheduleDto {
     public String startTime, endTime;
     public Boolean guestEditPermission;
 
-    public Schedule toModel(User maker, Calendar groupCalendar) {
-        return Schedule.builder()
+    public ScheduleSource toModel(User maker, Calendar groupCalendar) {
+        return ScheduleSource.builder()
                 .color(new Color(colorValue, true))
                 .title(title)
                 .description(description)

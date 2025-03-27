@@ -1,7 +1,7 @@
 package com.kesi.planit.schedule.presentation.dto;
 
 import com.kesi.planit.group.Presentation.dto.GroupMemberDto;
-import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.schedule.domain.ScheduleSource;
 import lombok.Builder;
 
 @Builder
@@ -15,7 +15,7 @@ public class GroupUserScheduleDto {
     public String startDate, endDate;
     public String startTime, endTime;
 
-    public static GroupUserScheduleDto from(Schedule schedule) {
+    public static GroupUserScheduleDto from(ScheduleSource schedule) {
         return GroupUserScheduleDto.builder()
                 .id(schedule.getId())
                 .scheduleOwner(GroupMemberDto.from(schedule.getMaker()))

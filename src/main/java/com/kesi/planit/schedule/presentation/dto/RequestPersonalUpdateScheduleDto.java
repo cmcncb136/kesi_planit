@@ -1,6 +1,8 @@
 package com.kesi.planit.schedule.presentation.dto;
 
-import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.schedule.application.ScheduleSecurityService;
+import com.kesi.planit.schedule.domain.ScheduleSecurity;
+import com.kesi.planit.schedule.domain.ScheduleSource;
 import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.user.domain.User;
 
@@ -19,8 +21,9 @@ public class RequestPersonalUpdateScheduleDto {
     public String startTime, endTime;
     public SecurityLevel securityLevel;
 
-    public Schedule toModel(User maker) {
-        return Schedule.builder()
+
+    public ScheduleSecurity toModel(User user, long securityScheduleId) {
+        ScheduleSource scheduleSource = ScheduleSource.builder()
                 .id(id)
                 .color(new Color(colorValue, true))
                 .title(title)
@@ -31,9 +34,16 @@ public class RequestPersonalUpdateScheduleDto {
                 .endDate(LocalDate.parse(endDate))
                 .startTime(LocalTime.parse(startTime))
                 .endTime(LocalTime.parse(endTime))
-                .sourceCalendar(maker.getMyCalendar())
-                .maker(maker)
+                .sourceCalendar(user.getMyCalendar())
+                .maker(user)
                 .guestEditPermission(false)
+                .build();
+
+        return ScheduleSecurity.builder()
+                .id(securityScheduleId)
+                .schedule(scheduleSource)
+                .securityLevel(securityLevel)
+                .user(user)
                 .build();
     }
 }

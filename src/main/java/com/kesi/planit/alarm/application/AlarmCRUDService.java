@@ -3,16 +3,11 @@ package com.kesi.planit.alarm.application;
 import com.kesi.planit.alarm.application.repository.AlarmRepo;
 import com.kesi.planit.alarm.domain.*;
 import com.kesi.planit.alarm.infrastructure.AlarmJpaEntity;
-import com.kesi.planit.alarm.presentation.dto.AlarmDataDto;
-import com.kesi.planit.group.domain.Group;
-import com.kesi.planit.schedule.domain.Schedule;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

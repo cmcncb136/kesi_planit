@@ -1,7 +1,6 @@
 package com.kesi.planit.schedule.infrastructure;
 
 import com.kesi.planit.schedule.application.repository.ScheduleRepo;
-import com.kesi.planit.schedule.domain.Schedule;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

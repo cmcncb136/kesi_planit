@@ -6,9 +6,9 @@ import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.group.domain.GroupUserMap;
 import com.kesi.planit.schedule.application.ScheduleSecurityService;
-import com.kesi.planit.schedule.application.ScheduleService;
+import com.kesi.planit.schedule.application.ScheduleSourceService;
 import com.kesi.planit.schedule.application.repository.ScheduleSecurityRepo;
-import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.schedule.domain.ScheduleSource;
 import com.kesi.planit.schedule.domain.ScheduleSecurity;
 import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.schedule.infrastructure.ScheduleSecurityEntity;
@@ -49,7 +49,7 @@ public class ScheduleSecurityServiceTest {
     AlarmService alarmService;
 
     @MockBean
-    ScheduleService scheduleService;
+    ScheduleSourceService scheduleService;
 
     @MockBean
     ScheduleSecurityRepo scheduleSecurityRepo;
@@ -59,11 +59,11 @@ public class ScheduleSecurityServiceTest {
 
     private User user;
     private Calendar calendar;
-    private Schedule schedule;
+    private ScheduleSource schedule;
 
     private Group group;
     private Calendar groupCalendar;
-    private Schedule groupSchedule;
+    private ScheduleSource groupSchedule;
 
 
     @BeforeEach
@@ -85,7 +85,7 @@ public class ScheduleSecurityServiceTest {
                 .build();
 
 
-        schedule = Schedule.builder()
+        schedule = ScheduleSource.builder()
                 .id(200L)
                 .title("Schedule Test")
                 .description("Schedule Test")
@@ -108,7 +108,7 @@ public class ScheduleSecurityServiceTest {
                 .users(new GroupUserMap(users))
                 .build();
 
-        groupSchedule = Schedule.builder()
+        groupSchedule = ScheduleSource.builder()
                 .id(201L)
                 .title("Group Schedule Test")
                 .description("Group Schedule Test")
@@ -178,7 +178,7 @@ public class ScheduleSecurityServiceTest {
                 .build();
 
         Mockito.when(userService.getUserById(user.getUid())).thenReturn(user);
-        Mockito.when(scheduleService.save(Mockito.any(Schedule.class))).thenReturn(schedule);
+        Mockito.when(scheduleService.save(Mockito.any(ScheduleSource.class))).thenReturn(schedule);
         Mockito.when(requestPersonalScheduleDto.toModel(user)).thenReturn(schedule);
         Mockito.when(requestPersonalScheduleDto.getSecurityLevel()).thenReturn(scheduleSecurity.getSecurityLevel());
 
@@ -198,13 +198,13 @@ public class ScheduleSecurityServiceTest {
     public void getScheduleSecurityMonthByUidTest(){
         //given
         List<ScheduleSecurityEntity> scheduleSecurityEntityList = new ArrayList<ScheduleSecurityEntity>();
-        List<Schedule> scheduleList = new ArrayList<>();
+        List<ScheduleSource> scheduleList = new ArrayList<>();
         LocalDate date = LocalDate.now();
         LocalDate start = LocalDate.of(date.getYear(), date.getMonthValue(), 1);
         LocalDate end = LocalDate.of(date.getYear(), date.getMonthValue(), date.lengthOfMonth());
 
         for(int i = 1; i <= 10; i++){
-            scheduleList.add(Schedule.builder()
+            scheduleList.add(ScheduleSource.builder()
                     .color(Color.BLACK)
                     .startDate(LocalDate.now())
                     .endDate(LocalDate.now())
@@ -267,7 +267,7 @@ public class ScheduleSecurityServiceTest {
                             .build());
 
             for(int j = 0; j < 10; j++){
-                Schedule schedule = Schedule.builder() //스케줄 생성
+                ScheduleSource schedule = ScheduleSource.builder() //스케줄 생성
                         .color(Color.BLACK)
                         .startDate(LocalDate.now())
                         .endDate(LocalDate.now())

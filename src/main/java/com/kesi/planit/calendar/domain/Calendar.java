@@ -1,10 +1,9 @@
 package com.kesi.planit.calendar.domain;
 
-import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.schedule.domain.ScheduleSource;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -13,15 +12,15 @@ public class Calendar {
     private final Long id;
 
 
-    public void updateCalendar(Schedule schedule) {
+    public void updateCalendar(ScheduleSource schedule) {
 
     }
 
-    public void addSchedule(Schedule schedule) {
+    public void addSchedule(ScheduleSource schedule) {
 
     }
 
-    public void removeSchedule(Schedule schedule) {
+    public void removeSchedule(ScheduleSource schedule) {
 
     }
 

@@ -1,7 +1,7 @@
 package com.kesi.planit.schedule.presentation.dto;
 
 import com.kesi.planit.group.Presentation.dto.GroupMemberDto;
-import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.schedule.domain.ScheduleSource;
 import com.kesi.planit.schedule.domain.ScheduleSecurity;
 import com.kesi.planit.schedule.domain.SecurityLevel;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public class PersonalScheduleDto {
     public SecurityLevel securityLevel;
 
     public static PersonalScheduleDto from(ScheduleSecurity scheduleSecurity, String uid) {
-        Schedule schedule = scheduleSecurity.getSchedule(uid);
+        ScheduleSource schedule = scheduleSecurity.getSchedule(uid);
 
         return PersonalScheduleDto.builder()
                 .id(schedule.getId())

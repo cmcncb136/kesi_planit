@@ -1,7 +1,7 @@
 package com.kesi.planit.schedule.infrastructure;
 
 import com.kesi.planit.calendar.domain.Calendar;
-import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.schedule.domain.ScheduleSource;
 import com.kesi.planit.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -61,8 +61,8 @@ public class ScheduleJpaEntity {
     }
 
 
-    public Schedule toModel(User user, Calendar sourceCalendar){
-        return Schedule.builder()
+    public ScheduleSource toModel(User user, Calendar sourceCalendar){
+        return ScheduleSource.builder()
                 .id(id)
                 .color(new Color((int)(Long.parseLong(colorValue, 16)), true))
                 .maker(user)
@@ -79,7 +79,7 @@ public class ScheduleJpaEntity {
                 .build();
     }
 
-    public static ScheduleJpaEntity from(Schedule schedule){
+    public static ScheduleJpaEntity from(ScheduleSource schedule){
         return ScheduleJpaEntity.builder()
                 .id(schedule.getId())
                 .colorValue(schedule.getColor().getRGB())

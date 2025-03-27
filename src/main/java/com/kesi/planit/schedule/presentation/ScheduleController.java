@@ -1,5 +1,6 @@
 package com.kesi.planit.schedule.presentation;
 
+import com.kesi.planit.schedule.application.PersonalScheduleService;
 import com.kesi.planit.schedule.application.ScheduleSecurityService;
 import com.kesi.planit.schedule.presentation.dto.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,26 +16,27 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("schedule")
 public class ScheduleController {
+    private final PersonalScheduleService personalScheduleService;
     private final ScheduleSecurityService scheduleSecurityService;
 
     @GetMapping("")
     public ResponseEntity<List<PersonalScheduleDto>> getPersonalSchedulesWithMonth(@RequestParam("monthDate") String date, HttpServletRequest request) {
-        return scheduleSecurityService.getPersonalSchedulesAndMonth(date, (String) request.getAttribute("uid"));
+        return personalScheduleService.getPersonalSchedulesInMonth(date, (String) request.getAttribute("uid"));
     }
 
     @PostMapping("")
     public ResponseEntity<Long> addPersonalSchedule(@RequestBody RequestPersonalScheduleDto personalScheduleDto, HttpServletRequest request) {
-        return scheduleSecurityService.addPersonalSchedule((String)request.getAttribute("uid"), personalScheduleDto);
+        return personalScheduleService.addPersonalSchedule((String)request.getAttribute("uid"), personalScheduleDto);
     }
 
     @DeleteMapping("")
     public ResponseEntity<Void> deletePersonalSchedule(@RequestParam("scheduleId") Long scheduleId, HttpServletRequest request) {
-        return scheduleSecurityService.removePersonalSchedule((String)request.getAttribute("uid"), scheduleId);
+        return personalScheduleService.removePersonalSchedule((String)request.getAttribute("uid"), scheduleId);
     }
 
     @PatchMapping("")
     public ResponseEntity<PersonalScheduleDto> updatePersonalSchedule(@RequestBody RequestPersonalUpdateScheduleDto requestPersonalUpdateScheduleDto, HttpServletRequest request) {
-        return scheduleSecurityService.updatePersonalSchedule((String)request.getAttribute("uid"), requestPersonalUpdateScheduleDto);
+        return personalScheduleService.updatePersonalSchedule((String)request.getAttribute("uid"), requestPersonalUpdateScheduleDto);
     }
 
     @GetMapping("/group")
