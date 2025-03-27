@@ -78,9 +78,10 @@ public class ScheduleSecurityService {
         if(group.checkMember(uid)) //그룹 유저가 아니라면
             return ResponseEntity.badRequest().build();
 
+        return null;
 
-        return ResponseEntity.ok().body(scheduleService.getBySourceCalendarIdAndMonth(group.getGroupCalendar().getId(), date)
-                .stream().map(GroupScheduleDto::from).toList());
+//        return ResponseEntity.ok().body(scheduleService.getBySourceCalendarIdAndMonth(group.getGroupCalendar().getId(), date)
+//                .stream().map(GroupScheduleDto::from).toList());
     }
 
     //그룹 유저들의 스케줄 일정을 월별 조회

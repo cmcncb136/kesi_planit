@@ -5,6 +5,10 @@ INSERT INTO CALENDAR (ID) VALUES (1003);
 INSERT INTO CALENDAR (ID) VALUES (1004);
 INSERT INTO CALENDAR (ID) VALUES (1005);
 
+INSERT INTO CALENDAR()
+VALUES
+    (), (), (), (), (), (), (), (), (), ();
+
 
 
 INSERT INTO USER_TABLE (UID, BIRTH, CALENDAR_ID, EMAIL, GENDER, IMAGE_PATH, JOIN_DATE, NICKNAME)
@@ -153,7 +157,25 @@ VALUES
     (8),
     (12),
     (15),
-    (17)
+    (17);
+
+INSERT INTO group_table (maker_uid, calendar_id, group_name)
+VALUES
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'g1'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'g2'),
+    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 3, 'g3');
+
+INSERT INTO group_and_user (uid, gid, allowed_security_level)
+VALUES
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'HIGH'),
+    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 1, 'HIGH'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 2, 'HIGH'),
+    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 2, 'HIGH'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 3, 'HIGH'),
+    ('Tqth82Y2EFMR42egUYoVEyiGxr32', 3, 'HIGH'),
+    ('QJBriy9zfPMAD8nk15KrWFKnLq73', 3, 'HIGH');
+
+
 
 
 

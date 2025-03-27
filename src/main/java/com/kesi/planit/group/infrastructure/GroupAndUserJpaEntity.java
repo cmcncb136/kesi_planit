@@ -19,6 +19,8 @@ public class GroupAndUserJpaEntity {
 
     private String uid;
     private Long gid;
+    
+    @Enumerated(EnumType.STRING)
     private SecurityLevel allowedSecurityLevel; //사용자가 이 그룹에 허용한 보안등급
 
 
