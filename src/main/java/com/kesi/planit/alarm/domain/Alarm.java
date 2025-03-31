@@ -20,5 +20,9 @@ public class Alarm {
     private final String content;
     private final AlarmType alarmType;
     private final LocalDateTime createTime;
+    private AlarmStatus alarmState;
 
+    public void process() {
+        alarmState = AlarmStatus.PROCESSED;
+    }
 }

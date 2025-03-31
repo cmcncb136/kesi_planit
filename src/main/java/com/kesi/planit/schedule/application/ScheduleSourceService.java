@@ -9,6 +9,7 @@ import com.kesi.planit.schedule.presentation.dto.PersonalScheduleDto;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

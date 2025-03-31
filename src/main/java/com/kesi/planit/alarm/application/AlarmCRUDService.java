@@ -16,7 +16,7 @@ public class AlarmCRUDService {
     private final AlarmRepo alarmRepo;
     private final UserService userService;
 
-    Alarm getById(long id) {
+    public Alarm getById(long id) {
         AlarmJpaEntity alarmJpaEntity = alarmRepo.findById(id);
 
         User user = userService.getUserById(alarmJpaEntity.getUid());
@@ -24,7 +24,7 @@ public class AlarmCRUDService {
         return alarmJpaEntity.toModel(user);
     }
 
-    List<Alarm> getByUid(String uid){
+    public List<Alarm> getByUid(String uid){
         User user = userService.getUserById(uid);
 
         //Todo. 기간 조회로 변경해야 됨

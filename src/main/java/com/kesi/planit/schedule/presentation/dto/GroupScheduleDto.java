@@ -19,8 +19,8 @@ public class GroupScheduleDto {
     public String startDate, endDate;
     public String startTime, endTime;
     public SecurityLevel securityLevel;
+    public Long sourceCalendarId;
     //추후에 관련된 그룹 맴버를 출력하도록할까...
-    //PersonalGroupSchedule 이란 객체를 만들어서 분리하는 것도 괜찮을 것 같네
 
 
     public static GroupScheduleDto from(ScheduleSecurity scheduleSecurity) {
@@ -38,6 +38,7 @@ public class GroupScheduleDto {
                 .startTime(schedule.getStartTime().toString())
                 .endTime(schedule.getEndTime().toString())
                 .securityLevel(scheduleSecurity.getSecurityLevel())
+                .sourceCalendarId(schedule.getSourceCalendar().getId())
                 .build();
     }
 }

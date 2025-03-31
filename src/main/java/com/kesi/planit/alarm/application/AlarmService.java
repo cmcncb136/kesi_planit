@@ -20,12 +20,16 @@ public class AlarmService {
     private final AlarmCRUDService alarmCRUDService;
     private final AlarmTypeService alarmTypeService;
 
+    public AlarmDataDto getAlarmDataById(long id) {
+        Alarm alarm = alarmCRUDService.getById(id);
+
+        AlarmData alarmData = alarmTypeService.getAlarmTypeById(alarm.getId(), alarm.getAlarmType());
+        return AlarmDataDto.toDto(alarm, alarmData);
+    }
+
     public ResponseEntity<AlarmDataDto> getAlarmDataDtoById(long id) {
         try{
-            Alarm alarm = alarmCRUDService.getById(id);
-
-            AlarmData alarmData = alarmTypeService.getAlarmTypeById(alarm.getId(), alarm.getAlarmType());
-            return ResponseEntity.ok(AlarmDataDto.toDto(alarm, alarmData));
+            return ResponseEntity.ok(getAlarmDataById(id));
         }catch (NullPointerException e){
             return ResponseEntity.notFound().build();
         }
@@ -60,6 +64,7 @@ public class AlarmService {
                                 .title("그룹 스케줄 생성")
                                 .user(user)
                                 .content(group.getMaker().getNickname() + " 님께서 '" + schedule.getTitle() + "' 스케줄을 추가했습니다.")
+                                .alarmState(AlarmStatus.PENDING)
                                 .build()));
 
                 alarmTypeService.saveAlarmType(AlarmType.SCHEDULE, alarmSchedule);
@@ -92,6 +97,7 @@ public class AlarmService {
                                 .title("그룹 초대")
                                 .user(user)
                                 .content(group.getMaker().getNickname() + " 님께서 '" + group.getGroupName() + "' 그룹에 초대하였습니다.")
+                                .alarmState(AlarmStatus.PROCESSED)
                                 .build()));
 
                 alarmTypeService.saveAlarmType(AlarmType.GROUP, alarmGroup);

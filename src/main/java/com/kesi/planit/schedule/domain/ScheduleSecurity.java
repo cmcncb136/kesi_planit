@@ -1,6 +1,5 @@
 package com.kesi.planit.schedule.domain;
 
-import com.kesi.planit.calendar.domain.Calendar;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.user.domain.User;
 import lombok.Builder;
@@ -26,7 +25,8 @@ public class ScheduleSecurity {
         return schedule;
     }
 
-    public ScheduleSource getSchedule(Group group) {
+    //Todo. 추후삭제 -> Filtered 객체에서 처리하는 방식으로 변경
+    public ScheduleSource getScheduleByGroup(Group group) {
         //Todo. security 보다 낮은 경우 날짜 정보만 보내줌.
         if (group.getUsers().get(user.getUid()).getAllowedSecurityLevel().ordinal()
                 > securityLevel.ordinal()) {

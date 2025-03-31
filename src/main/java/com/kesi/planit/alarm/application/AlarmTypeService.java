@@ -1,6 +1,7 @@
 package com.kesi.planit.alarm.application;
 
 import com.kesi.planit.alarm.application.repository.AlarmTypeRepo;
+import com.kesi.planit.alarm.domain.Alarm;
 import com.kesi.planit.alarm.domain.AlarmData;
 import com.kesi.planit.alarm.domain.AlarmType;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,12 @@ public class AlarmTypeService {
 
     public AlarmData getAlarmTypeById(Long alarmId, AlarmType alarmType) {
         AlarmTypeData alarmTypeRepo = findAlarmType(alarmType);
-        System.out.println("alarmTypeRepo = " + alarmTypeRepo);
         return alarmTypeRepo.getByAlarmId(alarmId);
+    }
+
+    public AlarmData getAlarmTypeByAlarm(Alarm alarm) {
+        AlarmTypeData alarmTypeRepo = findAlarmType(alarm.getAlarmType());
+        return alarmTypeRepo.getByAlarmId(alarm.getId());
     }
 
 

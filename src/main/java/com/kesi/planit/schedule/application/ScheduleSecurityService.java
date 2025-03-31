@@ -4,7 +4,7 @@ import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.schedule.application.repository.ScheduleSecurityRepo;
-import com.kesi.planit.schedule.domain.Schedule;
+import com.kesi.planit.schedule.domain.FilteredSchedule;
 import com.kesi.planit.schedule.domain.ScheduleSource;
 import com.kesi.planit.schedule.domain.ScheduleSecurity;
 import com.kesi.planit.schedule.domain.SecurityLevel;
@@ -14,7 +14,6 @@ import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -84,57 +83,6 @@ public class ScheduleSecurityService {
 //                .stream().map(GroupScheduleDto::from).toList());
     }
 
-    //그룹 유저들의 스케줄 일정을 월별 조회
-    public ResponseEntity<List<GroupUserScheduleDto>> getGroupUserSchedulesInMonth(String monthDate, String uid, Long gid) {
-        LocalDate date = null;
-        try {
-            date = LocalDate.parse(monthDate);
-        }catch (DateTimeParseException e) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        Group group = groupService.getById(gid);
-
-        if(!group.checkMember(uid)) //그룹 유저가 아니라면
-            return ResponseEntity.badRequest().build();
-
-        LocalDate finalDate = date;
-        List<ScheduleSource> schedules = new ArrayList<>();
-        group.exitUser(uid); //조회하는 유저를 제외한 유저를 제외해야되기 때문에 조회하는 유저를 임시로 제외
-
-        group.getUserList().forEach(user -> { //모든 유저에 대해서
-            //일정을 조회
-            getScheduleSecurityMonthByUid(finalDate, user.getUid()).forEach(scheduleSecurity -> {
-                ScheduleSource schedule = scheduleSecurity.getSchedule(group); //유저가 설정한 보안등급에 따라서 정보를 가져옴
-
-                if(!schedule.getSourceCalendar().equals(group.getGroupCalendar())) //같이 공유하고 있는 그룹 스케줄 정보는 제외
-                    schedules.add(schedule);
-            });
-        });
-
-        return ResponseEntity.ok(schedules.stream().map(GroupUserScheduleDto::from).toList());
-    }
-
-
-
-    //그룹 캘린더에 스케줄 추가
-    public  ResponseEntity<String> addGroupSchedule(Long gid, RequestGroupScheduleDto requestGroupScheduleDto, String uid) {
-        //캘린더 id로 그룹을 찾는다.
-        Group group = groupService.getById(gid);
-        User maker = userService.getUserById(uid);
-        ScheduleSource schedule = requestGroupScheduleDto.toModel(maker, group.getGroupCalendar());
-
-        if(!group.checkMember(uid)) //맴버가 아니라면
-            return ResponseEntity.badRequest().build();
-
-        //스케줄 정보 저장
-        scheduleService.save(schedule);
-
-        //그롭에 스케줄 추가를 회원들에게 알림
-        alarmService.createGroupScheduleAlarm(group, schedule);
-
-        return ResponseEntity.ok("ok");
-    }
 
 
     //유저 스케줄 조회
@@ -174,7 +122,7 @@ public class ScheduleSecurityService {
 
     public ScheduleSecurity getByUserAndSchedule(User user, ScheduleSource schedule) {
         ScheduleSecurityEntity entity = scheduleSecurityRepo.findByUidAndScheduleId(user.getUid(), schedule.getId());
-        return entity.toModel(schedule, user);
+        return entity == null ? null : entity.toModel(schedule, user);
     }
 
     public ScheduleSecurity getByUidAndScheduleId(String uid, Long scheduleId) {

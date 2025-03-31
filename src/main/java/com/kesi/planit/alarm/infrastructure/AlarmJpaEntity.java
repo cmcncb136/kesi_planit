@@ -1,7 +1,7 @@
 package com.kesi.planit.alarm.infrastructure;
 
 import com.kesi.planit.alarm.domain.Alarm;
-import com.kesi.planit.alarm.domain.AlarmData;
+import com.kesi.planit.alarm.domain.AlarmStatus;
 import com.kesi.planit.alarm.domain.AlarmType;
 import com.kesi.planit.user.domain.User;
 import jakarta.persistence.*;
@@ -35,13 +35,17 @@ public class AlarmJpaEntity {
     @CreatedDate //생성일시가 자동으로 저장됨
     private LocalDateTime createTime;
 
+    @Enumerated(EnumType.STRING)
+    private AlarmStatus alarmState;
+
     @Builder
-    public AlarmJpaEntity(Long id, String uid, String title, String content, AlarmType alarmType) {
+    public AlarmJpaEntity(Long id, String uid, String title, String content, AlarmType alarmType, AlarmStatus alarmState) {
         this.id = id;
         this.uid = uid;
         this.title = title;
         this.content = content;
         this.alarmType = alarmType;
+        this.alarmState = alarmState;
     }
 
     public Alarm toModel(User user) {
@@ -52,6 +56,7 @@ public class AlarmJpaEntity {
                 .content(content)
                 .alarmType(alarmType)
                 .createTime(createTime)
+                .alarmState(alarmState)
                 .build();
     }
 
@@ -62,6 +67,7 @@ public class AlarmJpaEntity {
                 .title(alarm.getTitle())
                 .content(alarm.getContent())
                 .alarmType(alarm.getAlarmType())
+                .alarmState(alarm.getAlarmState())
                 .build();
     }
 }

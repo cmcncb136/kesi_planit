@@ -28,6 +28,7 @@ public class CalendarJpaEntity {
     }
 
     public static CalendarJpaEntity from(Calendar calendar){
-        return CalendarJpaEntity.builder().id(calendar.getId() == null ? 0 : calendar.getId()).build();
+        return CalendarJpaEntity.builder().id(
+                calendar.getId() == null ? 0 : calendar.getId()).build();
     }
 }

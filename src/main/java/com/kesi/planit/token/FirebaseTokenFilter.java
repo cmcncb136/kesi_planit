@@ -30,13 +30,13 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         //stream 배열에 요소에 대해서 반복적인 작업을 람다식 형태로 표현해 수행할 수 있음
         //코드가 간결해진다.
-        return excludePatterns.stream().
-                anyMatch(pattern -> matcher.match(pattern, request.getRequestURI()));
+        return excludePatterns.stream().anyMatch(pattern -> matcher.match(pattern, request.getRequestURI()));
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader("Authorization");
+        System.out.println("request url : " + request.getRequestURI());
 
         if (header != null && header.startsWith("Bearer ")) { //header 가 있는지 판단
             String token = header.substring(7); //앞에 Barer 삭제

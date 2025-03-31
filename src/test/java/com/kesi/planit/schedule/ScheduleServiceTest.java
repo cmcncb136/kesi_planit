@@ -19,6 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -96,8 +97,8 @@ public class ScheduleServiceTest {
 
         scheduleJpaEntity = ScheduleJpaEntity.builder()
                 .id(1L).endDate(LocalDate.now()).startDate(LocalDate.now())
-                .colorId("#FFFFFF").guestEditPermission(true).description("test").title("test")
-                .startTime(LocalDateTime.now()).endTime(LocalDateTime.now().plusHours(2))
+                .colorValue(Integer.parseInt("#FFFFFF")).guestEditPermission(true).description("test").title("test")
+                .startTime(LocalTime.from(LocalDateTime.now())).endTime(LocalTime.from(LocalDateTime.now().plusHours(2)))
                 .makerUid(user.getUid()).sourceCalendarId(user.getMyCalendar().getId()).build();
     }
 

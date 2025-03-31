@@ -60,4 +60,8 @@ public class Group {
     public List<GroupInUser> getGroupInUserList() {
         return users.getGroupInUserList();
     }
+
+    public GroupInUser getGroupInUser(String uid) {
+        return users.get(uid);
+    }
 }

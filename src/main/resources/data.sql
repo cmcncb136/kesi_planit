@@ -169,28 +169,28 @@ VALUES
 
 
 
-INSERT INTO alarm (uid, title, content, alarm_type, create_time)
+INSERT INTO alarm (uid, title, content, alarm_type, create_time, alarm_state)
 VALUES
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Meeting Reminder', 'You have a team meeting at 10 AM.', 'SCHEDULE', '2025-02-01 09:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Project Deadline', 'Final project report is due today.', 'SCHEDULE', '2025-01-30 08:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Birthday Alert', 'John’s birthday is today. Don’t forget to wish him!', 'BASIC', '2025-01-30 07:30:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Company Retreat Info', 'Reminder: The company retreat starts tomorrow.', 'GROUP', '2025-01-28 18:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Vacation Flight Reminder', 'Your flight to Jeju is scheduled for 7 AM.', 'SCHEDULE', '2025-01-14 20:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Workout Session', 'Time to hit the gym! Your session starts at 6 AM.', 'BASIC', '2025-01-07 05:30:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Dentist Appointment', 'Reminder: You have a dentist visit today at 3 PM.', 'SCHEDULE', '2025-01-12 09:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Hiking Trip Alert', 'Prepare for your hiking trip tomorrow morning.', 'BASIC', '2025-01-16 19:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Hackathon Notification', 'Hackathon event starts at 9 AM. Get ready!', 'GROUP', '2025-01-09 21:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Road Trip Prep', 'Pack your bags! Your road trip starts tomorrow.', 'SCHEDULE', '2025-01-19 22:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'AI Conference Notice', 'The AI Conference starts at 10 AM.', 'GROUP', '2025-01-05 08:30:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Reunion Party Reminder', 'The friends’ reunion party is at 7 PM.', 'BASIC', '2025-01-10 12:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Exam Study Session', 'Study group session starts at 2 PM.', 'SCHEDULE', '2025-01-15 09:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Wedding Alert', 'Don’t forget the wedding at 11 AM.', 'SCHEDULE', '2025-01-01 10:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Volunteer Work Reminder', 'Your volunteer work at the shelter starts at 9 AM.', 'BASIC', '2025-01-10 08:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Business Trip Departure', 'Your trip to Seoul begins at 8 AM.', 'SCHEDULE', '2025-01-14 21:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Anniversary Dinner Alert', 'Your parents’ anniversary dinner is at 7 PM.', 'BASIC', '2025-01-01 13:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Photography Workshop', 'Your photo workshop starts at 10 AM.', 'SCHEDULE', '2025-01-09 20:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Cooking Class Reminder', 'Your cooking class starts at 3 PM.', 'GROUP', '2025-01-19 14:00:00'),
-    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Book Club Meeting', 'Book club meeting starts at 6:30 PM.', 'GROUP', '2025-01-01 12:00:00');
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Meeting Reminder', 'You have a team meeting at 10 AM.', 'SCHEDULE', '2025-02-01 09:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Project Deadline', 'Final project report is due today.', 'SCHEDULE', '2025-01-30 08:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Birthday Alert', 'John’s birthday is today. Don’t forget to wish him!', 'BASIC', '2025-01-30 07:30:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Company Retreat Info', 'Reminder: The company retreat starts tomorrow.', 'GROUP', '2025-01-28 18:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Vacation Flight Reminder', 'Your flight to Jeju is scheduled for 7 AM.', 'SCHEDULE', '2025-01-14 20:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Workout Session', 'Time to hit the gym! Your session starts at 6 AM.', 'BASIC', '2025-01-07 05:30:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Dentist Appointment', 'Reminder: You have a dentist visit today at 3 PM.', 'SCHEDULE', '2025-01-12 09:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Hiking Trip Alert', 'Prepare for your hiking trip tomorrow morning.', 'BASIC', '2025-01-16 19:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Hackathon Notification', 'Hackathon event starts at 9 AM. Get ready!', 'GROUP', '2025-01-09 21:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Road Trip Prep', 'Pack your bags! Your road trip starts tomorrow.', 'SCHEDULE', '2025-01-19 22:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'AI Conference Notice', 'The AI Conference starts at 10 AM.', 'GROUP', '2025-01-05 08:30:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Reunion Party Reminder', 'The friends’ reunion party is at 7 PM.', 'BASIC', '2025-01-10 12:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Exam Study Session', 'Study group session starts at 2 PM.', 'SCHEDULE', '2025-01-15 09:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Wedding Alert', 'Don’t forget the wedding at 11 AM.', 'SCHEDULE', '2025-01-01 10:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Volunteer Work Reminder', 'Your volunteer work at the shelter starts at 9 AM.', 'BASIC', '2025-01-10 08:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Business Trip Departure', 'Your trip to Seoul begins at 8 AM.', 'SCHEDULE', '2025-01-14 21:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Anniversary Dinner Alert', 'Your parents’ anniversary dinner is at 7 PM.', 'BASIC', '2025-01-01 13:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Photography Workshop', 'Your photo workshop starts at 10 AM.', 'SCHEDULE', '2025-01-09 20:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Cooking Class Reminder', 'Your cooking class starts at 3 PM.', 'GROUP', '2025-01-19 14:00:00', 'PROCESSED'),
+    ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 'Book Club Meeting', 'Book club meeting starts at 6:30 PM.', 'GROUP', '2025-01-01 12:00:00', 'PROCESSED');
 
 INSERT INTO alarm_group (alarm_id, gid)
 VALUES
