@@ -22,6 +22,11 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+@FunctionalInterface
+interface Test {
+    int generate();
+}
+
 @Service
 @AllArgsConstructor
 public class ScheduleSecurityService {
@@ -58,6 +63,7 @@ public class ScheduleSecurityService {
                 .schedule(schedule)
                 .securityLevel(securityLevel)
                 .build());
+
 
         return ResponseEntity.ok("ok");
     }
