@@ -18,6 +18,7 @@ public class User {
     private LocalDate birth;
     private final LocalDate joinDate;
     private final Calendar myCalendar;
+    private final Role role;
 
     public void changeNickname(String newNickname) {
         this.nickname = newNickname;

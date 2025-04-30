@@ -1,6 +1,7 @@
 package com.kesi.planit.user.infrastructure;
 
 import com.kesi.planit.calendar.domain.Calendar;
+import com.kesi.planit.user.domain.Role;
 import com.kesi.planit.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -34,8 +35,11 @@ public class UserJpaEntity {
 
     private Long calendarId;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Builder
-    public UserJpaEntity(String uid, String email, String nickname, String imagePath, String gender, LocalDate birth, LocalDate joinDate, Long calendarId) {
+    public UserJpaEntity(String uid, String email, String nickname, String imagePath, String gender, LocalDate birth, LocalDate joinDate, Long calendarId, Role role) {
         this.uid = uid;
         this.email = email;
         this.nickname = nickname;
@@ -47,16 +51,17 @@ public class UserJpaEntity {
     }
 
     public static UserJpaEntity from(User user) {
-        UserJpaEntity result = new UserJpaEntity();
-        result.uid = user.getUid();
-        result.email = user.getEmail();
-        result.nickname = user.getNickname();
-        result.birth = user.getBirth();
-        result.joinDate = user.getJoinDate();
-        result.gender = user.getGender();
-        result.imagePath = user.getImgPath();
-        result.calendarId = user.getMyCalendar().getId();
-        return result;
+        return UserJpaEntity.builder()
+                .uid(user.getUid())
+                .email(user.getEmail())
+                .nickname(user.getNickname())
+                .imagePath(user.getImgPath())
+                .gender(user.getGender())
+                .birth(user.getBirth())
+                .joinDate(user.getJoinDate())
+                .calendarId(user.getMyCalendar().getId())
+                .role(user.getRole())
+                .build();
     }
 
     public User toModel(Calendar calendar){
@@ -69,6 +74,7 @@ public class UserJpaEntity {
                 .gender(this.gender)
                 .imgPath(this.imagePath)
                 .myCalendar(calendar)
+                .role(this.role)
                 .build();
     }
 }

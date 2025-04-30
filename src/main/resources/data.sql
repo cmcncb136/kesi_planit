@@ -13,24 +13,14 @@ VALUES
 
 
 
-INSERT INTO USER_TABLE (UID, BIRTH, CALENDAR_ID, EMAIL, GENDER, IMAGE_PATH, JOIN_DATE, NICKNAME)
-VALUES ('Tqth82Y2EFMR42egUYoVEyiGxr32', '1990-05-15', 1000, 'test4@naver.com', 'Male', '/profile.jpg', '2023-01-01', 'Nick001');
-
-INSERT INTO USER_TABLE (UID, BIRTH, CALENDAR_ID, EMAIL, GENDER, IMAGE_PATH, JOIN_DATE, NICKNAME)
-VALUES ('QJBriy9zfPMAD8nk15KrWFKnLq73', '1988-03-22', 1001, 'test5@naver.com', 'Female', '/profile.jpg', '2023-02-15', 'Nick002');
-
-INSERT INTO USER_TABLE (UID, BIRTH, CALENDAR_ID, EMAIL, GENDER, IMAGE_PATH, JOIN_DATE, NICKNAME)
-VALUES ('udaWuzdnRHObAy4Pk8WcPVfMQ8w1', '1995-08-10', 1002, 'test6@naver.com', 'Non-Binary', '/profile.jpg', '2023-03-05', 'Nick003');
-
-INSERT INTO USER_TABLE (UID, BIRTH, CALENDAR_ID, EMAIL, GENDER, IMAGE_PATH, JOIN_DATE, NICKNAME)
-VALUES ('FmSaRC08JgbwSYMFYu5wbXWKjxY2', '2000-12-01', 1003, 'test7@naver.com', 'Male', '/profile.jpg', '2023-04-20', 'Nick004');
-
-INSERT INTO USER_TABLE (UID, BIRTH, CALENDAR_ID, EMAIL, GENDER, IMAGE_PATH, JOIN_DATE, NICKNAME)
-VALUES ('ERzkjqvUAwUX9h9uAw8kPWdHgsC2', '1992-07-18', 1004, 'test8@naver.com', 'Female', '/profile.jpg', '2023-05-30', 'Nick005');
-
-INSERT INTO USER_TABLE (UID, BIRTH, CALENDAR_ID, EMAIL, GENDER, IMAGE_PATH, JOIN_DATE, NICKNAME)
-VALUES ('95IcydqLUESf3ZTUcI3oNRarS0Y2', '1992-07-18', 1005, 'ksh@naver.com', 'Male', '/profile.jpg', '2023-05-30', 'Nick005'),
-       ('6knmKJyUQBV5GbGnHvMbk8zm5eB3', '1994-07-18', 1006, 'x@naver.com', 'Male', '/profile.jpg', '2023-05-30', 'x');
+INSERT INTO USER_TABLE (UID, BIRTH, CALENDAR_ID, EMAIL, GENDER, IMAGE_PATH, JOIN_DATE, NICKNAME, ROLE)
+VALUES ('Tqth82Y2EFMR42egUYoVEyiGxr32', '1990-05-15', 1000, 'test4@naver.com', 'Male', '/profile.jpg', '2023-01-01', 'Nick001', 'USER'),
+       ('QJBriy9zfPMAD8nk15KrWFKnLq73', '1988-03-22', 1001, 'test5@naver.com', 'Female', '/profile.jpg', '2023-02-15', 'Nick002', 'USER'),
+       ('udaWuzdnRHObAy4Pk8WcPVfMQ8w1', '1995-08-10', 1002, 'test6@naver.com', 'Non-Binary', '/profile.jpg', '2023-03-05', 'Nick003', 'USER'),
+       ('FmSaRC08JgbwSYMFYu5wbXWKjxY2', '2000-12-01', 1003, 'test7@naver.com', 'Male', '/profile.jpg', '2023-04-20', 'Nick004', 'USER'),
+       ('ERzkjqvUAwUX9h9uAw8kPWdHgsC2', '1992-07-18', 1004, 'test8@naver.com', 'Female', '/profile.jpg', '2023-05-30', 'Nick005', 'USER'),
+       ('95IcydqLUESf3ZTUcI3oNRarS0Y2', '1992-07-18', 1005, 'ksh@naver.com', 'Male', '/profile.jpg', '2023-05-30', 'Nick005', 'USER'),
+       ('6knmKJyUQBV5GbGnHvMbk8zm5eB3', '1994-07-18', 1006, 'x@naver.com', 'Male', '/profile.jpg', '2023-05-30', 'x', 'ADMIN');
 
 
 
