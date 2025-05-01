@@ -3,10 +3,10 @@ package com.kesi.planit.user.presentation.dto;
 import com.kesi.planit.user.domain.Role;
 import com.kesi.planit.user.domain.User;
 import lombok.Builder;
-import lombok.Getter;
 
 @Builder
-public class UserDto {
+public class UserWithUidDto {
+    public String uid;
     public String email;
     public String nickName;
     public String imgPath;
@@ -15,8 +15,8 @@ public class UserDto {
     public String joinDate;
     public Role role;
 
-    public static UserDto from(User user) {
-        return UserDto.builder()
+    public static UserWithUidDto from(User user) {
+        return UserWithUidDto.builder()
                 .email(user.getEmail())
                 .nickName(user.getNickname())
                 .imgPath(user.getImgPath())
@@ -24,6 +24,8 @@ public class UserDto {
                 .birth(user.getBirth().toString())
                 .joinDate(user.getJoinDate().toString())
                 .role(user.getRole())
+                .uid(user.getUid())
                 .build();
     }
+
 }

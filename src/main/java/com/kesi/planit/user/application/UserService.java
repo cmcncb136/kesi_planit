@@ -7,6 +7,8 @@ import com.kesi.planit.user.application.repository.UserRepo;
 import com.kesi.planit.user.domain.User;
 import com.kesi.planit.user.infrastructure.UserJpaEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +42,11 @@ public class UserService {
 
         return userAndCalendarJpaEntityList.stream().
                 map(it -> getUserById(it.getUid())).toList();
+    }
+
+    public Page<User> getUsers(Pageable pageable) {
+        Page<UserJpaEntity> userJpaEntityList = userRepo.findAll(pageable);
+        return userJpaEntityList.map(it -> it.toModel(calendarService.getById(it.getCalendarId())));
     }
 
 
