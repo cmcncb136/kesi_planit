@@ -8,15 +8,17 @@ import com.kesi.planit.alarm.domain.AlarmType;
 import com.kesi.planit.alarm.infrastructure.AlarmBasicJpaEntity;
 import com.kesi.planit.alarm.infrastructure.AlarmBasicJpaRepo;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class AlarmBasicService implements AlarmTypeData{
     private final AlarmTypeRepo<AlarmBasicJpaEntity> alarmTypeRepo;
-    private final AlarmCRUDService alarmCRUDService; //Todo. Alarm_Baisc DB 설계후 Alarm id를 저장하도록 해야됨
+    private final AlarmCRUDService alarmCRUDService;
 
     @Override
     public AlarmData getById(Long id) {

@@ -5,12 +5,14 @@ import com.kesi.planit.alarm.domain.Alarm;
 import com.kesi.planit.alarm.domain.AlarmData;
 import com.kesi.planit.alarm.domain.AlarmType;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class AlarmTypeService {
     private final List<AlarmTypeData> alarmTypeRepoList;
 

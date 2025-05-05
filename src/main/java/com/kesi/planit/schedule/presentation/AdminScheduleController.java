@@ -16,12 +16,12 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("schedule")
+@RequestMapping("admin/schedule")
 public class AdminScheduleController {
     private final ScheduleFacade scheduleFacade;
 
     @GetMapping("/sources")
-    public ResponseEntity<Page<ScheduleSourceDto>> getSources(HttpServletRequest request, int page, int size, ServletResponse servletResponse) {
+    public ResponseEntity<Page<ScheduleSourceDto>> getSources(HttpServletRequest request, int page, int size) {
         return scheduleFacade.getScheduleSources((String)request.getAttribute("uid"), page, size);
     }
 }

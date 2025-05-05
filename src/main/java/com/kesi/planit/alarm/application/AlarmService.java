@@ -7,6 +7,8 @@ import com.kesi.planit.alarm.presentation.dto.NotificationDto;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.schedule.domain.ScheduleSource;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -117,4 +119,7 @@ public class AlarmService {
         });
     }
 
+    public Page<Alarm> getAlarms(Pageable pageable) {
+        return alarmCRUDService.getAlarms(pageable);
+    }
 }

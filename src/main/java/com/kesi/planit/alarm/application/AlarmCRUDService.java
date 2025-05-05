@@ -6,6 +6,8 @@ import com.kesi.planit.alarm.infrastructure.AlarmJpaEntity;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +42,10 @@ public class AlarmCRUDService {
 
         //반환
         return alarmJpaEntity.toModel(alarm.getUser());
+    }
+
+    public Page<Alarm> getAlarms(Pageable pageable) {
+        return alarmRepo.findAll(pageable).map(it -> it.toModel(userService.getUserById(it.getUid())));
     }
 }
 

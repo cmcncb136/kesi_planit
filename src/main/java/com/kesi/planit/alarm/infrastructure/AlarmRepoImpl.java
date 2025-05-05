@@ -2,6 +2,8 @@ package com.kesi.planit.alarm.infrastructure;
 
 import com.kesi.planit.alarm.application.repository.AlarmRepo;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,8 +29,8 @@ public class AlarmRepoImpl implements AlarmRepo {
     }
 
     @Override
-    public List<AlarmJpaEntity> findAll() {
-        return alarmJpaRepo.findAll();
+    public Page<AlarmJpaEntity> findAll(Pageable pageable) {
+        return alarmJpaRepo.findAll(pageable);
     }
 
     @Override

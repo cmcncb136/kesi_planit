@@ -1,8 +1,7 @@
 package com.kesi.planit.user.presentation;
 
 import com.kesi.planit.user.application.AdminFacade;
-import com.kesi.planit.user.presentation.dto.UserDto;
-import com.kesi.planit.user.presentation.dto.UserWithUidDto;
+ import com.kesi.planit.user.presentation.dto.UserWithUidDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,12 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RequestMapping("admin")
 @RequiredArgsConstructor
 @RestController
-public class AdminController {
+public class AdminUserController {
     private final AdminFacade adminService;
 
     @GetMapping("/users")
