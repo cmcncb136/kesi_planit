@@ -10,6 +10,8 @@ import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -55,6 +57,13 @@ public class ScheduleSourceService {
         LocalDate endDate = LocalDate.of(month.getYear(), month.getMonthValue(), month.lengthOfMonth());
 
         return getBySourceCalendarIdAndDateRange(sourceCalendarId, startDate, endDate);
+    }
+
+    public Page<ScheduleSource> getScheduleSources(Pageable pageable) {
+        return scheduleRepo.findAll(pageable).map(it -> it.toModel(
+                userService.getUserById(it.getMakerUid()),
+                calendarService.getById(it.getSourceCalendarId())
+        ));
     }
 
     //캘린더 아이디로 스케줄을 조회

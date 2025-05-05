@@ -1,5 +1,8 @@
 package com.kesi.planit.schedule.infrastructure;
 
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +20,6 @@ public interface ScheduleJpaRepo extends JpaRepository<ScheduleJpaEntity, Long> 
             @Param("sourceCalendarId") Long sourceCalendarId,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
+
+    @NotNull Page<ScheduleJpaEntity> findAll(@NotNull Pageable pageable);
 }

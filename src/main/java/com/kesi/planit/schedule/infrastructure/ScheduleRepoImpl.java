@@ -2,6 +2,8 @@ package com.kesi.planit.schedule.infrastructure;
 
 import com.kesi.planit.schedule.application.repository.ScheduleRepo;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -34,8 +36,8 @@ public class ScheduleRepoImpl implements ScheduleRepo{
 
 
     @Override
-    public List<ScheduleJpaEntity> findAll() {
-        return scheduleJpaRepo.findAll();
+    public Page<ScheduleJpaEntity> findAll(Pageable pageable) {
+        return scheduleJpaRepo.findAll(pageable);
     }
 
     @Override
