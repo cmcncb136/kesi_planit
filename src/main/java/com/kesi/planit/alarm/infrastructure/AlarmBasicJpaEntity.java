@@ -25,8 +25,8 @@ public class AlarmBasicJpaEntity {
         this.alarmId = alarmId;
     }
 
-    public AlarmGroup toModel(Alarm alarm){
-        return AlarmGroup.builder()
+    public AlarmBasic toModel(Alarm alarm){
+        return AlarmBasic.builder()
                 .id(this.id)
                 .alarm(alarm)
                 .build();
