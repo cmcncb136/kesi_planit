@@ -58,7 +58,7 @@ INSERT INTO FRIENDS_RELATION (ID, ALIAS, SOURCE_EMAIL, TARGET_EMAIL)
 VALUES (1004, 'TEST8', 'ksh@naver.com', 'test8@naver.com');
 
 --PERSONAL SCHEDULE 1 ~ 24
-INSERT INTO schedule (maker_uid, source_calendar_id, color_value, description, title, guest_edit_permission, start_date, end_date, start_time, end_time)
+INSERT INTO schedule_source (maker_uid, source_calendar_id, color_value, description, title, guest_edit_permission, start_date, end_date, start_time, end_time)
 VALUES
 ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1005, 'FFFF5733', 'Weekly team meeting', 'Team Meeting', true, '2025-02-01', '2025-02-01', '10:00:00', '11:00:00'),
 ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1005, 'FF33FF57', 'Project deadline for Q1', 'Project Deadline', false, '2025-02-05', '2025-02-05', '14:00:00', '15:00:00'),
@@ -116,7 +116,7 @@ VALUES
 
 
 --GROUP SCHEDULE 25 ~ 33
-INSERT INTO schedule (maker_uid, source_calendar_id, color_value, description, title, guest_edit_permission, start_date, end_date, start_time, end_time)
+INSERT INTO schedule_source (maker_uid, source_calendar_id, color_value, description, title, guest_edit_permission, start_date, end_date, start_time, end_time)
 VALUES
     ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'FFFF5733', 'Weekly team meeting', 'Team Meeting', true, '2025-02-02', '2025-02-05', '10:00:00', '11:00:00'),
     ('95IcydqLUESf3ZTUcI3oNRarS0Y2', 1, 'FFFF5733', 'Weekly team meeting', 'Team Meeting', true, '2025-03-02', '2025-03-05', '10:00:00', '11:00:00'),

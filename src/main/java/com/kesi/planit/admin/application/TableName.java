@@ -1,0 +1,6 @@
+package com.kesi.planit.admin.application;
+
+public enum TableName {
+    ALARM, CALENDAR, GROUP_TABLE , GROUP_AND_USER, SCHEDULE_SOURCE, SCHEDULE_SECURITY,
+    FRIENDS_RELATION, DEVICE
+}

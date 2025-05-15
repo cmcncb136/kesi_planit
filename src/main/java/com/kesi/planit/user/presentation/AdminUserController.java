@@ -1,6 +1,6 @@
 package com.kesi.planit.user.presentation;
 
-import com.kesi.planit.user.application.AdminFacade;
+import com.kesi.planit.user.application.AdminUserFacade;
  import com.kesi.planit.user.presentation.dto.UserWithUidDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class AdminUserController {
-    private final AdminFacade adminService;
+    private final AdminUserFacade adminService;
 
     @GetMapping("/users")
     public ResponseEntity<Page<UserWithUidDto>> getUsers(int page, int size, HttpServletRequest request) {

@@ -15,7 +15,7 @@ import java.time.LocalTime;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "schedule", indexes = {
+@Table(name = "schedule_source", indexes = {
         @Index(name = "idx_schedule_start_date", columnList = "start_date"),
         @Index(name = "idx_schedule_end_date", columnList = "end_date")
 })

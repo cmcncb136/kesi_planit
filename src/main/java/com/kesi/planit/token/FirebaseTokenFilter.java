@@ -7,6 +7,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 //한번 만 실행하는 필터
 //단방향 필터인 줄 알았는데 그건 아닌듯
+@Slf4j
 public class FirebaseTokenFilter extends OncePerRequestFilter {
     private final List<String> excludePatterns;
     private final AntPathMatcher matcher;
@@ -36,12 +38,12 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader("Authorization");
-        System.out.println("request url : " + request.getRequestURI());
+        log.info("request url : {}", request.getRequestURI());
 
         if (header != null && header.startsWith("Bearer ")) { //header 가 있는지 판단
             String token = header.substring(7); //앞에 Barer 삭제
 
-            System.out.println("token : " + token);
+            log.info("token : {}", token);
             try{
                 FirebaseToken decodeToken = FirebaseAuth.getInstance().verifyIdToken(token);// 들어온 토큰을 검증
 
@@ -51,13 +53,18 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
                     request.setAttribute("email", decodeToken.getEmail());
 
                     filterChain.doFilter(request, response);
-                    return;
                 }
             } catch (FirebaseAuthException e) {
-                throw new ServletException("Invalid Firebase Token ",e);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write("{\"error\":\"Invalid Firebase Token\"}");
             }
-        }else
-            throw new ServletException("Authorization header is invalid");
-
+        }else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("{\"error\":\"Authorization header is invalid\"}");
+        }
     }
 }
