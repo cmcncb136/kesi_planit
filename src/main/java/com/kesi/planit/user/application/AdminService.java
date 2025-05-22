@@ -1,7 +1,7 @@
 package com.kesi.planit.user.application;
 
 import com.kesi.planit.core.RoleCheck;
-import com.kesi.planit.user.domain.Role;
+import com.kesi.planit.core.role.Role;
 import com.kesi.planit.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,5 @@
 package com.kesi.planit.group.application;
 
-import com.kesi.planit.alarm.application.AlarmCRUDService;
 import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.calendar.application.CalendarService;
 import com.kesi.planit.calendar.domain.Calendar;
@@ -44,12 +43,12 @@ public class GroupService {
 
         try {
             users = groupMakeInfoRequestDto.inviteUserEmails.stream()
-                    .map(userService::getUserByEmail)
+                    .map(userService::getByEmail)
                     .collect(Collectors.toCollection(ArrayList::new));
         }catch (NullPointerException e){
             return ResponseEntity.badRequest().build();
         }
-        User maker = userService.getUserById(makerUid);
+        User maker = userService.getById(makerUid);
 
         //그룹을 만든 팀원에 추가
         users.add(maker);
@@ -91,15 +90,15 @@ public class GroupService {
                 new GroupUserMap(groupAndUserRepo.findByGid(groupJpaEntity.getGid()).stream().collect(Collectors.toMap(
                         GroupAndUserJpaEntity::getUid,
                         groupAndUserJpa -> groupAndUserJpa.mappingGroupToGroupInUser(
-                                userService.getUserById(groupAndUserJpa.getUid()))
+                                userService.getById(groupAndUserJpa.getUid()))
                 ))),
                 calendarService.getById(groupJpaEntity.getCalendarId())
         );
     }
 
     public void checkGroup(GroupMakeInfoRequestDto dto, User uid){
-        User user = userService.getUserById(uid.getUid());
-        ArrayList<User> userList = dto.inviteUserEmails.stream().map(userService::getUserByEmail)
+        User user = userService.getById(uid.getUid());
+        ArrayList<User> userList = dto.inviteUserEmails.stream().map(userService::getByEmail)
                 .collect(Collectors.toCollection(ArrayList::new));
 
         userList.add(user);
@@ -170,7 +169,7 @@ public class GroupService {
     }
 
     public Group inviteGroup(Group group, String inviteUserEmail){
-        User user = userService.getUserByEmail(inviteUserEmail);
+        User user = userService.getByEmail(inviteUserEmail);
         GroupAndUserJpaEntity groupAndUserJpaEntity = GroupAndUserJpaEntity.builder()
                 .gid(group.getGid()).uid(user.getUid()).build();
 

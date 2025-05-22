@@ -9,7 +9,6 @@ import com.kesi.planit.schedule.presentation.dto.PersonalScheduleDto;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class ScheduleSourceService {
 
     public ScheduleSource getById(Long id) {
         ScheduleJpaEntity scheduleJpaEntity = scheduleRepo.findById(id);
-        User maker = userService.getUserById(scheduleJpaEntity.getMakerUid());
+        User maker = userService.getById(scheduleJpaEntity.getMakerUid());
         Calendar calendar = calendarService.getById(scheduleJpaEntity.getSourceCalendarId());
 
 
@@ -47,7 +46,7 @@ public class ScheduleSourceService {
 
         return scheduleRepo.findBySourceCalendarIdDateRange(sourceCalendarId, startDate, endDate).stream().map(
                 scheduleJpaEntity ->
-                        scheduleJpaEntity.toModel(userService.getUserById(scheduleJpaEntity.getMakerUid()), calendar))
+                        scheduleJpaEntity.toModel(userService.getById(scheduleJpaEntity.getMakerUid()), calendar))
                 .toList();
     }
 
@@ -61,7 +60,7 @@ public class ScheduleSourceService {
 
     public Page<ScheduleSource> getScheduleSources(Pageable pageable) {
         return scheduleRepo.findAll(pageable).map(it -> it.toModel(
-                userService.getUserById(it.getMakerUid()),
+                userService.getById(it.getMakerUid()),
                 calendarService.getById(it.getSourceCalendarId())
         ));
     }

@@ -1,6 +1,6 @@
 package com.kesi.planit.core;
 
-import com.kesi.planit.user.domain.Role;
+import com.kesi.planit.core.role.Role;
 import com.kesi.planit.user.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -14,6 +14,7 @@ import java.nio.file.AccessDeniedException;
 @Component
 @Slf4j
 public class RoleCheckAspect {
+
     @Around(value = "@annotation(roleCheck) && args(user, ..)")
     public Object checkRole(ProceedingJoinPoint joinPoint, RoleCheck roleCheck, User user) throws Throwable {
         Role requriedRole = roleCheck.allowLevel();

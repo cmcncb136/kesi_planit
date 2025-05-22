@@ -21,13 +21,13 @@ public class AlarmCRUDService {
     public Alarm getById(long id) {
         AlarmJpaEntity alarmJpaEntity = alarmRepo.findById(id);
 
-        User user = userService.getUserById(alarmJpaEntity.getUid());
+        User user = userService.getById(alarmJpaEntity.getUid());
 
         return alarmJpaEntity.toModel(user);
     }
 
     public List<Alarm> getByUid(String uid){
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
 
         //Todo. 기간 조회로 변경해야 됨
         return alarmRepo.findByUid(user.getUid()).stream().map(alarmJpaEntity ->
@@ -45,7 +45,7 @@ public class AlarmCRUDService {
     }
 
     public Page<Alarm> getAlarms(Pageable pageable) {
-        return alarmRepo.findAll(pageable).map(it -> it.toModel(userService.getUserById(it.getUid())));
+        return alarmRepo.findAll(pageable).map(it -> it.toModel(userService.getById(it.getUid())));
     }
 }
 

@@ -1,7 +1,7 @@
 package com.kesi.planit.user.presentation.dto;
 
 import com.kesi.planit.calendar.domain.Calendar;
-import com.kesi.planit.user.domain.Role;
+import com.kesi.planit.core.role.Role;
 import com.kesi.planit.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

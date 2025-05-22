@@ -1,8 +1,7 @@
 package com.kesi.planit.user.infrastructure;
 
 import com.kesi.planit.calendar.domain.Calendar;
-import com.kesi.planit.core.RoleCheck;
-import com.kesi.planit.user.domain.Role;
+import com.kesi.planit.core.role.Role;
 import com.kesi.planit.user.domain.User;
 import jakarta.persistence.*;
 import lombok.Builder;

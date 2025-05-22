@@ -138,7 +138,7 @@ public class ScheduleServiceTest {
         scheduleJpaEntity.toModel(user, user.getMyCalendar());
 
         Mockito.when(scheduleRepo.findById(1L)).thenReturn(scheduleJpaEntity);
-        Mockito.when(userService.getUserById(user.getUid())).thenReturn(user);
+        Mockito.when(userService.getById(user.getUid())).thenReturn(user);
         Mockito.when(calendarService.getById(user.getMyCalendar().getId())).thenReturn(user.getMyCalendar());
 
 

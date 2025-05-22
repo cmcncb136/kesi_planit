@@ -1,7 +1,6 @@
 package com.kesi.planit.user.presentation;
 
 import com.google.firebase.auth.FirebaseAuthException;
-import com.kesi.planit.core.CommonResult;
 import com.kesi.planit.core.FTPService;
 import com.kesi.planit.user.application.JoinService;
 import com.kesi.planit.user.application.UserService;
@@ -28,7 +27,7 @@ public class UserController {
 
     @GetMapping("")
     public ResponseEntity<UserDto> getByUid(HttpServletRequest request) {
-        UserDto result = UserDto.from(userService.getUserById(request.getAttribute("uid").toString()));
+        UserDto result = UserDto.from(userService.getById(request.getAttribute("uid").toString()));
         return result != null ?
                 ResponseEntity.ok(result)
                 : ResponseEntity.notFound().build();

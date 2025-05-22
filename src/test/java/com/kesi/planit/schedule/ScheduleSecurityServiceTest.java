@@ -12,7 +12,6 @@ import com.kesi.planit.schedule.domain.ScheduleSource;
 import com.kesi.planit.schedule.domain.ScheduleSecurity;
 import com.kesi.planit.schedule.domain.SecurityLevel;
 import com.kesi.planit.schedule.infrastructure.ScheduleSecurityEntity;
-import com.kesi.planit.schedule.presentation.dto.GroupUserScheduleDto;
 import com.kesi.planit.schedule.presentation.dto.RequestPersonalScheduleDto;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
@@ -130,7 +129,7 @@ public class ScheduleSecurityServiceTest {
                 .build();
 
         Mockito.when(scheduleService.getById(groupSchedule.getId())).thenReturn(groupSchedule);
-        Mockito.when(userService.getUserById(anonymousUser.getUid())).thenReturn(anonymousUser);
+        Mockito.when(userService.getById(anonymousUser.getUid())).thenReturn(anonymousUser);
         Mockito.when(groupService.getByCalendarId(groupCalendar.getId())).thenReturn(group);
 
         //when
@@ -153,7 +152,7 @@ public class ScheduleSecurityServiceTest {
                 .build();
 
         Mockito.when(scheduleService.getById(groupSchedule.getId())).thenReturn(groupSchedule);
-        Mockito.when(userService.getUserById(user.getUid())).thenReturn(user);
+        Mockito.when(userService.getById(user.getUid())).thenReturn(user);
         Mockito.when(groupService.getByCalendarId(groupCalendar.getId())).thenReturn(group);
         Mockito.when(scheduleSecurityRepo.save(Mockito.any(ScheduleSecurityEntity.class))).
                 thenReturn(ScheduleSecurityEntity.from(scheduleSecurity));
@@ -177,7 +176,7 @@ public class ScheduleSecurityServiceTest {
                 .schedule(schedule)
                 .build();
 
-        Mockito.when(userService.getUserById(user.getUid())).thenReturn(user);
+        Mockito.when(userService.getById(user.getUid())).thenReturn(user);
         Mockito.when(scheduleService.save(Mockito.any(ScheduleSource.class))).thenReturn(schedule);
         //Mockito.when(requestPersonalScheduleDto.toModel(user)).thenReturn(schedule);
         Mockito.when(requestPersonalScheduleDto.getSecurityLevel()).thenReturn(scheduleSecurity.getSecurityLevel());
@@ -228,7 +227,7 @@ public class ScheduleSecurityServiceTest {
                 Mockito.when(scheduleService.getById(it.getId())).thenReturn(schedule)
         );
 
-        Mockito.when(userService.getUserById(user.getUid())).thenReturn(user);
+        Mockito.when(userService.getById(user.getUid())).thenReturn(user);
         Mockito.when(scheduleSecurityRepo.findSchedulesUidAndWithinDateRange(user.getUid(), start, end)).thenReturn(scheduleSecurityEntityList);
 
         //when
@@ -288,7 +287,7 @@ public class ScheduleSecurityServiceTest {
             Mockito.when(scheduleSecurityRepo.findSchedulesUidAndWithinDateRange(user.getUid(), start, end))
                     .thenReturn(scheduleSecurityList.stream().map(ScheduleSecurityEntity::from).toList());
 
-            Mockito.when(userService.getUserById(user.getUid())).thenReturn(user);
+            Mockito.when(userService.getById(user.getUid())).thenReturn(user);
         }
         Mockito.when(groupService.getById(group.getGid())).thenReturn(group);
 

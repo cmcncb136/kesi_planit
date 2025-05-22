@@ -1,6 +1,5 @@
 package com.kesi.planit.group;
 
-import com.kesi.planit.alarm.application.AlarmCRUDService;
 import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.calendar.application.CalendarService;
 import com.kesi.planit.calendar.domain.Calendar;
@@ -160,8 +159,8 @@ public class GroupServiceTest {
 
         Mockito.when(groupRepo.findById(groupJpaEntity.getGid())).thenReturn(groupJpaEntity);
 
-        Mockito.when(userService.getUserById(userJpaEntity1.getUid())).thenReturn(userJpaEntity1.toModel(calendar1));
-        Mockito.when(userService.getUserById(userJpaEntity2.getUid())).thenReturn(userJpaEntity2.toModel(calendar2));
+        Mockito.when(userService.getById(userJpaEntity1.getUid())).thenReturn(userJpaEntity1.toModel(calendar1));
+        Mockito.when(userService.getById(userJpaEntity2.getUid())).thenReturn(userJpaEntity2.toModel(calendar2));
 
         Mockito.when(calendarService.getById(calendar3.getId())).thenReturn(calendar3);
 

@@ -18,7 +18,7 @@ public class AdminUserFacade {
 
     public ResponseEntity<Page<UserWithUidDto>> getAllUsers(String uid, int page, int size) {
         Pageable pageable = PageRequestFactory.of(page, size);
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
 
         Page<User> users = adminService.getAllUsers(user, pageable);
 

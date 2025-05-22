@@ -1,6 +1,6 @@
 package com.kesi.planit.core;
 
-import com.kesi.planit.user.domain.Role;
+import com.kesi.planit.core.role.Role;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

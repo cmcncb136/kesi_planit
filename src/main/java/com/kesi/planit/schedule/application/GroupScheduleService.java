@@ -32,7 +32,7 @@ public class GroupScheduleService {
     private final AlarmStateService alarmStateService;
 
     public ResponseEntity<GroupScheduleDto> saveScheduleSecurity(String uid, RequestGroupScheduleSecurityDto requestGroupScheduleSecurityDto) {
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
         ScheduleSource scheduleSource = scheduleSourceService.getById(requestGroupScheduleSecurityDto.scheduleId);
         Group group = groupService.getByCalendarId(scheduleSource.getSourceCalendar().getId());
 
@@ -56,7 +56,7 @@ public class GroupScheduleService {
             return ResponseEntity.badRequest().build();
         }
 
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
 
         //group 그룹 조회
         List<Group> groups = groupService.getByUid(uid);
@@ -90,7 +90,7 @@ public class GroupScheduleService {
     public ResponseEntity<Long> addGroupSchedule(Long gid, RequestGroupScheduleDto requestGroupScheduleDto, String uid) {
         //캘린더 id로 그룹을 찾는다.
         Group group = groupService.getById(gid);
-        User maker = userService.getUserById(uid);
+        User maker = userService.getById(uid);
         ScheduleSource schedule = requestGroupScheduleDto.toModel(maker, group.getGroupCalendar());
 
         if(!group.checkMember(uid)) //맴버가 아니라면

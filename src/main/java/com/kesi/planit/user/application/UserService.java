@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,15 +22,20 @@ public class UserService {
     private final GroupAndUserRepo groupAndUserRepo;
     private final CalendarService calendarService;
 
-    @Transactional
-    public User getUserById(String uid) {
+    public User getById(String uid) {
         UserJpaEntity userJpaEntity = userRepo.findById(uid);
         return userJpaEntity.toModel(
                 calendarService.getById(userJpaEntity.getCalendarId()));
     }
 
+    public Optional<User> findById(String uid) {
+        UserJpaEntity entity = userRepo.findById(uid);
+        if(entity == null) return Optional.empty();
+        return Optional.of(getById(uid));
+    }
+
     //친구 추가시 존재하지 않는 이메일에 대해서 NPE 발생할 수 있음
-    public User getUserByEmail(String email) throws NullPointerException {
+    public User getByEmail(String email) throws NullPointerException {
         UserJpaEntity userJpaEntity = userRepo.findByEmail(email);
         return userJpaEntity.toModel(
                 calendarService.getById(userJpaEntity.getCalendarId())
@@ -37,11 +43,11 @@ public class UserService {
     }
 
     //User 객체를 만들어 도메인으로 매핑시킨다.
-    public List<User> getByGid(Long gid) {
+    public List<User> findByGid(Long gid) {
         List<GroupAndUserJpaEntity> userAndCalendarJpaEntityList = groupAndUserRepo.findByGid(gid);
 
         return userAndCalendarJpaEntityList.stream().
-                map(it -> getUserById(it.getUid())).toList();
+                map(it -> getById(it.getUid())).toList();
     }
 
     public Page<User> getUsers(Pageable pageable) {

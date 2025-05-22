@@ -65,7 +65,7 @@ public class UserServiceTest {
         Mockito.when(calendarService.getById(1L)).thenReturn(calendar);
 
         //when
-        User user = userService.getUserById("x");
+        User user = userService.getById("x");
 
         //then
         assertThat(user.getUid()).isEqualTo("x");
@@ -102,7 +102,7 @@ public class UserServiceTest {
         Mockito.when(calendarService.getById(1L)).thenReturn(calendar);
 
         //when
-        User user = userService.getUserByEmail("x@naver.com");
+        User user = userService.getByEmail("x@naver.com");
 
         //then
         assertThat(user.getUid()).isEqualTo("x");
@@ -126,7 +126,7 @@ public class UserServiceTest {
 
         //when, then
         assertThatThrownBy(() ->
-                userService.getUserByEmail("none@naver.com")
+                userService.getByEmail("none@naver.com")
                 ).isInstanceOf(NullPointerException.class);
     }
 
@@ -177,7 +177,7 @@ public class UserServiceTest {
         Mockito.when(groupAndUserRepo.findByGid(gid)).thenReturn(List.of(new GroupAndUserJpaEntity[]{groupAndUserJpaEntity2, groupAndUserJpaEntity1}));
 
         //when
-        List<User> users = userService.getByGid(gid);
+        List<User> users = userService.findByGid(gid);
 
         //then
         assertThat(users.size()).isEqualTo(2);

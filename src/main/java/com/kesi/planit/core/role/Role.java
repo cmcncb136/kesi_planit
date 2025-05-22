@@ -1,4 +1,4 @@
-package com.kesi.planit.user.domain;
+package com.kesi.planit.core.role;
 
 import lombok.Getter;
 
@@ -10,5 +10,9 @@ public enum Role {
 
     Role(int level) {
         this.level = level;
+    }
+
+    public boolean isAtLeast(Role role) {
+        return level <= role.level;
     }
 }

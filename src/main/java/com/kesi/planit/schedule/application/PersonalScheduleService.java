@@ -32,7 +32,7 @@ public class PersonalScheduleService {
             return ResponseEntity.badRequest().build();
         }
 
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
         List<ScheduleSecurity> personalSchedulesInMonth = scheduleSecurityService.getPersonalSchedulesInMonth(date, uid);
         return ResponseEntity.ok(personalSchedulesInMonth.stream().map(
                 it -> PersonalScheduleDto.from(it, uid)).toList());
@@ -40,7 +40,7 @@ public class PersonalScheduleService {
 
     public ResponseEntity<Long> addPersonalSchedule(String uid, RequestPersonalScheduleDto personalScheduleDto) {
         //스케줄 도메인 객체 생성 및 저장
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
         ScheduleSecurity scheduleSecurity = personalScheduleDto.toModel(user);
 
         try {
@@ -57,7 +57,7 @@ public class PersonalScheduleService {
         if(scheduleSecurity == null) return ResponseEntity.notFound().build();
 
 
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
 //        if(!originalSchedule.getSourceCalendar().equals(user.getMyCalendar())) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         ScheduleSecurity updateScheduleSecurity = requestPersonalUpdateScheduleDto.toModel(user, scheduleSecurity.getId());

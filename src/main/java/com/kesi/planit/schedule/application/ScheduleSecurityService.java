@@ -4,7 +4,6 @@ import com.kesi.planit.alarm.application.AlarmService;
 import com.kesi.planit.group.application.GroupService;
 import com.kesi.planit.group.domain.Group;
 import com.kesi.planit.schedule.application.repository.ScheduleSecurityRepo;
-import com.kesi.planit.schedule.domain.FilteredSchedule;
 import com.kesi.planit.schedule.domain.ScheduleSource;
 import com.kesi.planit.schedule.domain.ScheduleSecurity;
 import com.kesi.planit.schedule.domain.SecurityLevel;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 @FunctionalInterface
@@ -39,7 +37,7 @@ public class ScheduleSecurityService {
     @Transactional
     public void removePersonalSchedule(String uid, Long scheduleId) {
         ScheduleSource schedule = scheduleService.getById(scheduleId);
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
         if(schedule == null) throw new IllegalArgumentException("schedule not found");
 
         schedule.editPossible(user.getMyCalendar()); //삭제 가능한지 확인
@@ -52,7 +50,7 @@ public class ScheduleSecurityService {
     //그룹 일정 확인 후 시큐리티 설정
     public ResponseEntity<String> setGroupScheduleSecurity(String uid, Long scheduleId, SecurityLevel securityLevel) {
         ScheduleSource schedule = scheduleService.getById(scheduleId);
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
         Group group = groupService.getByCalendarId(schedule.getSourceCalendar().getId());
 
         if(!group.getUsers().contains(uid))
@@ -101,7 +99,7 @@ public class ScheduleSecurityService {
         List<ScheduleSecurityEntity> scheduleSecurityEntities
                 = scheduleSecurityRepo.findSchedulesUidAndWithinDateRange(uid, startDate, endDate);
 
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
 
         return scheduleSecurityEntities.stream().map(it -> {
             ScheduleSource schedule = scheduleService.getById(it.getScheduleId());
@@ -111,7 +109,7 @@ public class ScheduleSecurityService {
 
 
     public List<ScheduleSecurity> getPersonalSchedulesInMonth(LocalDate monthDate, String uid) {
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
 
         List<ScheduleSource> schedules = scheduleService.getBySourceCalendarIdAndMonth(user.getMyCalendar().getId(), monthDate);
         return schedules.stream().map(it -> getByUserAndSchedule(user, it)).toList();
@@ -119,7 +117,7 @@ public class ScheduleSecurityService {
 
     private ScheduleSecurity getById(Long id) {
         ScheduleSecurityEntity scheduleSecurityEntity = scheduleSecurityRepo.findById(id);
-        User user = userService.getUserById(scheduleSecurityEntity.getUid());
+        User user = userService.getById(scheduleSecurityEntity.getUid());
         ScheduleSource schedule = scheduleService.getById(scheduleSecurityEntity.getScheduleId());
 
         return scheduleSecurityEntity.toModel(schedule, user);
@@ -132,7 +130,7 @@ public class ScheduleSecurityService {
     }
 
     public ScheduleSecurity getByUidAndScheduleId(String uid, Long scheduleId) {
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
         ScheduleSource schedule = scheduleService.getById(scheduleId);
 
         return getByUserAndSchedule(user, schedule);

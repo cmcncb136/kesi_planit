@@ -1,6 +1,7 @@
 package com.kesi.planit.user.domain;
 
 import com.kesi.planit.calendar.domain.Calendar;
+import com.kesi.planit.core.role.Role;
 import lombok.Builder;
 import lombok.Getter;
 

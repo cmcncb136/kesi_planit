@@ -17,7 +17,7 @@ public class AdminFacade {
     private final UserService userService;
 
     public Page<Map<String, Object>> getTable(String uid, TableName tableName, int page, int size) {
-        User user = userService.getUserById(uid);
+        User user = userService.getById(uid);
         Pageable pageable = PageRequestFactory.of(page, size);
 
         return adminTableService.findAllTable(user, tableName, pageable);

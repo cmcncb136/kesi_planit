@@ -1,6 +1,5 @@
 package com.kesi.planit.user.application;
 
-import com.kesi.planit.core.CommonResult;
 import com.kesi.planit.user.application.repository.FriendsRelationRepo;
 import com.kesi.planit.user.domain.FriendsRelation;
 import com.kesi.planit.user.domain.User;
@@ -21,17 +20,17 @@ public class FriendsService {
 
     //친구 관계 정보를 반환
     public List<FriendsRelation> getFriendsRelationsByUid(String uid) {
-        User sourceUser = userService.getUserById(uid);
+        User sourceUser = userService.getById(uid);
         return friendsRelationRepo.findBySourceEmail(sourceUser.getEmail()).stream().
                 map(it -> it.toModel(
                         sourceUser,
-                        userService.getUserByEmail(it.getTargetEmail()))).toList();
+                        userService.getByEmail(it.getTargetEmail()))).toList();
     }
 
     //친구 별칭 업데이트
     public ResponseEntity<String> updateFriendsRelation(FriendUpdateRequestDto requestDto, String sourceUid) {
-        User targetUser = userService.getUserByEmail(requestDto.targetEmail);
-        User sourceUser = userService.getUserById(sourceUid);
+        User targetUser = userService.getByEmail(requestDto.targetEmail);
+        User sourceUser = userService.getById(sourceUid);
 
         if(targetUser == null) {
             return ResponseEntity.badRequest().body("Target email doesn't exist");
@@ -54,20 +53,20 @@ public class FriendsService {
 
     //친구 정보를 반환
     public List<FriendsDto> getFriendsByUid(String uid){
-        User sourceUser = userService.getUserById(uid);
+        User sourceUser = userService.getById(uid);
         return friendsRelationRepo.findBySourceEmail(sourceUser.getEmail()).stream().map(
                 it -> FriendsDto.from(
-                        userService.getUserByEmail(it.getTargetEmail()), it.getAlias()
+                        userService.getByEmail(it.getTargetEmail()), it.getAlias()
                 )
         ).toList();
     }
 
     //친구 검색
     public ResponseEntity<String> addFriends(String uid, String targetEmail) {
-        User source = userService.getUserById(uid);
+        User source = userService.getById(uid);
         User target;
         try{
-            target = userService.getUserByEmail(targetEmail);
+            target = userService.getByEmail(targetEmail);
         }catch (NullPointerException e){
             return ResponseEntity.notFound().build();
         }
