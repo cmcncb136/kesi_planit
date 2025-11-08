@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
 public interface ArticleRepo {
     Page<ArticleJpaEntity> findByCategory(ArticleCategory category, Pageable pageable);
     ArticleJpaEntity save(ArticleJpaEntity article);

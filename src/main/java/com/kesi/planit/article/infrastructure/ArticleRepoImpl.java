@@ -5,11 +5,13 @@ import com.kesi.planit.article.domain.ArticleCategory;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
+@Component
 public class ArticleRepoImpl implements ArticleRepo {
     private final ArticleJpaRepo articleJpaRepo;
 

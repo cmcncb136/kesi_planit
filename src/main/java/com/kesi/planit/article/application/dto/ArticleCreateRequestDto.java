@@ -24,4 +24,16 @@ public class ArticleCreateRequestDto {
                 .commentPermission(commentPermission)
                 .build();
     }
+
+    @Override
+    public String toString() {
+        return "ArticleCreateRequestDto{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", category=" + category +
+                ", updatePermission=" + updatePermission +
+                ", readPermission=" + readPermission +
+                ", commentPermission=" + commentPermission +
+                '}';
+    }
 }

@@ -1,6 +1,6 @@
-package com.kesi.planit.article.domain;
+    package com.kesi.planit.article.domain;
 
 
-public enum ArticleCategory {
-    NOTICE, QA, INQUIRY, FREE
-}
+    public enum ArticleCategory {
+        NOTICE, QA, INQUIRY, FREE
+    }

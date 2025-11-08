@@ -7,7 +7,10 @@ import java.util.Optional;
 
 public class ContentPermissionChecker {
     public static boolean can(ContentPermission permission, Optional<User> currentUser, User onwerUser) {
-        return permission == ContentPermission.PUBLIC;
+        if(currentUser.isEmpty())
+            return permission == ContentPermission.PUBLIC;
+
+        return can(permission, currentUser.get(), onwerUser);
     }
 
     public static boolean can(ContentPermission permission, User currentUser, User onwerUser) {
@@ -16,10 +19,10 @@ public class ContentPermissionChecker {
                 return true;
             }
             case OWNER_ONLY -> {
-                return currentUser.equals(onwerUser) || onwerUser.getRole().isAtLeast(Role.MANAGER);
+                return currentUser.equals(onwerUser) || currentUser.getRole().isAtLeast(Role.MANAGER);
             }
             case MANAGER_ONLY -> {
-                return onwerUser.getRole().isAtLeast(Role.MANAGER);
+                return currentUser.getRole().isAtLeast(Role.MANAGER);
             }
 
         }
