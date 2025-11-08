@@ -6,6 +6,7 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,13 +15,15 @@ import java.io.FileInputStream;
 
 @Configuration
 public class FirebaseConfig {
+    @Value("${firebase.config.path}")
+    private String firebaseConfigPath;
 
     @PostConstruct
     public void init(){
         try{
             //Json 파일 가져오기
             FileInputStream serviceAccount =
-                    new FileInputStream("src/main/resources/kesi-b027c-firebase-adminsdk-h67u3-018671b961.json");
+                    new FileInputStream(firebaseConfigPath);
 
             //json 파일로 옵션 생성
             FirebaseOptions options = new FirebaseOptions.Builder()
