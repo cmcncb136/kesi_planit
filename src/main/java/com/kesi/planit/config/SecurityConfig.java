@@ -16,7 +16,9 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
-    private final List<String> excludedUrls = List.of("/join/*", "/test/**", "/", "/h2-console/**", "/favicon.ico");
+    private final List<String> excludedUrls = List.of("/join/*", "/test/**", "/", "/h2-console/**", "/favicon.ico", "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/v3/api-docs/**");
     private final FirebaseTokenFilter firebaseTokenFilter =
             new FirebaseTokenFilter(excludedUrls, antPathMatcher);
 
