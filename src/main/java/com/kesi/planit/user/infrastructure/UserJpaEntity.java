@@ -48,6 +48,7 @@ public class UserJpaEntity {
         this.birth = birth;
         this.joinDate = joinDate;
         this.calendarId = calendarId;
+        this.role = role;
     }
 
     public static UserJpaEntity from(User user) {

@@ -9,7 +9,6 @@ import com.kesi.planit.core.content.permission.ContentPermissionChecker;
 import com.kesi.planit.user.application.UserService;
 import com.kesi.planit.user.domain.User;
 import jakarta.annotation.PostConstruct;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
